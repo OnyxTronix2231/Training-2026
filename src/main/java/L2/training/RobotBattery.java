@@ -7,7 +7,7 @@ public class RobotBattery {
 
     public RobotBattery(double capacity, double currentCharge, boolean enabled) {
         this.capacity = capacity;
-        this.currentCharge = 0;
+        this.currentCharge = currentCharge;
         this.enabled = enabled;
     }
 
@@ -31,20 +31,16 @@ public class RobotBattery {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-        enabled = enabled;
-    }
+    public void setEnabled(boolean enabled) {this.enabled = enabled;}
 
-    public void charge(double amount) {
-        currentCharge -= amount;
-    }
+    public void charge(double amount) {currentCharge += amount;}
 
     public void use(double amount) {
         currentCharge -= amount;
     }
 
     public double getChargePercentage() {
-        return currentCharge / capacity;
+        return (currentCharge / capacity) * 100;
     }
 
     public void printState() {
@@ -62,7 +58,7 @@ public class RobotBattery {
                 firstBattery.capacity + secondBattery.capacity;
 
         double combinedCharge =
-                firstBattery.currentCharge + firstBattery.currentCharge;
+                firstBattery.currentCharge + secondBattery.currentCharge;
 
         boolean combinedEnabled =
                 firstBattery.enabled && secondBattery.enabled;
