@@ -6,7 +6,7 @@ public class RabbitTraining {
        double dollar = 3.14;
        double dollarRabbit = moneyRabbit / dollar;
         System.out.println(dollarRabbit);
-        double cakeAmount = dollarRabbit / dollar;
+        double cakeAmount = dollar * dollarRabbit/5.00;
         System.out.println(cakeAmount);
     }
 }

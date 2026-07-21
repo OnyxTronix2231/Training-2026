@@ -1,32 +1,35 @@
 package L2.training;
 
 public class TrainingColour {
-    int red;
-    int green;
-    int blue;
+   private int red;
+  private int green;
+   private int blue;
+private TrainingColour(int red, int green, int blue) {
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+}
+        public static void main(String[] args) {
+            TrainingColour blueColour = new TrainingColour(0,0,255);
+            TrainingColour greenColour = new TrainingColour(0,255,0);
+            greenColour.addColour(25,-30,25);
+            System.out.println(greenColour.red);
 
-    void addColour(int redNew, int greenNew, int blueNew){
+        }
+    public void addColour(int redNew, int greenNew, int blueNew){
         red += redNew;
         green += greenNew;
         blue += blueNew;
     }
-    boolean isSmall(int num){
+   public boolean isSmall(int num){
         boolean result = num< red, green, blue;
         return result;
     }
-
-    public static void main(String[] args) {
-        TrainingColour blueColour = new TrainingColour();
-        blueColour.red = 0;
-        blueColour.green = 0;
-        blueColour.blue = 255;
-        TrainingColour greenColour = new TrainingColour();
-        greenColour.green = 255;
-        greenColour.blue = 0;
-        greenColour.red = 0;
-
-        greenColour.addColour(25,-30,25);
-        System.out.println(greenColour.red);
-
-    }
+        public int getRed(){
+    return red;
+   }
+   public int setRed(int redNew){
+    red = redNew;
+    return red;
+   }
 }
