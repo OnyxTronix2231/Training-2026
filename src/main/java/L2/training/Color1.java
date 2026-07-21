@@ -1,40 +1,80 @@
 package L2.training;
 
 public class Color1 {
-    int red;
-    int green;
-    int blue;
+    private int red;
+    private int green;
+    private int blue;
 
-    void lowerLight() {
+    public Color1(int red, int green, int blue){
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+    }
+
+    public int getRed(){
+        return red;
+    }
+
+    public int getGreen(){
+        return green;
+    }
+
+    public int getBlue(){
+        return blue;
+    }
+
+    public void setRed(int newRed){
+        red = newRed;
+    }
+
+    public void setGreen(int newGreen){
+        green = newGreen;
+    }
+
+    public void setBlue(int newBlue){
+        blue = newBlue;
+    }
+
+    public void lowerLight() {
         red /= 2;
         green /= 2;
         blue /= 2;
     }
 
-    void addToColor(int r, int g, int b) {
+    public void addToColor(int r, int g, int b) {
         red += r;
         green += g;
         blue += b;
     }
 
-    boolean checkIfSmaller(int num) {
+    public boolean checkIfSmaller(int num) {
         boolean check = num < red && num < green && num < blue;
         return check;
     }
-    public static void main(String[] args) {
-        Color1 blueColor = new Color1();
-        blueColor.red = 0;
-        blueColor.green = 0;
-        blueColor.blue = 255;
 
-        Color1 greenColor = new Color1();
-        greenColor.red = 0;
-        greenColor.green = 255;
-        greenColor.blue = 0;
+    private void clear(){
+        red = 0;
+        green = 0;
+        blue = 0;
+    }
 
-        greenColor.addToColor(25, -30, 25);
-        System.out.println(greenColor.red);
+    public static Color1 getFactoredColor(Color1 color, int num){
+        color.setRed(color.getRed() * num/100);
+        color.setGreen(color.getGreen() * num / 100);
+        color.setBlue(color.getBlue() * num/100);
 
-        System.out.println(greenColor.checkIfSmaller(50));
+        return color;
+    }
+
+    public static Color1 addByFactor(Color1 color1, Color1 color2, int num){
+        Color1 firstColor = Color1.getFactoredColor(color1, num);
+        Color1 secondColor = Color1.getFactoredColor(color2,100 - num);
+
+        int newRed = firstColor.getRed() + secondColor.getRed();
+        int newGreen = firstColor.getGreen() + secondColor.getGreen();
+        int newBlue = firstColor.getBlue() + secondColor.getBlue();
+        Color1 newColor = new Color1(newRed, newGreen, newBlue);
+
+        return newColor;
     }
 }
