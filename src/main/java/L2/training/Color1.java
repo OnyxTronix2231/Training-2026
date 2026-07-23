@@ -11,7 +11,7 @@ public class Color1 {
         this.blue = blue;
     }
 
-    void newColor(int a, int b, int c) {
+    public void newColor(int a, int b, int c) {
         red += a;
         green += b;
         blue += c;
@@ -36,7 +36,7 @@ public class Color1 {
         return blue;
     }
 
-    boolean bigger(int d) {
+    public boolean bigger(int d) {
         boolean check = red > d && green > d && blue > d;
         return check;
     }
@@ -48,19 +48,42 @@ public class Color1 {
     }
 
     public static Color1 getFactoredColor(Color1 c, int percentage) {
-        Color1 c2 = new Color1(c.red * dfghjkl, c.green * fhfh, c.blue * ggt)
-        return c2;
+        return new Color1(c.red * percentage/100, c.green * percentage/100, c.blue * percentage/100);
     }
 
-        public static void main(String[] args) {
-        Color1 grenncolor = new Color1(0, 255, 0);
+    public static Color1 addByFactor(Color1 c1, Color1 c2, int percentage) {
+        int percentage2 = 100 - percentage;
+        Color1 a = getFactoredColor(c1, percentage);
+        Color1 b = getFactoredColor(c2,percentage2);
+        return new Color1(a.red + b.red, a.green + b.green, a.blue + b.blue);
+
+
+    }
+
+    @Override
+    public String toString() {
+        return "Color1{" +
+                "red=" + red +
+                ", green=" + green +
+                ", blue=" + blue +
+                '}';
+    }
+
+    public static void main(String[] args) {
+        Color1 greencolor = new Color1(0, 255, 0);
         Color1 blueColor = new Color1(0,0,200);
-        grenncolor.newColor(255,-100,0);
-        System.out.println(grenncolor.green);
-        boolean c = grenncolor.bigger(80);
-        System.out.println(c);
-        grenncolor.reset();
-        System.out.println(grenncolor.red);
+        greencolor.newColor(255,-100,0);
+        //System.out.println(greencolor.green);
+        boolean c = greencolor.bigger(80);
+        //System.out.println(c);
+        //greencolor.reset();
+        //System.out.println(greencolor.red);
+        Color1 darkgreen = getFactoredColor(greencolor, 50);
+        //System.out.println(darkgreen.green);
+        Color1 combined =  addByFactor(darkgreen,greencolor,50);
+        System.out.println(darkgreen.toString());
+        System.out.println(greencolor.toString());
+        System.out.println(combined.toString());
 
     }
 }
