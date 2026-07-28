@@ -1,14 +1,16 @@
 package L2.training;
 
 
-    public class Color2{
+import edu.wpi.first.math.MathUtil;
+
+public class Color2{
         private int red;
         private int blue;
         private int green;
         Color2(int newred,int newblue,int newgreen){
-            red=newred;
-            blue=newblue;
-            green=newgreen;
+            red= MathUtil.clamp(newred,0,255);
+            blue=MathUtil.clamp(newblue,0,255);
+            green=MathUtil.clamp(newgreen,0,255);;
 
         }
         public void clear(){
@@ -18,10 +20,7 @@ package L2.training;
 
 
         }
-        public static int getfactor(int percentage){
 
-
-        }
 
         public static void main(String[] args) {
             Color2 color=new Color2(255,255,255);
