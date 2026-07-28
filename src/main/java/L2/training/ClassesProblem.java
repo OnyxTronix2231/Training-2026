@@ -7,7 +7,4 @@ public class ClassesProblem {
         green=0;
         blue=0;
     }
-    static int getFactoredColour(int red, int green, int blue, int a) {
-
-    }
 }
