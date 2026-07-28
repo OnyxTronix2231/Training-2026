@@ -1,14 +1,14 @@
 package L2.training;
-
+import edu.wpi.first.math.MathUtil;
 public class Color1 {
    private int red;
     private int green;
     private int blue;
 
     public Color1(int red,int green,int blue){
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this.red = MathUtil.clamp(red,0,255);
+        this.green = MathUtil.clamp(green,0,255);
+        this.blue = MathUtil.clamp(blue,0,255);
     }
 
 
@@ -48,9 +48,6 @@ public class Color1 {
         red = 0;
         green=0;
         blue=0;
-    }
-    public static Color1 getFactoredColor(Color1 c, int percent){
-        int newRed
     }
 
     public static void main(String[] args) {
