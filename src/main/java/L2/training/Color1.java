@@ -1,14 +1,16 @@
 package L2.training;
 
+import edu.wpi.first.math.MathUtil;
+
 public class Color1 {
     private int red;
     private int green;
     private int blue;
 
     public Color1(int red, int green, int blue) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this.red = MathUtil.clamp(red, 0, 255);
+        this.green = MathUtil.clamp(green, 0, 255);
+        this.blue =MathUtil.clamp(blue, 0, 255);
     }
 
     public void newColor(int a, int b, int c) {
