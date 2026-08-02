@@ -22,7 +22,7 @@ public class Utils {
         }
 
     public static void main(String[] args) {
-        System.out.println(Utils.clamp(667, 0,255));
+        System.out.println(Utils.clamp(6667, 0,255));
     }
     }
 

@@ -11,13 +11,6 @@ private TrainingColour(int red, int green, int blue) {
     this.green = MathUtil.clamp(green, 0, 255);
     this.blue = MathUtil.clamp(blue, 0, 255);
 }
-        public static void main(String[] args) {
-            TrainingColour blueColour = new  TrainingColour(0,0,255);
-            TrainingColour greenColour = new TrainingColour(0,255,0);
-            greenColour.addColour(25,-30,25);
-            System.out.println(greenColour.red);
-
-        }
     public void addColour(int redNew, int greenNew, int blueNew){
         red += redNew;
         green += greenNew;
@@ -34,4 +27,17 @@ private TrainingColour(int red, int green, int blue) {
     red = redNew;
     return red;
    }
+
+    public String toString() {
+    String redPrint = "Red: " + red;
+    String greenPrint = "Green: " + green;
+    String bluePrint = "Blue: " + blue;
+    return "Colour: \n \t" + redPrint+ "\n \t" + greenPrint + "\n \t" + bluePrint ;
+    }
+
+    public static void main(String[] args) {
+        TrainingColour colour = new TrainingColour(255, 0, 0);
+        System.out.println(colour);
+    }
+
 }
