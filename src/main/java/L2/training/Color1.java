@@ -10,7 +10,7 @@ public class Color1 {
     public Color1(int red, int green, int blue) {
         this.red = MathUtil.clamp(red, 0, 255);
         this.green = MathUtil.clamp(green, 0, 255);
-        this.blue =MathUtil.clamp(blue, 0, 255);
+        this.blue = MathUtil.clamp(blue, 0, 255);
     }
 
     public void newColor(int a, int b, int c) {
@@ -62,13 +62,11 @@ public class Color1 {
 
     }
 
-    @Override
     public String toString() {
-        return "Color1{" +
-                "red=" + red +
-                ", green=" + green +
-                ", blue=" + blue +
-                '}';
+        String redMessage = "red: " + red;
+        String greenMessage = "green: " + green;
+        String blueMessage = "blue: " + blue;
+        return "Color:" + "\n \t" + redMessage + "\n \t" + greenMessage + "\n \t" + blueMessage + "\n";
     }
 
     public static void main(String[] args) {
@@ -82,7 +80,7 @@ public class Color1 {
         //System.out.println(greencolor.red);
         Color1 darkgreen = getFactoredColor(greencolor, 50);
         //System.out.println(darkgreen.green);
-        Color1 combined =  addByFactor(darkgreen,greencolor,50);
+        Color1 combined = addByFactor(darkgreen,greencolor,50);
         System.out.println(darkgreen.toString());
         System.out.println(greencolor.toString());
         System.out.println(combined.toString());
