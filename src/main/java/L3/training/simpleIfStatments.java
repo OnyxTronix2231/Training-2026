@@ -67,6 +67,21 @@ public class simpleIfStatments {
             System.out.println("saturday");
         }
     }
+
+    public static void isGreatNumbers(int num1, int num2) {
+        if (num1 > num2 && num1%2 == 0) {
+            System.out.println("Great Numbers");
+        } else if (num2 > num1 && num2%2 == 1) {
+            System.out.println("Nice Numbers");
+        } else {
+            System.out.println("OK Numbers");
+        }
+    }
+
+    public static boolean AreFunnyNumbers(int num1, int num2) {
+        return ((num1*num1 != num2*num2) && ((num1 > 0 && num2 > 0) || (num1 < 0 && num2 < 0)));
+    }
+
     public static void main(String[] args) {
         boolean a = simpleIfStatments.isEven(12);
         String b = simpleIfStatments.isLeapYear(2026);
@@ -75,6 +90,8 @@ public class simpleIfStatments {
         System.out.println(d);
         int today = 5;
         getDay(today);
-
+        simpleIfStatments.isGreatNumbers(6,4);
+        boolean e = simpleIfStatments.AreFunnyNumbers(6,4);
+        System.out.println(e);
     }
 }
