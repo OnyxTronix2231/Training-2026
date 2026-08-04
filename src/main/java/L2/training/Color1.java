@@ -11,6 +11,7 @@ public class Color1 {
         this.red = MathUtil.clamp(red, 0, 255);
         this.green = MathUtil.clamp(green, 0, 255);
         this.blue = MathUtil.clamp(blue, 0, 255);
+
     }
 
     public void newColor(int a, int b, int c) {
