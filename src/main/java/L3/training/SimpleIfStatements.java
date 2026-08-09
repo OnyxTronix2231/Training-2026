@@ -30,8 +30,11 @@ public class SimpleIfStatements {
         if (magnitude < 0) {
             magnitude = magnitude * -1;;
         }
-        
         }
+
+    public static void main(String[] args) {
+
+    }
     }
 
 
