@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.*;
 
-public class LED {
+public class LEDex {
     private int length;
     private AddressableLEDSim strip;
     private AddressableLEDBuffer buffer;
@@ -29,7 +29,7 @@ public class LED {
     private KeyButton button1;
     private KeyButton button2;
 
-    public LED(int length) {
+    public LEDex(int length) {
         this.length = length;
         button1 = new KeyButton(1);
         button2 = new KeyButton(2);
@@ -70,34 +70,22 @@ public class LED {
     }
 
     public LEDSystemState handleStateTransition() {
-        switch (wantedState) {
-            case CW:
-                switch (currentState) {
-                    case off:
-                        return LEDSystemState.blue;
-                    case blue:
-                        return LEDSystemState.green;
-                    case green:
-                        return LEDSystemState.red;
-                    case red:
-                        return LEDSystemState.blue;
-                }
-            case CCW:
-                switch (currentState) {
-                    case off:
-                        return LEDSystemState.off;
-                    case blue:
-                        return LEDSystemState.red;
-                    case green:
-                        return LEDSystemState.blue;
-                    case red:
-                        return LEDSystemState.green;
-                }
-            case IDLE:
-                return currentState;
-            default:
-                return currentState;
-        }
+        return switch (wantedState) {
+            case CW -> switch (currentState) {
+                case off -> LEDSystemState.blue;
+                case blue -> LEDSystemState.green;
+                case green -> LEDSystemState.red;
+                case red -> LEDSystemState.blue;
+            };
+            case CCW -> switch (currentState) {
+                case off -> LEDSystemState.off;
+                case blue -> LEDSystemState.red;
+                case green -> LEDSystemState.blue;
+                case red -> LEDSystemState.green;
+            };
+            case IDLE -> currentState;
+            default -> currentState;
+        };
     }
 
     public void applyState() {
