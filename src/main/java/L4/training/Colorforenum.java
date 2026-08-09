@@ -26,7 +26,6 @@ public class Colorforenum {
                 return 4590;
             case Demaica:
                 return 5635;
-            System.out.println("purple");
             default:
                 return 0;
         }

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.*;
 
-public class LED {
+public class LEDex {
     private int length;
     private AddressableLEDSim strip;
     private AddressableLEDBuffer buffer;
@@ -29,7 +29,7 @@ public class LED {
     private KeyButton button1;
     private KeyButton button2;
 
-    public LED(int length) {
+    public LEDex(int length) {
         this.length = length;
         button1 = new KeyButton(1);
         button2 = new KeyButton(2);
