@@ -5,6 +5,7 @@
 package frc.robot;
 
 import L5.lecture.LEDex;
+import L5.training.LED;
 import TrainingUtils.AddressableLEDSim;
 import TrainingUtils.KeyButton;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -27,7 +28,7 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends LoggedRobot {
-
+private LED led;
     // private LEDex LEDex;
     // private KeyButton button1;
 
@@ -36,12 +37,9 @@ public class Robot extends LoggedRobot {
         initializeLogger();
         Superstructure.init();
 
-        AddressableLEDSim strip = new AddressableLEDSim();
-        AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
-        strip.setLength(buffer.getLength());
+       led= new LED(7);
 
-        buffer.setRGB(3, 255, 0, 0);
-        strip.setData(buffer);
+
 
         // LEDex = new LEDex(7);
         // LEDex.fullColor(Color.RED);
