@@ -4,10 +4,7 @@
 
 package frc.robot;
 
-import L5.lecture.LEDex;
-import TrainingUtils.AddressableLEDSim;
-import TrainingUtils.KeyButton;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import L5.training.LED;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -28,6 +25,7 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  */
 public class Robot extends LoggedRobot {
 
+    private LED led;
     // private LEDex LEDex;
     // private KeyButton button1;
 
@@ -36,12 +34,19 @@ public class Robot extends LoggedRobot {
         initializeLogger();
         Superstructure.init();
 
-        AddressableLEDSim strip = new AddressableLEDSim();
-        AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
-        strip.setLength(buffer.getLength());
 
-        buffer.setRGB(3, 255, 0, 0);
-        strip.setData(buffer);
+        //AddressableLEDSim strip = new AddressableLEDSim();
+        //AddressableLEDBuffer buffer = new AddressableLEDBuffer(1200);
+        //strip.setLength(buffer.getLength());
+        //for (int i = 0; i < buffer.getLength(); i++) {
+            //buffer.setRGB(i,0,0,255);
+        //}
+            //strip.setData(buffer);
+        led = new LED(200);
+        Color c = new Color(0, 110, 250);
+        //Led.light(c,5);
+        //Led.light(c,2);
+        led.lightAll(c);
 
         // LEDex = new LEDex(7);
         // LEDex.fullColor(Color.RED);
