@@ -5,6 +5,7 @@
 package frc.robot;
 
 import L5.training.LED;
+import TrainingUtils.KeyButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,13 +28,12 @@ public class Robot extends LoggedRobot {
 
     private LED led;
     // private LEDex LEDex;
-    // private KeyButton button1;
+    private KeyButton button1;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-
 
         //AddressableLEDSim strip = new AddressableLEDSim();
         //AddressableLEDBuffer buffer = new AddressableLEDBuffer(1200);
@@ -42,11 +42,21 @@ public class Robot extends LoggedRobot {
             //buffer.setRGB(i,0,0,255);
         //}
             //strip.setData(buffer);
-        led = new LED(200);
+        led = new LED(7);
         Color c = new Color(0, 110, 250);
-        //Led.light(c,5);
-        //Led.light(c,2);
-        led.lightAll(c);
+        Color d = new Color(0, 110, 12);
+        //Led.lightOneLed(c,5);
+        //Led.lightOneLed(c,2);
+        //led.lightAll(c);
+        //led.paintRange(c,4,3);
+        //led.paintRange(d,0,2);
+        //led.paintRange(Color.red,0,6);
+        //led.paintRange(c,1,5);
+        //led.paintRange(d,2,4);
+
+
+
+
 
         // LEDex = new LEDex(7);
         // LEDex.fullColor(Color.RED);
@@ -94,9 +104,7 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         Logger.recordOutput("robot mechanism", ROBOT_MECHANISM);
 
-        // if (button1.isPressed()) {
-        //     LEDex.fullColor(Color.RED);
-        // }
+        led.periodic();
         // LEDex.periodic();
         CommandScheduler.getInstance().run();
     }
