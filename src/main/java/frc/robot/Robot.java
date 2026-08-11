@@ -29,6 +29,7 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  */
 public class Robot extends LoggedRobot {
 private LED led;
+private KeyButton button1;
     // private LEDex LEDex;
     // private KeyButton button1;
 
@@ -38,8 +39,9 @@ private LED led;
         Superstructure.init();
 
        led= new LED(7);
-
-
+       led.colourBetween(0,6,Color.RED);
+       led.colourBetween(1,5,Color.BLUE);
+       led.colourBetween(2,4,Color.GREEN);
 
         // LEDex = new LEDex(7);
         // LEDex.fullColor(Color.RED);
@@ -87,9 +89,7 @@ private LED led;
     public void robotPeriodic() {
         Logger.recordOutput("robot mechanism", ROBOT_MECHANISM);
 
-        // if (button1.isPressed()) {
-        //     LEDex.fullColor(Color.RED);
-        // }
+        led.periodic();
         // LEDex.periodic();
         CommandScheduler.getInstance().run();
     }
