@@ -6,6 +6,7 @@ package frc.robot;
 
 import L5.lecture.LEDex;
 import L5.training.LED;
+import TrainingUtils.KeyButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,12 +28,14 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
 public class Robot extends LoggedRobot {
 
     private LED led;
-    // private KeyButton button1;
+    private KeyButton button1;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
+
+        button1 = new KeyButton(1);
 
         //AddressableLEDSim strip = new AddressableLEDSim();
 //AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
@@ -47,8 +50,11 @@ public class Robot extends LoggedRobot {
        // strip.setData(buffer);
 
         led = new LED(7);
-        led.color124(Color.BLACK);
-        led.color123(Color.DARK_GRAY, 5);
+        led.color123(Color.red,0,6);
+        led.color123(Color.blue,1,5);
+        led.fullCOlor(Color.green,2,5);
+
+
 
         //led.fullColor(Color.RED);
         //led.oneLed(3, Color.GREEN);
@@ -95,10 +101,8 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         Logger.recordOutput("robot mechanism", ROBOT_MECHANISM);
 
-        // if (button1.isPressed()) {
-        //     led.fullColor(Color.RED);
-        // }
-        // led.periodic();
+
+         led.periodic();
         CommandScheduler.getInstance().run();
     }
 
