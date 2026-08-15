@@ -1,14 +1,16 @@
 package L2.training;
 
+import edu.wpi.first.math.MathUtil;
+
 public class Color1 {
     private int red;
     private int green;
     private int blue;
 
     public Color1(int red, int green, int blue){
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this.red = MathUtil.clamp(red, 0, 255);
+        this.green = MathUtil.clamp(green, 0, 255);
+        this.blue = MathUtil.clamp(blue, 0, 255);
     }
 
     public int getRed(){
@@ -36,15 +38,15 @@ public class Color1 {
     }
 
     public void lowerLight() {
-        red /= 2;
-        green /= 2;
-        blue /= 2;
+        MathUtil.clamp(red /= 2, 0, 255);
+        MathUtil.clamp(green /= 2, 0, 255);
+        MathUtil.clamp(blue /= 2, 0, 255);
     }
 
     public void addToColor(int r, int g, int b) {
-        red += r;
-        green += g;
-        blue += b;
+        MathUtil.clamp(red += r, 0, 255);
+        MathUtil.clamp(green += r, 0, 255);
+        MathUtil.clamp(blue += r, 0, 255);
     }
 
     public boolean checkIfSmaller(int num) {

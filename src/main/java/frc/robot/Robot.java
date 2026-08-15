@@ -31,20 +31,15 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  */
 public class Robot extends LoggedRobot {
 
-    // private LED led;
+    private LED led;
     // private KeyButton button1;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
+        led = new LED(7);
 
-        AddressableLEDSim strip = new AddressableLEDSim();
-        AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
-        strip.setLength(buffer.getLength());
-
-        buffer.setRGB(3, 255, 0, 0);
-        strip.setData(buffer);
 
         // led = new LED(7);
         //led.fullColor(Color.RED);
