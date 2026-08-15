@@ -4,16 +4,13 @@
 
 package frc.robot;
 
-import L5.lecture.LED;
+import L5.lecture.LEDex;
 import TrainingUtils.AddressableLEDSim;
 import TrainingUtils.KeyButton;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Superstructure;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -31,21 +28,26 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  */
 public class Robot extends LoggedRobot {
 
-    private LED led;
+    // private LEDex LEDex;
     // private KeyButton button1;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-        led = new LED(7);
 
+        AddressableLEDSim strip = new AddressableLEDSim();
+        AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
+        strip.setLength(buffer.getLength());
 
-        // led = new LED(7);
-        //led.fullColor(Color.RED);
-        //led.oneLed(3, Color.GREEN);
+        buffer.setRGB(3, 255, 0, 0);
+        strip.setData(buffer);
 
-        //button1 = new KeyButton(1);
+        // LEDex = new LEDex(7);
+        // LEDex.fullColor(Color.RED);
+        // LEDex.oneLed(3, Color.GREEN);
+
+        // button1 = new KeyButton(1);
     }
 
     /**
@@ -88,9 +90,9 @@ public class Robot extends LoggedRobot {
         Logger.recordOutput("robot mechanism", ROBOT_MECHANISM);
 
         // if (button1.isPressed()) {
-        //     led.fullColor(Color.RED);
+        //     LEDex.fullColor(Color.RED);
         // }
-        // led.periodic();
+        // LEDex.periodic();
         CommandScheduler.getInstance().run();
     }
 
