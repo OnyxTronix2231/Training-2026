@@ -32,8 +32,8 @@
       "buttonKeys": [
         90,
         88,
-        67,
-        86
+        44,
+        46
       ],
       "povConfig": [
         {
@@ -64,8 +64,8 @@
       "buttonCount": 4,
       "buttonKeys": [
         77,
-        44,
-        46,
+        -1,
+        -1,
         47
       ],
       "povCount": 0
@@ -102,6 +102,9 @@
   "robotJoysticks": [
     {
       "guid": "Keyboard0"
+    },
+    {
+      "guid": "Keyboard1"
     }
   ]
 }

@@ -5,8 +5,10 @@
 package frc.robot;
 
 import L5.lecture.LEDex;
+import L5.training.LED;
 import TrainingUtils.AddressableLEDSim;
 import TrainingUtils.KeyButton;
+import TrainingUtils.LedConstants;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -20,6 +22,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import java.awt.*;
 
 import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
+import static TrainingUtils.LedConstants.LedSimulationConstants.ledRoot;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -29,25 +32,16 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
 public class Robot extends LoggedRobot {
 
     // private LEDex LEDex;
-    // private KeyButton button1;
+    LED led = new LED(7);
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
-        AddressableLEDSim strip = new AddressableLEDSim();
-        AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
-        strip.setLength(buffer.getLength());
-
-        buffer.setRGB(3, 255, 0, 0);
-        strip.setData(buffer);
-
-        // LEDex = new LEDex(7);
         // LEDex.fullColor(Color.RED);
         // LEDex.oneLed(3, Color.GREEN);
 
-        // button1 = new KeyButton(1);
     }
 
     /**
@@ -88,12 +82,10 @@ public class Robot extends LoggedRobot {
     @Override
     public void robotPeriodic() {
         Logger.recordOutput("robot mechanism", ROBOT_MECHANISM);
-
-        // if (button1.isPressed()) {
-        //     LEDex.fullColor(Color.RED);
-        // }
         // LEDex.periodic();
         CommandScheduler.getInstance().run();
+
+        led.periodic();
     }
 
     /**

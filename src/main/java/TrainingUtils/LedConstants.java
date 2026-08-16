@@ -16,7 +16,7 @@ public class LedConstants {
 
         public static final LoggedMechanismRoot2d ledRoot = ROBOT_MECHANISM.getRoot("Led", 0.5, 1.1);
 
-        public static final double ledSize = 0.06;
+        public static final double ledSize = 0.08;
 
         public static void initializeLedMechanism(LoggedMechanismLigament2d[] led) {
             LoggedMechanismRoot2d lastRoot = ledRoot;
