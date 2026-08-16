@@ -2,12 +2,11 @@ package L5.training;
 
 import TrainingUtils.AddressableLEDSim;
 import TrainingUtils.KeyButton;
-import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.*;
 
-public class LED {
+public class LEDD {
     private int Length;
     private AddressableLEDSim addressableLEDSim;
     private AddressableLEDBuffer Buffer;
@@ -16,7 +15,7 @@ public class LED {
     private WantedState wantedState;
     private SystemState systemState;
 
-    public LED(int Length) {
+    public LEDD(int Length) {
         this.Length = Length;
         addressableLEDSim = new AddressableLEDSim();
         Buffer = new AddressableLEDBuffer(Length);
@@ -77,18 +76,19 @@ public class LED {
     }
 
     public enum WantedState {
-        CW,
-        CCW,
+        togglegreen,
+        toggleblue,
+        togglered,
         IDLE,
     }
 
     public void updatewantedstate() {
         if (B1.isPressed()) {
-            wantedState = WantedState.CW;
+            wantedState = WantedState.toggleblue;
         } else if (B2.isPressed()) {
-            wantedState = WantedState.CCW;
+            wantedState = WantedState.togglered;
         } else {
-            wantedState = WantedState.IDLE;
+            wantedState = WantedState.togglegreen;
         }
     }
 
@@ -111,44 +111,27 @@ public class LED {
 
     public SystemState handleStateTransition() {
         switch (wantedState) {
-            case CW:
+            case toggleblue:
                 switch (systemState) {
                     case OFF:
-                        return SystemState.BLUE;
-                    case RED:
-                        return SystemState.BLUE;
-                    case BLUE:
-                        return SystemState.GREEN;
-                    case GREEN:
-                        return SystemState.RED;
-                    default:
-                        return systemState;
-
-                }
-            case CCW:
-                switch (systemState) {
-                    case OFF:
-                        return SystemState.OFF;
-                    case BLUE:
-                        return SystemState.RED;
-                    case RED:
-                        return SystemState.GREEN;
-                    case GREEN:
                         return SystemState.BLUE;
                     default:
                         return systemState;
 
                 }
-            case IDLE:
+            case togglegreen:
                 switch (systemState) {
-                    case GREEN:
-                        return SystemState.GREEN;
-                    case RED:
-                        return SystemState.RED;
-                    case BLUE:
-                        return SystemState.BLUE;
                     case OFF:
-                        return SystemState.OFF;
+                        return SystemState.GREEN;
+
+                    default:
+                        return systemState;
+
+                }
+            case togglered:
+                switch (systemState) {
+                    case OFF:
+                        return SystemState.RED;
                     default:
                         return systemState;
                 }
