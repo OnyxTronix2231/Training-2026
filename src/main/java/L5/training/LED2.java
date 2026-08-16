@@ -6,22 +6,24 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.*;
 
-public class LED {
+public class LED2 {
     private int LEDLength;
     private AddressableLEDSim strip;
     private AddressableLEDBuffer buffer;
     private KeyButton b1;
     private KeyButton b2;
+    private KeyButton b3;
     private SystemState systemState;
     private WantedState wantedState;
 
-    public LED(int length) {
+    public LED2(int length) {
         this.LEDLength = length;
         strip = new AddressableLEDSim();
         buffer = new AddressableLEDBuffer(length);
         strip.setLength(buffer.getLength());
         b1 = new KeyButton(1);
         b2 = new KeyButton(2);
+        b3 = new KeyButton(3)
         systemState = SystemState.OFF;
         wantedState = WantedState.IDLE;
     }
@@ -146,6 +148,4 @@ public class LED {
         applystate();
     }
 
-    }
-
-
+}
