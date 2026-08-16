@@ -5,12 +5,15 @@ import TrainingUtils.KeyButton;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import java.awt.*;
 
+import static L5.training.LED.WantedState.IDLE;
+
 public class LED {
     private int length;
     private AddressableLEDSim strip;
     private AddressableLEDBuffer buffer;
     private KeyButton b1;
     private KeyButton b2;
+    private KeyButton b3;
 
     public enum SystemState {
         OFF,
@@ -20,8 +23,9 @@ public class LED {
     }
 
     public enum WantedState {
-        CW,
-        CCW,
+        G,
+        R,
+        B,
         IDLE
     }
 
@@ -36,9 +40,11 @@ public class LED {
 
         b1 = new KeyButton(1);
         b2 = new KeyButton(2);
+        b3 = new KeyButton(3);
 
-        systemState = systemState.OFF;
-        wantedState = wantedState.IDLE;
+
+        systemState = SystemState.OFF;
+        wantedState = IDLE;
     }
 
     private void placeInBuffer(int index, Color color) {
@@ -75,16 +81,77 @@ public class LED {
     }
 
     public void periodic() {
-
+    updateWantedState();
+    systemState = handleStateTransition();
+    applyState();
     }
 
     public void updateWantedState() {
-        wantedState = WantedState.IDLE;
+        wantedState = IDLE;
         if (b1.isPressed()) {
-            wantedState = WantedState.CW;
+            wantedState = WantedState.R;
         }
         if (b2.isPressed()) {
-            wantedState = WantedState.CCW;
+            wantedState = WantedState.B;
+        }
+        if (b3.isPressed()) {
+            wantedState = WantedState.G;
+        }
+    }
+
+    public SystemState handleStateTransition() {
+        switch (wantedState) {
+            case R:
+                switch (systemState) {
+                    case OFF:
+                        return SystemState.RED;
+                    case RED:
+                        return SystemState.OFF;
+                    default:
+                        return systemState;
+                }
+            case G:
+                switch (systemState) {
+                    case OFF:
+                        return SystemState.GREEN;
+                    case GREEN:
+                        return SystemState.OFF;
+                    default:
+                        return systemState;
+                }
+            case B:
+                switch (systemState) {
+                    case OFF:
+                        return SystemState.BLUE;
+                    case BLUE:
+                        return SystemState.OFF;
+                    default:
+                        return systemState;
+                }
+            case IDLE:
+                return systemState;
+        }
+        return systemState;
+    }
+
+    public void applyState() {
+        switch (systemState) {
+            case OFF:
+                lightAll(Color.BLACK);
+                break;
+            case BLUE:
+                lightAll(Color.BLUE);
+                break;
+            case GREEN:
+                lightAll(Color.GREEN);
+                break;
+            case RED:
+                lightAll(Color.RED);
+                break;
+            default:
+                lightAll(Color.BLACK);
+                break;
         }
     }
 }
+
