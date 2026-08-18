@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import L5.training.LED;
+import L5.training.LEDGame;
 import TrainingUtils.KeyButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -26,7 +26,7 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  */
 public class Robot extends LoggedRobot {
 
-    private LED led;
+    private LEDGame led;
     // private LEDex LEDex;
     private KeyButton button1;
 
@@ -42,7 +42,7 @@ public class Robot extends LoggedRobot {
             //buffer.setRGB(i,0,0,255);
         //}
             //strip.setData(buffer);
-        led = new LED(7);
+        led = new LEDGame(7);
         Color c = new Color(0, 110, 250);
         Color d = new Color(0, 110, 12);
         //Led.lightOneLed(c,5);
