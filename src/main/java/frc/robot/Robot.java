@@ -4,11 +4,8 @@
 
 package frc.robot;
 
-import L5.lecture.LEDex;
-import L5.training.LED;
-import TrainingUtils.AddressableLEDSim;
+import L5.training.LEDGame;
 import TrainingUtils.KeyButton;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -18,8 +15,6 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import java.awt.*;
-
 import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
 
 /**
@@ -28,7 +23,7 @@ import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends LoggedRobot {
-private LED led;
+private LEDGame led;
 private KeyButton button1;
     // private LEDex LEDex;
     // private KeyButton button1;
@@ -38,11 +33,7 @@ private KeyButton button1;
         initializeLogger();
         Superstructure.init();
 
-       led= new LED(7);
-       led.colourBetween(0,6,Color.RED);
-       led.colourBetween(1,5,Color.BLUE);
-       led.colourBetween(2,4,Color.GREEN);
-
+       led= new LEDGame();
         // LEDex = new LEDex(7);
         // LEDex.fullColor(Color.RED);
         // LEDex.oneLed(3, Color.GREEN);
