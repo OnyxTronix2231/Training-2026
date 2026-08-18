@@ -50,10 +50,9 @@ public class LEDGame {
                 return systemState;
         }
     }
-    public int ChooseIndex() {
+    public void ChooseIndex() {
         double num = Math.random() * 15;
         index = (int) (num);
-        return index;
     }
 
 
@@ -74,6 +73,7 @@ public class LEDGame {
         switch (wantedState) {
             case B1:
                 if (systemState == SystemState.RED) {
+                    ChooseIndex();
                     return ChooseColour();
 
                 } else {
@@ -81,12 +81,14 @@ public class LEDGame {
                 }
             case B2:
                 if (systemState == SystemState.GREEN) {
+                    ChooseIndex();
                     return ChooseColour();
                 } else {
                     return systemState;
                 }
             case B3:
                 if (systemState == SystemState.BLUE) {
+                    ChooseIndex();
                     return ChooseColour();
                 } else {
                     return systemState;
@@ -97,16 +99,15 @@ public class LEDGame {
     }
 
     public void applystate() {
-        int NumIndex = ChooseIndex();
         switch (systemState) {
             case BLUE:
-                functions.Setled(NumIndex,Color.BLUE);
+                functions.Setled(index,Color.BLUE);
                 break;
             case GREEN:
-                functions.Setled(NumIndex,Color.GREEN);
+                functions.Setled(index,Color.GREEN);
                 break;
             case RED:
-                functions.Setled(NumIndex,Color.RED);
+                functions.Setled(index,Color.RED);
                 break;
         }
 
