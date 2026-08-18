@@ -7,32 +7,24 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.*;
 
+import static L5.training.LEDGAME.LEDGAMEWantedState.*;
+
 public class LED {
     private int Length;
     private AddressableLEDSim addressableLEDSim;
     private AddressableLEDBuffer Buffer;
-    private KeyButton B1;
-    private KeyButton B2;
-    private WantedState wantedState;
-    private SystemState systemState;
+
 
     public LED(int Length) {
         this.Length = Length;
         addressableLEDSim = new AddressableLEDSim();
         Buffer = new AddressableLEDBuffer(Length);
         addressableLEDSim.setLength(Buffer.getLength());
-        B1 = new KeyButton(1);
-        B2 = new KeyButton(2);
-        systemState = SystemState.OFF;
-        wantedState = WantedState.IDLE;
-
-
     }
 
-    public void Color(int index, Color color) {
+    public void Colorbyindex(int index, Color color) {
         Buffer.setRGB(index, color.getRed(), color.getGreen(), color.getBlue());
         addressableLEDSim.setData(Buffer);
-
 
     }
 
@@ -62,104 +54,7 @@ public class LED {
 
     }
 
-    public void periodic() {
-        updatewantedstate();
-        systemState = handleStateTransition();
-        applycolor();
 
-    }
-
-    public enum SystemState {
-        OFF,
-        RED,
-        GREEN,
-        BLUE,
-    }
-
-    public enum WantedState {
-        CW,
-        CCW,
-        IDLE,
-    }
-
-    public void updatewantedstate() {
-        if (B1.isPressed()) {
-            wantedState = WantedState.CW;
-        } else if (B2.isPressed()) {
-            wantedState = WantedState.CCW;
-        } else {
-            wantedState = WantedState.IDLE;
-        }
-    }
-
-    public void applycolor() {
-        switch (systemState) {
-            case OFF:
-                fullcolor(Color.BLACK);
-                break;
-            case BLUE:
-                fullcolor(Color.BLUE);
-                break;
-            case RED:
-                fullcolor(Color.RED);
-                break;
-            case GREEN:
-                fullcolor(Color.GREEN);
-                break;
-        }
-    }
-
-    public SystemState handleStateTransition() {
-        switch (wantedState) {
-            case CW:
-                switch (systemState) {
-                    case OFF:
-                        return SystemState.BLUE;
-                    case RED:
-                        return SystemState.BLUE;
-                    case BLUE:
-                        return SystemState.GREEN;
-                    case GREEN:
-                        return SystemState.RED;
-                    default:
-                        return systemState;
-
-                }
-            case CCW:
-                switch (systemState) {
-                    case OFF:
-                        return SystemState.OFF;
-                    case BLUE:
-                        return SystemState.RED;
-                    case RED:
-                        return SystemState.GREEN;
-                    case GREEN:
-                        return SystemState.BLUE;
-                    default:
-                        return systemState;
-
-                }
-            case IDLE:
-                switch (systemState) {
-                    case GREEN:
-                        return SystemState.GREEN;
-                    case RED:
-                        return SystemState.RED;
-                    case BLUE:
-                        return SystemState.BLUE;
-                    case OFF:
-                        return SystemState.OFF;
-                    default:
-                        return systemState;
-                }
-            default:
-                return systemState;
-
-
-        }
-    }
 }
-
-
 
 
