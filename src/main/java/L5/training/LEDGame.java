@@ -29,7 +29,7 @@ public class LEDGame {
         b2 = new KeyButton(2);
         b3 = new KeyButton(3);
         loop = 1;
-        boolean whiteLoopDirection = true;
+        whiteLoopDirection = true;
     }
 
     public enum SystemState {
@@ -60,90 +60,91 @@ public class LEDGame {
 
     public void moveWhitePoint() {
         if (systemState == GREEN) {
-            if (loop % 15 < 14) {
-                if (whiteLoopDirection) {
-                minIndexWhite = (minIndexWhite + 1) % 12;
-                } else if (!whiteLoopDirection && loop % 15 > 0) {
-                    minIndexWhite = (minIndexWhite - 1) % 12;
-                }
+            if (whiteLoopDirection) {
+                minIndexWhite ++;
             } else {
-                whiteLoopDirection = !(whiteLoopDirection);
+                minIndexWhite --;
             }
             maxIndexWhite = minIndexWhite + 3;
+            if (maxIndexWhite >= 14 && whiteLoopDirection) {
+                whiteLoopDirection = false;
+            } else if (minIndexWhite <= 0 && !whiteLoopDirection) {
+                whiteLoopDirection = true;
+            }
         }
     }
 
 
-    public void updateWantedState() {
-        if (b1.isPressed()) {
-            wantedState = WantedState.B1;
+        public void updateWantedState () {
+            if (b1.isPressed()) {
+                wantedState = WantedState.B1;
+            }
+            if (b2.isPressed()) {
+                wantedState = WantedState.B2;
+            }
+            if (b3.isPressed()) {
+                wantedState = WantedState.B3;
+            }
         }
-        if (b2.isPressed()) {
-            wantedState = WantedState.B2;
-        }
-        if (b3.isPressed()) {
-            wantedState = WantedState.B3;
-        }
-    }
 
-    public SystemState handleStateTransition() {
-        switch (wantedState) {
-            case B1:
-                if (systemState == SystemState.RED) {
-                    index = (int) (Math.random() * (led.getLength() - 1));
-                    double a = Math.random();
-                    if (a <= 0.5) {
-                        return SystemState.GREEN;
+        public SystemState handleStateTransition () {
+            switch (wantedState) {
+                case B1:
+                    if (systemState == SystemState.RED) {
+                        index = (int) (Math.random() * (led.getLength() - 1));
+                        double a = Math.random();
+                        if (a <= 0.5) {
+                            return SystemState.GREEN;
+                        } else {
+                            return SystemState.BLUE;
+                        }
                     } else {
-                        return SystemState.BLUE;
+                        return systemState;
                     }
-                } else {
-                    return systemState;
-                }
-            case B2:
-                if (systemState == GREEN) {
-                    index = (int) (Math.random() * (led.getLength() - 1));
-                    double a = Math.random();
-                    if (a <= 0.5) {
-                        return SystemState.BLUE;
+                case B2:
+                    if (systemState == GREEN) {
+                        index = (int) (Math.random() * (led.getLength() - 1));
+                        double a = Math.random();
+                        if (a <= 0.5) {
+                            return SystemState.BLUE;
+                        } else {
+                            return SystemState.RED;
+                        }
                     } else {
-                        return SystemState.RED;
+                        return systemState;
                     }
-                } else {
-                    return systemState;
-                }
-            case B3:
-                if (systemState == SystemState.BLUE) {
-                    index = (int) (Math.random() * (led.getLength() - 1));
-                    double a = Math.random();
-                    if (a <= 0.5) {
-                        return SystemState.RED;
+                case B3:
+                    if (systemState == SystemState.BLUE) {
+                        index = (int) (Math.random() * (led.getLength() - 1));
+                        double a = Math.random();
+                        if (a <= 0.5) {
+                            return SystemState.RED;
+                        } else {
+                            return SystemState.GREEN;
+                        }
                     } else {
-                        return SystemState.GREEN;
+                        return systemState;
                     }
-                } else {
-                    return systemState;
-                }
+            }
+            return systemState;
         }
-        return systemState;
-    }
 
-    public void applyState() {
-        led.lightAll(Color.BLACK);
-        led.paintRange(Color.WHITE, minIndexWhite, maxIndexWhite);
-        switch (systemState) {
-            case BLUE:
-                led.lightOneLed(Color.BLUE, index);
-                break;
-            case GREEN:
-                led.lightOneLed(Color.GREEN, index);
-                break;
-            case RED:
-                led.lightOneLed(Color.RED, index);
-                break;
-            default:
-                led.lightAll(Color.BLACK);
-                break;
+        public void applyState () {
+            led.lightAll(Color.BLACK);
+            led.paintRange(Color.WHITE, minIndexWhite, maxIndexWhite);
+            switch (systemState) {
+                case BLUE:
+                    led.lightOneLed(Color.BLUE, index);
+                    break;
+                case GREEN:
+                    led.lightOneLed(Color.GREEN, index);
+                    break;
+                case RED:
+                    led.lightOneLed(Color.RED, index);
+                    break;
+                default:
+                    led.lightAll(Color.BLACK);
+                    break;
+            }
         }
     }
-}
