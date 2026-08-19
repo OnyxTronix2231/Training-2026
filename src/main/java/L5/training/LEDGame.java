@@ -4,10 +4,11 @@ import TrainingUtils.KeyButton;
 
 import java.awt.*;
 
-import static L5.training.LEDGame.SystemState.GREEN;
+import static L5.training.LEDGame.SystemState.*;
 
 public class LEDGame {
-    public static final int speed = 5;
+    public static final int speed = 10;
+    // bigger = slower
     public static final int whiteLength = 3;
 
     private LED led;
@@ -23,25 +24,22 @@ public class LEDGame {
 
     public LEDGame(int length) {
         this.led = new LED(15);
-        systemState = SystemState.RED;
+        systemState = SystemState.loseMode;
         wantedState = WantedState.IDLE;
-        b1 = new KeyButton(1);
         b2 = new KeyButton(2);
-        b3 = new KeyButton(3);
         loop = 1;
         whiteLoopDirection = true;
+        minIndexWhite = 11;
+        index = (int) (Math.random() * (led.getLength() - 1));
     }
 
     public enum SystemState {
-        RED,
-        GREEN,
-        BLUE
+        loseMode,
+        gameMode,
     }
 
     public enum WantedState {
-        B1,
         B2,
-        B3,
         IDLE
     }
 
@@ -59,92 +57,57 @@ public class LEDGame {
     }
 
     public void moveWhitePoint() {
-        if (systemState == GREEN) {
-            if (whiteLoopDirection) {
-                minIndexWhite ++;
-            } else {
-                minIndexWhite --;
-            }
-            maxIndexWhite = minIndexWhite + 3;
-            if (maxIndexWhite >= 14 && whiteLoopDirection) {
-                whiteLoopDirection = false;
-            } else if (minIndexWhite <= 0 && !whiteLoopDirection) {
-                whiteLoopDirection = true;
-            }
-        }
+        //if (whiteLoopDirection) {
+        //  minIndexWhite++;
+        //} else {
+        minIndexWhite--;
+        minIndexWhite = ((minIndexWhite + 10) % 12 + 1);
+        //}
+        maxIndexWhite = minIndexWhite + 2;
+        //if (maxIndexWhite >= 14 && whiteLoopDirection) {
+        //  whiteLoopDirection = false;
+        //} else if (minIndexWhite <= 0 && !whiteLoopDirection) {
+        //  whiteLoopDirection = true;
     }
 
 
-        public void updateWantedState () {
-            if (b1.isPressed()) {
-                wantedState = WantedState.B1;
-            }
-            if (b2.isPressed()) {
-                wantedState = WantedState.B2;
-            }
-            if (b3.isPressed()) {
-                wantedState = WantedState.B3;
-            }
-        }
-
-        public SystemState handleStateTransition () {
-            switch (wantedState) {
-                case B1:
-                    if (systemState == SystemState.RED) {
-                        index = (int) (Math.random() * (led.getLength() - 1));
-                        double a = Math.random();
-                        if (a <= 0.5) {
-                            return SystemState.GREEN;
-                        } else {
-                            return SystemState.BLUE;
-                        }
-                    } else {
-                        return systemState;
-                    }
-                case B2:
-                    if (systemState == GREEN) {
-                        index = (int) (Math.random() * (led.getLength() - 1));
-                        double a = Math.random();
-                        if (a <= 0.5) {
-                            return SystemState.BLUE;
-                        } else {
-                            return SystemState.RED;
-                        }
-                    } else {
-                        return systemState;
-                    }
-                case B3:
-                    if (systemState == SystemState.BLUE) {
-                        index = (int) (Math.random() * (led.getLength() - 1));
-                        double a = Math.random();
-                        if (a <= 0.5) {
-                            return SystemState.RED;
-                        } else {
-                            return SystemState.GREEN;
-                        }
-                    } else {
-                        return systemState;
-                    }
-            }
-            return systemState;
-        }
-
-        public void applyState () {
-            led.lightAll(Color.BLACK);
-            led.paintRange(Color.WHITE, minIndexWhite, maxIndexWhite);
-            switch (systemState) {
-                case BLUE:
-                    led.lightOneLed(Color.BLUE, index);
-                    break;
-                case GREEN:
-                    led.lightOneLed(Color.GREEN, index);
-                    break;
-                case RED:
-                    led.lightOneLed(Color.RED, index);
-                    break;
-                default:
-                    led.lightAll(Color.BLACK);
-                    break;
-            }
+    public void updateWantedState() {
+        if (b2.isPressed()) {
+            wantedState = WantedState.B2;
         }
     }
+
+    public SystemState handleStateTransition() {
+        switch (systemState) {
+            case loseMode:
+                if (wantedState == wantedState.B2) {
+                    wantedState = WantedState.IDLE;
+                    systemState = systemState.gameMode;
+                } else {
+                    return systemState;
+                }
+            case gameMode:
+                boolean isCaught =(index == minIndexWhite || index == minIndexWhite + 1 || index == maxIndexWhite);
+                if (isCaught){
+                index = (int) (Math.random() * (led.getLength() - 1));
+            }
+        }
+        return systemState;
+    }
+
+    public void applyState() {
+        led.lightAll(Color.BLACK);
+        led.paintRange(Color.WHITE, minIndexWhite, maxIndexWhite);
+        switch (systemState) {
+            case loseMode:
+                led.lightAll(Color.RED);
+                break;
+            case gameMode:
+                led.lightOneLed(Color.GREEN, index);
+                break;
+            default:
+                led.lightAll(Color.BLACK);
+                break;
+        }
+    }
+}
