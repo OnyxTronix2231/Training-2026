@@ -7,9 +7,10 @@ import java.awt.*;
 import static L5.training.LEDGame.SystemState.*;
 
 public class LEDGame {
-    public static final int speed = 10;
+    public static final int speed = 20;
     // bigger = slower
     public static final int whiteLength = 3;
+    public static final int range = 3;
 
     private LED led;
     private KeyButton b1;
@@ -19,7 +20,7 @@ public class LEDGame {
     private int minIndexWhite;
     private int maxIndexWhite;
     private int loop;
-    private boolean whiteLoopDirection;
+    //private boolean whiteLoopDirection;
 
 
     public LEDGame(int length) {
@@ -28,8 +29,8 @@ public class LEDGame {
         wantedState = WantedState.IDLE;
         b2 = new KeyButton(2);
         loop = 1;
-        whiteLoopDirection = true;
-        minIndexWhite = 11;
+        //whiteLoopDirection = true;
+        minIndexWhite = 15 - range;
         index = (int) (Math.random() * (led.getLength() - 1));
     }
 
@@ -61,9 +62,9 @@ public class LEDGame {
         //  minIndexWhite++;
         //} else {
         minIndexWhite--;
-        minIndexWhite = ((minIndexWhite + 10) % 12 + 1);
+        minIndexWhite = ((minIndexWhite + 13) % 13);
         //}
-        maxIndexWhite = minIndexWhite + 2;
+        maxIndexWhite = minIndexWhite + range - 1;
         //if (maxIndexWhite >= 14 && whiteLoopDirection) {
         //  whiteLoopDirection = false;
         //} else if (minIndexWhite <= 0 && !whiteLoopDirection) {
@@ -82,15 +83,22 @@ public class LEDGame {
             case loseMode:
                 if (wantedState == wantedState.B2) {
                     wantedState = WantedState.IDLE;
-                    systemState = systemState.gameMode;
+                    systemState = SystemState.gameMode;
+                    break;
                 } else {
                     return systemState;
                 }
             case gameMode:
-                boolean isCaught =(index == minIndexWhite || index == minIndexWhite + 1 || index == maxIndexWhite);
-                if (isCaught){
-                index = (int) (Math.random() * (led.getLength() - 1));
-            }
+                if (wantedState == wantedState.B2) {
+                    boolean isCaught = (index >= minIndexWhite && index <= maxIndexWhite);
+                        if (isCaught) {
+                            wantedState = WantedState.IDLE;
+                            index = (int) (Math.random() * (led.getLength() - 1));
+                        } else {
+                            wantedState = WantedState.IDLE;
+                            systemState = SystemState.loseMode;
+                        }
+                }
         }
         return systemState;
     }
