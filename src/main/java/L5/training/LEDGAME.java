@@ -22,6 +22,7 @@ public class LEDGAME {
     private int whiteindex;
     private final int primelength;
     private int count;
+    private boolean Isright;
 
 
     public LEDGAME(int length) {
@@ -34,6 +35,7 @@ public class LEDGAME {
         led = new LED(length);
         primelength=20;
         count=0;
+        Isright=true;
     }
     public void updatewantedstate() {
         if (B1.isPressed()) {
@@ -59,14 +61,26 @@ public class LEDGAME {
     }
 
     public void setWhiteindex(){
-
-        if (count==primelength){
-            whiteindex++;
-            count=0;
-        }
         if (whiteindex==Length-1){
-            whiteindex=0;
+            Isright=false;
         }
+        if (whiteindex==0){
+            Isright=true;
+        }
+        if (count==primelength){
+            count=0;
+            if (Isright==false){
+                whiteindex--;
+
+            }else{
+                whiteindex++;
+            }
+        }
+
+
+
+
+
 
     }
 
@@ -123,6 +137,7 @@ public class LEDGAME {
                       //  return LEDGAMESystemState.RED;
                     case GREEN:
                         chooseindex();
+                        setWhiteindex();
                         return randomcolor();
                     //case GREEN:
                         //return LEDGAMESystemState.BLUE;
@@ -169,11 +184,6 @@ public class LEDGAME {
     public void applycolor() {
 
         led.fullcolor(Color.black);
-        count++;
-        setWhiteindex();
-        led.Colorbyindex(whiteindex,Color.white);
-
-
         switch (systemState) {
             case OFF:
                 led.fullcolor(Color.BLACK);
@@ -186,6 +196,7 @@ public class LEDGAME {
                 break;
             case GREEN:
                 led.Colorbyindex(index,Color.green);
+                setWhiteindex();
                 break;
         }
     }
