@@ -1,7 +1,6 @@
 package L5.training;
 
 import TrainingUtils.KeyButton;
-import edu.wpi.first.math.Num;
 
 import java.awt.*;
 
@@ -13,6 +12,9 @@ public class LEDGame {
     private WantedState wantedState;
     private LEDFunctions functions;
     private int index;
+    private int whitePosition;
+    private final int frameLength = 4;
+    private int frameAmount ;
 
     public LEDGame() {
         b1 = new KeyButton(1);
@@ -50,6 +52,16 @@ public class LEDGame {
                 return systemState;
         }
     }
+
+    public void MoveWhite() {
+        whitePosition++;
+        if (frameAmount == frameLength) {
+        functions.Setled(whitePosition, Color.WHITE);}
+        if (whitePosition == 14) {
+            whitePosition = 0;
+        }
+    }
+
     public void ChooseIndex() {
         double num = Math.random() * 15;
         index = (int) (num);
@@ -99,15 +111,18 @@ public class LEDGame {
     }
 
     public void applystate() {
+        functions.fullcolour(Color.BLACK);
+        frameAmount++;
+        MoveWhite();
         switch (systemState) {
             case BLUE:
-                functions.Setled(index,Color.BLUE);
+                functions.Setled(index, Color.BLUE);
                 break;
             case GREEN:
-                functions.Setled(index,Color.GREEN);
+                functions.Setled(index, Color.GREEN);
                 break;
             case RED:
-                functions.Setled(index,Color.RED);
+                functions.Setled(index, Color.RED);
                 break;
         }
 
