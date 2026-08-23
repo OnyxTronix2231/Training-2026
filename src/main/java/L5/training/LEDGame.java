@@ -13,8 +13,10 @@ public class LEDGame {
     private LEDFunctions functions;
     private int index;
     private int whitePosition;
-    private final int frameLength = 4;
-    private int frameAmount ;
+    private final int frameLength = 20;
+    private int frameAmount;
+    private boolean leftOrRight;
+    private int direction;
 
     public LEDGame() {
         b1 = new KeyButton(1);
@@ -23,6 +25,8 @@ public class LEDGame {
         systemState = SystemState.RED;
         wantedState = WantedState.IDLE;
         functions = new LEDFunctions(15);
+        frameAmount = 0;
+        leftOrRight = true;
     }
 
     public SystemState ChooseColour() {
@@ -54,11 +58,20 @@ public class LEDGame {
     }
 
     public void MoveWhite() {
-        whitePosition++;
-        if (frameAmount == frameLength) {
-        functions.Setled(whitePosition, Color.WHITE);}
-        if (whitePosition == 14) {
-            whitePosition = 0;
+        if (whitePosition==14){
+            leftOrRight = false;
+        }
+        if (whitePosition==0){
+            leftOrRight = true;
+        }
+        if (frameAmount > frameLength) {
+            if(leftOrRight==true) {
+                whitePosition++;
+            }
+            if (leftOrRight==false){
+                whitePosition--;
+            }
+            frameAmount=0;
         }
     }
 
@@ -113,7 +126,10 @@ public class LEDGame {
     public void applystate() {
         functions.fullcolour(Color.BLACK);
         frameAmount++;
-        MoveWhite();
+        functions.Setled(whitePosition, Color.WHITE);
+        if (systemState == SystemState.GREEN){
+            MoveWhite();
+        }
         switch (systemState) {
             case BLUE:
                 functions.Setled(index, Color.BLUE);
