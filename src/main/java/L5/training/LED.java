@@ -24,8 +24,10 @@ public class LED {
         buffer.setRGB(index, color.getRed(), color.getGreen(), color.getBlue());
     }
 
-    public void setOneLed(Color color, int index) {
+    public void setOneLed(Color color, int index,int index1,int index2) {
         placeInBuffer(index, color);
+        placeInBuffer(index1, color);
+        placeInBuffer(index2, color);
         strip.setData(buffer);
     }
 

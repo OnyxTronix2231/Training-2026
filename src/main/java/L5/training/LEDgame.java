@@ -38,8 +38,8 @@ public class LEDgame {
         loops++;
         if (loops%speed==0 && systemState==SystemState.GREEN){
             System.out.println(loop);
-            if (loop >0 && loop<14){
-                if (whiteLoop==true){
+            if (loop >0 && loop<12){
+                if (whiteLoop){
                     loop++;
                 }else {
                     loop--;
@@ -49,7 +49,7 @@ public class LEDgame {
                     loop=1;
                     whiteLoop=true;
                 }else {
-                    loop=13;
+                    loop=11;
                     whiteLoop=false;
                 }
             }
@@ -57,9 +57,7 @@ public class LEDgame {
 
     }
     public enum WantedState {
-        B1,
         B2,
-        B3,
         IDLE,
     }
     public enum SystemState {
@@ -117,19 +115,19 @@ public class LEDgame {
     }
     public void applyState() {
         led.setColor(Color.black);
-        led.setOneLed(Color.WHITE,loop);
+        led.setOneLed(Color.WHITE,loop,loop+1,loop+2);
         switch (systemState) {
             case GREEN:
-                led.setOneLed(Color.GREEN,index);
+                led.setOneLed(Color.GREEN,index,index,index);
                 break;
             case BLUE:
-                led.setOneLed(Color.BLUE,index);
+                led.setOneLed(Color.BLUE,index,index,index);
                 break;
             case RED:
-                led.setOneLed(Color.RED,index);
+                led.setOneLed(Color.RED,index,index,index);
                 break;
             default:
-                led.setOneLed(Color.DARK_GRAY,index);
+                led.setOneLed(Color.DARK_GRAY,index,index+1,index+2);
                 break;
         }
     }
