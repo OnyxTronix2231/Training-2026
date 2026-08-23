@@ -67,10 +67,11 @@ public class LEDGAME {
         if (whiteindex==0){
             Isright=true;
         }
-        if (count==primelength){
+        if (count>primelength){
             count=0;
             if (Isright==false){
                 whiteindex--;
+
 
             }else{
                 whiteindex++;
@@ -184,6 +185,9 @@ public class LEDGAME {
     public void applycolor() {
 
         led.fullcolor(Color.black);
+        led.Colorbyindex(whiteindex,Color.white);
+        count++;
+
         switch (systemState) {
             case OFF:
                 led.fullcolor(Color.BLACK);
@@ -195,9 +199,12 @@ public class LEDGAME {
                 led.Colorbyindex(index,Color.red);
                 break;
             case GREEN:
-                led.Colorbyindex(index,Color.green);
-                setWhiteindex();
+                led.Colorbyindex(index, Color.green);
                 break;
+        }
+
+        if(systemState== GREEN) {
+            setWhiteindex();
         }
     }
 
