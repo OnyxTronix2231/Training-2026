@@ -2,6 +2,7 @@ package L5.training;
 
 import TrainingUtils.KeyButton;
 
+import javax.crypto.spec.PSource;
 import java.awt.*;
 import static L5.training.LEDgame.WantedState.IDLE;
 
@@ -13,20 +14,19 @@ public class LEDgame {
     private LEDgame.SystemState systemState;
     private LEDgame.WantedState wantedState;
     private LED led;
-    private int index;
+    private int index=6;
     private int loop;
     public static final int speed=9;
     private int loops;
     private boolean whiteLoop;
+    private boolean win;
 
     public LEDgame(int length) {
         led = new LED(15);
         whiteLoop=true;
         this.length = length;
         int loops = 0;
-        B1 = new KeyButton(1);
         B2 = new KeyButton(2);
-        B3 = new KeyButton(3);
         systemState = LEDgame.SystemState.RED;
         wantedState = IDLE;
 
@@ -37,7 +37,6 @@ public class LEDgame {
         applyState();
         loops++;
         if (loops%speed==0 && systemState==SystemState.GREEN){
-            System.out.println(loop);
             if (loop >0 && loop<12){
                 if (whiteLoop){
                     loop++;
@@ -54,80 +53,56 @@ public class LEDgame {
                 }
             }
         }
-
     }
     public enum WantedState {
         B2,
         IDLE,
     }
     public enum SystemState {
-        RED,
         GREEN,
-        BLUE
+        RED,
+    }
+    public boolean winOrLose(){
+        System.out.println(index + " " + loop);
+        if ((index != loop) &&(index!=loop+1)&&(index!=loop+2)){
+            return false;
+        }else {
+            return true;
+        }
     }
     public void updateWantedState() {
         wantedState = IDLE;
-        if (B1.isPressed()) {
-            wantedState = WantedState.B1;
-
-        }
         if (B2.isPressed()) {
             wantedState = WantedState.B2;
         }
-        if (B3.isPressed()) {
-            wantedState = WantedState.B3;
-        }
     }
+
     public LEDgame.SystemState handleStateTransition() {
-        switch(wantedState){
-            case B1:
-                if (systemState== SystemState.RED){
-                    index=(int)(Math.random()*(15));
-                    if (Math.random()>0.5){
-                        return SystemState.GREEN;
-                    }else{
-                        return SystemState.BLUE;
-                    }
+        if (wantedState == WantedState.B2){
+            if (SystemState.RED == systemState){
+                return SystemState.GREEN;
+            }else {
+                if (winOrLose()) {
+                    index = (int)(Math.random()*15);
+                }else {
+                    return SystemState.RED;
                 }
-                break;
-            case B2:
-                if (systemState== SystemState.GREEN){
-                    index=(int)(Math.random()*(15));
-                    if (Math.random()>0.5){
-                        return SystemState.RED;
-                    }else{
-                        return SystemState.BLUE;
-                    }
-                }
-                break;
-            case B3:
-                if (systemState== SystemState.BLUE){
-                    index=(int)(Math.random()*(15));
-                    if (Math.random()>0.5){
-                        return SystemState.GREEN;
-                    }else{
-                        return SystemState.RED;
-                    }
-                }
-                break;
+            }
         }
         return systemState;
     }
     public void applyState() {
-        led.setColor(Color.black);
-        led.setOneLed(Color.WHITE,loop,loop+1,loop+2);
+
         switch (systemState) {
             case GREEN:
+                led.setColor(Color.black);
+                led.setOneLed(Color.WHITE,loop,loop+1,loop+2);
                 led.setOneLed(Color.GREEN,index,index,index);
                 break;
-            case BLUE:
-                led.setOneLed(Color.BLUE,index,index,index);
-                break;
+
             case RED:
-                led.setOneLed(Color.RED,index,index,index);
-                break;
-            default:
-                led.setOneLed(Color.DARK_GRAY,index,index+1,index+2);
+                led.setOneLed(Color.GREEN,index,index,index);
+                led.fullCOlor(Color.RED,0,length);
                 break;
         }
     }
