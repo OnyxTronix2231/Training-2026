@@ -17,8 +17,9 @@ public class LEDgame {
     private Color color;
     public static final int speed = 3;
     private int movingDirection;
-    public int counter;
+    private int counter;
     public static final int whiteLineLenght = 3;
+    private int score;
 
     public enum SystemState{
         playing,
@@ -41,6 +42,7 @@ public class LEDgame {
         this.whiteDotIndex = 0;
         this.counter = 0;
         this.movingDirection = 1;
+        this.score = 0;
     }
 
     public void moveWhiteDot(){
@@ -75,9 +77,13 @@ public class LEDgame {
                 case playing:
                     if (dotOnBar()){
                         index = random.nextInt(15);
+                        score ++;
+                        System.out.println("Score: " + score);
                         return SystemState.playing;
                     }
                     else {
+                        score = 0;
+                        System.out.println("Woops:( \n");
                         return SystemState.notPlaying;
                     }
                 default:
