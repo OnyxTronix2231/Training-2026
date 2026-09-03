@@ -13,5 +13,5 @@ public class FromAToZ {
             backToSentence += Sentence[j]+" ";
         }
         System.out.println("\n"+backToSentence);
-    } 
+    }
 }
