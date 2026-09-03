@@ -7,9 +7,9 @@ import java.awt.*;
 public class Shirt extends cloth {
     protected Color color;
 
-    public Shirt(Color color, int size, boolean isClean, Color color1) {
+    public Shirt(Color color, int size, boolean isClean) {
         super(color, size, isClean);
-        this.color = color1;
+        this.color = color;
     }
 
     @Override

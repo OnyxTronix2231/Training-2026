@@ -1,6 +1,7 @@
 package L7;
 
 import L7.lecture.Closet.Clothing;
+import L7.training.Shirt;
 
 import java.awt.*;
 
@@ -37,5 +38,10 @@ public class cloth {
         System.out.println(clothing.Size);
         clothing.wash();
         System.out.println(clothing.getSize());
+    }
+
+    public static void main(String[] args) {
+        cloth shirt = new Shirt(Color.black,40,false);
+        give(shirt);
     }
 }
