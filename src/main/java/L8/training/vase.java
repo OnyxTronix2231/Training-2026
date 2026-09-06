@@ -8,5 +8,4 @@ public class vase {
         this.isbroken=isbroken;
         this.shiny=shiny;
     }
-
 }

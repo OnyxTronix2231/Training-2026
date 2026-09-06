@@ -1,4 +1,4 @@
-package L8.training;
+package L8.training.UnizRobot;
 
 public class Talon implements Motor {
     @Override

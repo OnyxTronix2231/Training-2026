@@ -1,6 +1,8 @@
-package L8.training;
+package L8.training.UnizRobot;
 
-public class Robot implements Breakable2{
+import L8.training.Breakable2;
+
+public class Robot implements Breakable2 {
     private String name;
     private boolean move;
 
