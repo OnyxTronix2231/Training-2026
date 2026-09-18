@@ -17,8 +17,8 @@ public class ShooterIORobot {
         masterMotor = new TalonFX(ROBOT_SHOOTER_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_SHOOTER_FOLLOWER_MOTOR_ID);
 
-        shooterMasterMotorInputs = new OnyxMotorInputs(masterMotor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, OnyxMotorInputs.CanBus.CANIVORE);
-        shooterFollowerMotorInputs = new OnyxMotorInputs(followerMotor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_FOLLOWER_MOTOR_NAME, OnyxMotorInputs.CanBus.CANIVORE);
+        shooterMasterMotorInputs = new OnyxMotorInputs(masterMotor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME);
+        shooterFollowerMotorInputs = new OnyxMotorInputs(followerMotor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_FOLLOWER_MOTOR_NAME);
 
         shooterMasterMotorInputs.updateInputs();
         shooterFollowerMotorInputs.updateInputs();

@@ -1,5 +1,6 @@
 package frc.robot.lib;
 
+import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.units.measure.*;
@@ -10,12 +11,6 @@ import java.util.function.DoubleUnaryOperator;
 
 public class OnyxMotorInputs {
 
-    /** The physical CAN network used to group status signal refreshes. */
-    public enum CanBus {
-        RIO,
-        CANIVORE
-    }
-
     private final int motorID;
     private final StatusSignal<Temperature> motorTemperatureSignal;
     private final StatusSignal<AngularVelocity> motorAngularVelocityRotPerSecSignal;
@@ -24,26 +19,10 @@ public class OnyxMotorInputs {
     private final StatusSignal<Voltage> motorAppliedVoltsSignal;
     private final StatusSignal<Current> motorSupplyCurrentAmpsSignal;
     private final StatusSignal<Angle> motorRawValueSignal;
-
-    /**
-     * Allocated exactly once, in the constructor. It reads the cached {@link #motorConvertedValue}
-     * field rather than re-reading the signal, so it never needs to be reassigned.
-     */
-    private final DoubleSupplier motorValue;
-
+    private DoubleSupplier motorValue;
     private final String motorName;
     private final DoubleUnaryOperator gearingFunction;
     private final String logBase;
-
-    // Pre-built AdvantageKit keys. Concatenating these on every log() call cost 3 heap objects
-    // per key per motor per cycle; building them once at construction costs nothing at runtime.
-    private final String keyRawValue;
-    private final String keyConvertedValue;
-    private final String keyAppliedVolts;
-    private final String keySupplyCurrentAmps;
-    private final String keyStatorCurrentAmps;
-    private final String keyAngularVelocity;
-    private final String keyAngularAcceleration;
 
     private double motorTemperature;
     private double motorAngularVelocityRotPerSec;
@@ -53,12 +32,9 @@ public class OnyxMotorInputs {
     private double motorSupplyCurrentAmps;
     private double motorRawValue;
 
-    /** The gear-ratio-corrected position, computed once per cycle in {@link #updateInputs()}. */
-    private double motorConvertedValue;
+    private boolean isActive;
 
-    private final boolean isActive;
-
-    public OnyxMotorInputs(TalonFX motor, String subsystemName, String motorName, DoubleUnaryOperator gearingFunction, CanBus canBus) {
+    public OnyxMotorInputs(TalonFX motor, String subsystemName, String motorName, DoubleUnaryOperator gearingFunction) {
         isActive = true;
 
         this.gearingFunction = gearingFunction;
@@ -70,29 +46,23 @@ public class OnyxMotorInputs {
         motorAppliedVoltsSignal = motor.getMotorVoltage();
         motorSupplyCurrentAmpsSignal = motor.getSupplyCurrent();
         motorRawValueSignal = motor.getPosition();
-        motorValue = () -> motorConvertedValue;
+        motorValue = () -> gearingFunction.applyAsDouble(motorRawValueSignal.getValueAsDouble());
         logBase = "Subsystems/" + subsystemName + "/";
         this.motorName = motorName;
 
-        String keyBase = logBase + motorName + "/";
-        keyRawValue = keyBase + "RawValue";
-        keyConvertedValue = keyBase + "ConvertedValue";
-        keyAppliedVolts = keyBase + "AppliedVolts";
-        keySupplyCurrentAmps = keyBase + "SupplyCurrentAmps";
-        keyStatorCurrentAmps = keyBase + "StatorCurrentAmps";
-        keyAngularVelocity = keyBase + "AngularVelocityRotPerSec";
-        keyAngularAcceleration = keyBase + "AngularAccelerationRotPerSecSquared";
-
-        SignalManager.register(canBus, motorTemperatureSignal, motorAngularVelocityRotPerSecSignal,
-                motorAngularAccelerationRotPerSecSquaredSignal, motorStatorCurrentAmpsSignal,
-                motorAppliedVoltsSignal, motorSupplyCurrentAmpsSignal, motorRawValueSignal);
+        motorTemperature = motorTemperatureSignal.getValueAsDouble();
+        motorAngularVelocityRotPerSec = motorAngularVelocityRotPerSecSignal.getValueAsDouble();
+        motorAngularAccelerationRotPerSecSquared = motorAngularAccelerationRotPerSecSquaredSignal.getValueAsDouble();
+        motorStatorCurrentAmps = motorStatorCurrentAmpsSignal.getValueAsDouble();
+        motorAppliedVolts = motorAppliedVoltsSignal.getValueAsDouble();
+        motorSupplyCurrentAmps = motorSupplyCurrentAmpsSignal.getValueAsDouble();
+        motorRawValue = motorRawValueSignal.getValueAsDouble();
     }
 
-    public OnyxMotorInputs(TalonFX motor, String subsystemName, String motorName, CanBus canBus) {
-        this(motor, subsystemName, motorName, angle -> angle, canBus);
+    public OnyxMotorInputs(TalonFX motor, String subsystemName, String motorName) {
+        this(motor, subsystemName, motorName, angle -> angle);
     }
 
-    /** Inactive inputs for simulated or absent motors; no CAN signals are registered. */
     public OnyxMotorInputs() {
         isActive = false;
 
@@ -104,7 +74,6 @@ public class OnyxMotorInputs {
         motorAppliedVolts = 0;
         motorSupplyCurrentAmps = 0;
         motorRawValue = 0;
-        motorConvertedValue = 0;
 
         motorTemperatureSignal = null;
         motorAngularVelocityRotPerSecSignal = null;
@@ -116,21 +85,22 @@ public class OnyxMotorInputs {
         motorName = "";
         logBase = "";
         gearingFunction = angle -> angle;
-
-        // Non-null so an inactive instance returns 0.0 instead of throwing.
-        motorValue = () -> motorConvertedValue;
-
-        keyRawValue = "";
-        keyConvertedValue = "";
-        keyAppliedVolts = "";
-        keySupplyCurrentAmps = "";
-        keyStatorCurrentAmps = "";
-        keyAngularVelocity = "";
-        keyAngularAcceleration = "";
     }
 
     public void updateInputs() {
-        if (!isActive) return;
+        if (!isActive) {
+            return;
+        }
+
+        BaseStatusSignal.refreshAll(
+            motorTemperatureSignal,
+            motorAngularVelocityRotPerSecSignal,
+            motorAngularAccelerationRotPerSecSquaredSignal,
+            motorStatorCurrentAmpsSignal,
+            motorAppliedVoltsSignal,
+            motorSupplyCurrentAmpsSignal,
+            motorRawValueSignal
+        );
         motorTemperature = motorTemperatureSignal.getValueAsDouble();
         motorAngularVelocityRotPerSec = motorAngularVelocityRotPerSecSignal.getValueAsDouble();
         motorAngularAccelerationRotPerSecSquared = motorAngularAccelerationRotPerSecSquaredSignal.getValueAsDouble();
@@ -138,22 +108,21 @@ public class OnyxMotorInputs {
         motorAppliedVolts = motorAppliedVoltsSignal.getValueAsDouble();
         motorSupplyCurrentAmps = motorSupplyCurrentAmpsSignal.getValueAsDouble();
         motorRawValue = motorRawValueSignal.getValueAsDouble();
-        motorConvertedValue = gearingFunction.applyAsDouble(motorRawValue);
+        motorValue = () -> gearingFunction.applyAsDouble(motorRawValueSignal.getValueAsDouble());
     }
-
 
     public void log() {
         if (!isActive) {
             return;
         }
 
-        Logger.recordOutput(keyRawValue, motorRawValue);
-        Logger.recordOutput(keyConvertedValue, motorConvertedValue);
-        Logger.recordOutput(keyAppliedVolts, motorAppliedVolts);
-        Logger.recordOutput(keySupplyCurrentAmps, motorSupplyCurrentAmps);
-        Logger.recordOutput(keyStatorCurrentAmps, motorStatorCurrentAmps);
-        Logger.recordOutput(keyAngularVelocity, motorAngularVelocityRotPerSec);
-        Logger.recordOutput(keyAngularAcceleration, motorAngularAccelerationRotPerSecSquared);
+        Logger.recordOutput(logBase + motorName + "/RawValue", motorRawValueSignal.getValueAsDouble());
+        Logger.recordOutput(logBase + motorName + "/ConvertedValue", motorValue);
+        Logger.recordOutput(logBase + motorName + "/AppliedVolts", motorAppliedVoltsSignal.getValueAsDouble());
+        Logger.recordOutput(logBase + motorName + "/SupplyCurrentAmps", motorSupplyCurrentAmpsSignal.getValueAsDouble());
+        Logger.recordOutput(logBase + motorName + "/StatorCurrentAmps", motorStatorCurrentAmpsSignal.getValueAsDouble());
+        Logger.recordOutput(logBase + motorName + "/AngularVelocityRotPerSec", motorAngularVelocityRotPerSecSignal.getValueAsDouble());
+        Logger.recordOutput(logBase + motorName + "/AngularAccelerationRotPerSecSquared", motorAngularAccelerationRotPerSecSquaredSignal.getValueAsDouble());
     }
 
     public double getMotorAppliedVolts() {
@@ -184,14 +153,6 @@ public class OnyxMotorInputs {
         return motorRawValue;
     }
 
-    /**
-     * Preferred accessor for the gear-ratio-corrected position: a plain field read, with no
-     * supplier indirection and no signal re-read. Consistent for the whole loop cycle.
-     */
-    public double getValue() {
-        return motorConvertedValue;
-    }
-
     public int getMotorID() {
         return motorID;
     }
@@ -204,10 +165,6 @@ public class OnyxMotorInputs {
         return motorName;
     }
 
-    /**
-     * Kept for the Shuffleboard / {@code Logger.recordOutput(String, DoubleSupplier)} overloads
-     * that require a supplier. The returned instance is allocated once and never replaced.
-     */
     public DoubleSupplier getMotorValue() {
         return motorValue;
     }
