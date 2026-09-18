@@ -42,12 +42,6 @@ public class Robot extends LoggedRobot {
 
         buffer.setRGB(3, 255, 0, 0);
         strip.setData(buffer);
-
-        // LEDex = new LEDex(7);
-        // LEDex.fullColor(Color.RED);
-        // LEDex.oneLed(3, Color.GREEN);
-
-        // button1 = new KeyButton(1);
     }
 
     /**
