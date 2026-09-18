@@ -27,6 +27,9 @@ public class ConveyanceIORobot implements ConveyanceIO {
         conveyanceMasterMotorInputs = new OnyxMotorInputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
         conveyanceFollowerMotorInputs = new OnyxMotorInputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME);
 
+        masterMotor.getConfigurator().apply(getTalonFXConfiguration());
+        followerMotor.getConfigurator().apply(getTalonFXConfiguration());
+
         followerMotor.setControl(new Follower(CONVEYANCE_MASTER_MOTOR_ID, MotorAlignmentValue.Opposed));
 
         sensor = new DigitalInput(CONVEYANCE_SENSOR_ID);
