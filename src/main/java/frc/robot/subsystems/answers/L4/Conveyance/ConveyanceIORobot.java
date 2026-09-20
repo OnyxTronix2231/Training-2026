@@ -1,4 +1,4 @@
-package frc.robot.subsystems.answers.L3;
+package frc.robot.subsystems.answers.L4.Conveyance;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
@@ -8,9 +8,10 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.subsystems.answers.L4.Conveyance.ConveyanceIO;
 
-import static frc.robot.subsystems.answers.L3.ConveyanceConstants.*;
-import static frc.robot.subsystems.answers.L3.ConveyanceConstants.ConveynaceConstantsRobot.*;
+import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
+import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveynaceConstantsRobot.*;
 
 public class ConveyanceIORobot implements ConveyanceIO {
     private final TalonFX masterMotor;
@@ -50,9 +51,9 @@ public class ConveyanceIORobot implements ConveyanceIO {
     }
 
     @Override
-    public void updateInputs(ConveyanceInputs inputs) {
+    public void updateInputs(ConveynaceInputs inputs) {
         conveyanceMasterMotorInputs.updateInputs();
-        inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
+        inputs.conveyanceMasterMotorInputs = conveyanceMasterMotorInputs;
 
         conveyanceFollowerMotorInputs.updateInputs();
         inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;

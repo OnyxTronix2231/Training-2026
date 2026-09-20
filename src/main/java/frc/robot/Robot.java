@@ -8,16 +8,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.answers.L4.Conveyance.ConveyanceIO;
+import frc.robot.subsystems.answers.L4.Conveyance.ConveyanceIOSimulation;
+import frc.robot.visualization.answers.ConveyanceVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-
-
-import java.awt.*;
-
-import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
@@ -26,12 +24,16 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends LoggedRobot {
+    private ConveyanceIOSimulation conveyanceIOSimulation;
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
+        conveyanceIOSimulation = new ConveyanceIOSimulation();
+        new ConveyanceVisualization(conveyanceIOSimulation);
 
+        conveyanceIOSimulation.setDutyCycle(0.1);
     }
 
     /**
@@ -72,6 +74,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
+        conveyanceIOSimulation.updateInputs(new ConveyanceIO.ConveynaceInputs());
         if (isSimulation()) {
             updateVisualizations();
         }
