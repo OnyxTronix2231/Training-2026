@@ -8,9 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.answers.L4.Elevator.ElevatorIO;
-import frc.robot.subsystems.answers.L4.Elevator.ElevatorIOSimulation;
-import frc.robot.visualization.answers.ElevatorVisualization;
+import frc.robot.subsystems.answers.L4.Flywheel.FlywheelIO;
+import frc.robot.subsystems.answers.L4.Flywheel.FlywheelIOSimulation;
+import frc.robot.subsystems.answers.L4.Hinge.HingeIO;
+import frc.robot.subsystems.answers.L4.Hinge.HingeIOSimulation;
+import frc.robot.visualization.answers.FlywheelVisualization;
+import frc.robot.visualization.answers.HingeVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -30,19 +33,12 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    // private LEDex LEDex;
-    // private KeyButton button1;
-//    private ElevatorIOSimulation elevatorIOSimulation;
+    private HingeIOSimulation hingeIOSimulation;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-
-//        elevatorIOSimulation = new ElevatorIOSimulation();
-//        new ElevatorVisualization(elevatorIOSimulation);
-
-//        elevatorIOSimulation.setDutyCycle(0.01);
     }
 
     /**
@@ -83,8 +79,6 @@ public class Robot extends LoggedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-//        elevatorIOSimulation.updateInputs(new ElevatorIO.ElevatorInputs());
-
         if (isSimulation()) {
             updateVisualizations();
         }
