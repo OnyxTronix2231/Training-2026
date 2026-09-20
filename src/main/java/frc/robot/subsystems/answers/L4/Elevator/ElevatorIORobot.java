@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.lib.OnyxMotorInputs;
 
 import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.ElevatorConstantsRobot.*;
 
 public class ElevatorIORobot implements ElevatorIO{
     private final TalonFX masterMotor;
@@ -43,10 +44,10 @@ public class ElevatorIORobot implements ElevatorIO{
         configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         configuration.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-        configuration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = LENGTH_TO_ROTATIONS(ELEVATOR_FORWARD_SOFT_LIMIT_METERS, false);
+        configuration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ROBOT_LENGTH_TO_ROTATIONS(ELEVATOR_FORWARD_SOFT_LIMIT_METERS);
 
         configuration.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-        configuration.SoftwareLimitSwitch.ReverseSoftLimitThreshold = LENGTH_TO_ROTATIONS(ELEVATOR_REVERSE_SOFT_LIMIT_METERS, false);
+        configuration.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ROBOT_LENGTH_TO_ROTATIONS(ELEVATOR_REVERSE_SOFT_LIMIT_METERS);
 
         return configuration;
     }

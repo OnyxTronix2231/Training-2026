@@ -12,6 +12,7 @@ import frc.robot.lib.OnyxMotorInputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.ElevatorConstantsSimulation.*;
 
 public class ElevatorIOSimulation implements ElevatorIO {
     private final TalonFX motor;
@@ -28,7 +29,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        elevatorMasterMotorInputs = new OnyxMotorInputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME);
+        elevatorMasterMotorInputs = new OnyxMotorInputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
         elevatorFollowerMotorInputs = new OnyxMotorInputs();
     }
 
@@ -40,10 +41,10 @@ public class ElevatorIOSimulation implements ElevatorIO {
         configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         configuration.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-        configuration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = LENGTH_TO_ROTATIONS(ELEVATOR_FORWARD_SOFT_LIMIT_METERS, true);
+        configuration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = SIMULATION_LENGTH_TO_ROTATIONS(ELEVATOR_FORWARD_SOFT_LIMIT_METERS);
 
         configuration.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-        configuration.SoftwareLimitSwitch.ReverseSoftLimitThreshold = LENGTH_TO_ROTATIONS(ELEVATOR_REVERSE_SOFT_LIMIT_METERS, true);
+        configuration.SoftwareLimitSwitch.ReverseSoftLimitThreshold = SIMULATION_LENGTH_TO_ROTATIONS(ELEVATOR_REVERSE_SOFT_LIMIT_METERS);
 
         return configuration;
     }
@@ -62,5 +63,9 @@ public class ElevatorIOSimulation implements ElevatorIO {
     @Override
     public void setDutyCycle(double dutyCycle) {
         motor.set(dutyCycle);
+    }
+
+    public OnyxMotorInputs getMotorInputs() {
+        return elevatorMasterMotorInputs;
     }
 }

@@ -23,5 +23,5 @@ public abstract class VisualizedSubsystem {
         Logger.recordOutput("RobotMechanism", ROBOT_MECHANISM);
     }
 
-    abstract void updateVisualization();
+    protected abstract void updateVisualization();
 }

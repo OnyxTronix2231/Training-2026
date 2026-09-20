@@ -4,22 +4,24 @@
 
 package frc.robot;
 
-import L5.lecture.LEDex;
-import TrainingUtils.AddressableLEDSim;
-import TrainingUtils.KeyButton;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.answers.L4.Elevator.ElevatorIO;
+import frc.robot.subsystems.answers.L4.Elevator.ElevatorIOSimulation;
+import frc.robot.visualization.answers.ElevatorVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+
+
 import java.awt.*;
 
 import static TrainingUtils.LedConstants.LedSimulationConstants.ROBOT_MECHANISM;
+import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -30,18 +32,17 @@ public class Robot extends LoggedRobot {
 
     // private LEDex LEDex;
     // private KeyButton button1;
+    private ElevatorIOSimulation elevatorIOSimulation;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
-        AddressableLEDSim strip = new AddressableLEDSim();
-        AddressableLEDBuffer buffer = new AddressableLEDBuffer(7);
-        strip.setLength(buffer.getLength());
+//        elevatorIOSimulation = new ElevatorIOSimulation();
+//        new ElevatorVisualization(elevatorIOSimulation);
 
-        buffer.setRGB(3, 255, 0, 0);
-        strip.setData(buffer);
+//        elevatorIOSimulation.setDutyCycle(0.01);
     }
 
     /**
@@ -81,13 +82,12 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotPeriodic() {
-        Logger.recordOutput("robot mechanism", ROBOT_MECHANISM);
-
-        // if (button1.isPressed()) {
-        //     LEDex.fullColor(Color.RED);
-        // }
-        // LEDex.periodic();
         CommandScheduler.getInstance().run();
+//        elevatorIOSimulation.updateInputs(new ElevatorIO.ElevatorInputs());
+
+        if (isSimulation()) {
+            updateVisualizations();
+        }
     }
 
     /**
