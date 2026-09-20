@@ -8,10 +8,9 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.lib.OnyxMotorInputs;
-import frc.robot.subsystems.answers.L4.Conveyance.ConveyanceIO;
 
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
-import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveynaceConstantsRobot.*;
+import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveyanceRobotConstants.*;
 
 public class ConveyanceIORobot implements ConveyanceIO {
     private final TalonFX masterMotor;
@@ -19,8 +18,6 @@ public class ConveyanceIORobot implements ConveyanceIO {
 
     private final OnyxMotorInputs conveyanceMasterMotorInputs;
     private final OnyxMotorInputs conveyanceFollowerMotorInputs;
-
-    private final DigitalInput sensor;
 
     public ConveyanceIORobot() {
         masterMotor = new TalonFX(ROBOT_CONVEYANCE_MASTER_MOTOR_ID);
@@ -33,8 +30,6 @@ public class ConveyanceIORobot implements ConveyanceIO {
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());
 
         followerMotor.setControl(new Follower(ROBOT_CONVEYANCE_MASTER_MOTOR_ID, MotorAlignmentValue.Opposed));
-
-        sensor = new DigitalInput(ROBOT_CONVEYANCE_SENSOR_ID);
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -57,8 +52,6 @@ public class ConveyanceIORobot implements ConveyanceIO {
 
         conveyanceFollowerMotorInputs.updateInputs();
         inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
-
-        inputs.isSensorSeeing = sensor.get();
     }
 
     @Override

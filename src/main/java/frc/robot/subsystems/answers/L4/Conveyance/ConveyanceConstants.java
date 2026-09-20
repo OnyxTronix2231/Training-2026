@@ -8,17 +8,15 @@ public class ConveyanceConstants {
     public static final String CONVEYANCE_FOLLOWER_MOTOR_NAME = "ConveyanceFollowerMotor";
 
 
-    public static class ConveynaceConstantsRobot {
+    public static class ConveyanceRobotConstants {
         public static final int ROBOT_CONVEYANCE_MASTER_MOTOR_ID = 16;
         public static final int ROBOT_CONVEYANCE_FOLLOWER_MOTOR_ID = 17;
 
-        public static final int ROBOT_CONVEYANCE_SENSOR_ID = 20;
         public static final int ROBOT_CONVEYANCE_SUPPLY_LIMIT = 40;
     }
 
-    public static class ConveyanceConstantsSimulation {
+    public static class ConveyanceSimulationConstants {
         public static final int SIMULATION_CONVEYANCE_MASTER_MOTOR_ID = 16;
-        public static final int SIMULATION_CONVEYANCE_FOLLOWER_MOTOR_ID = 17;
 
         public static final int SIMULATION_CONVEYANCE_NUM_OF_MOTORS = 2;
         public static final double SIMULATION_CONVEYANCE_LENGTH_METERS = 0.001;

@@ -12,7 +12,7 @@ import frc.robot.lib.OnyxMotorInputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
-import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveyanceConstantsSimulation.*;
+import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.*;
 
 public class ConveyanceIOSimulation implements ConveyanceIO {
     private TalonFX motor;
@@ -53,8 +53,6 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
         inputs.conveyanceMasterMotorInputs = conveyanceMasterMotorInputs;
 
         inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
-
-        inputs.isSensorSeeing = false;
     }
 
     @Override

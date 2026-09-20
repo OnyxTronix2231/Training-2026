@@ -11,8 +11,6 @@ public interface ConveyanceIO {
     class ConveyanceInputs {
         public OnyxMotorInputs conveyanceMasterMotorInputs;
         public OnyxMotorInputs conveyanceFollowerMotorInputs;
-
-        public boolean isSensorSeeing;
     }
 
     void setDutyCycle(double dutyCycle);
