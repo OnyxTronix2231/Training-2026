@@ -13,6 +13,7 @@ import frc.robot.lib.OnyxMotorInputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.*;
+import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.HingeSimulationConstants.*;
 
 public class HingeIOSimulation implements HingeIO {
     private TalonFX motor;

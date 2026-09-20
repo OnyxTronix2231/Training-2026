@@ -8,8 +8,6 @@ public interface ElevatorIO {
     class ElevatorInputs {
         public OnyxMotorInputs elevatorMasterMotorInputs;
         public OnyxMotorInputs elevatorFollowerMotorInputs;
-
-        public boolean isSwitchPressed;
     }
 
     void setDutyCycle(double dutyCycle);

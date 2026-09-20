@@ -12,6 +12,7 @@ import frc.robot.lib.OnyxMotorInputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.ElevatorSimulationConstants.*;
 
 public class ElevatorIOSimulation implements ElevatorIO {
     private final TalonFX motor;
@@ -55,7 +56,6 @@ public class ElevatorIOSimulation implements ElevatorIO {
         elevatorMasterMotorInputs.updateInputs();
         inputs.elevatorMasterMotorInputs = elevatorMasterMotorInputs;
 
-        elevatorFollowerMotorInputs.updateInputs();
         inputs.elevatorFollowerMotorInputs = elevatorFollowerMotorInputs;
     }
 
