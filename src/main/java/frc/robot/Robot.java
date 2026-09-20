@@ -8,12 +8,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.answers.L4.Flywheel.FlywheelIO;
-import frc.robot.subsystems.answers.L4.Flywheel.FlywheelIOSimulation;
-import frc.robot.subsystems.answers.L4.Hinge.HingeIO;
-import frc.robot.subsystems.answers.L4.Hinge.HingeIOSimulation;
-import frc.robot.visualization.answers.FlywheelVisualization;
-import frc.robot.visualization.answers.HingeVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -32,13 +26,12 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends LoggedRobot {
-
-    private HingeIOSimulation hingeIOSimulation;
-
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
+
+        // ...
     }
 
     /**
