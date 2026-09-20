@@ -31,7 +31,7 @@ public class Robot extends LoggedRobot {
         initializeLogger();
         Superstructure.init();
 
-        // ...
+        
     }
 
     /**
