@@ -32,7 +32,7 @@ public class Robot extends LoggedRobot {
 
     // private LEDex LEDex;
     // private KeyButton button1;
-    private ElevatorIOSimulation elevatorIOSimulation;
+//    private ElevatorIOSimulation elevatorIOSimulation;
 
     @Override
     public void robotInit() {
