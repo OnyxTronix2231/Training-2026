@@ -24,12 +24,10 @@ public class TriggerShuffleboard {
         tab.addString("System State", () -> Trigger.getInstance().getSystemState().toString());
 
         tab.add("Idle", new InstantCommand(() -> Trigger.getInstance().setWantedState(Trigger.WantedState.IDLE)));
-        tab.add("Move by Speed", new InstantCommand(() -> Trigger.getInstance().setWantedState(Trigger.WantedState.MOVE_BY_SPEED , trigger.getTargetVelocity()))));
+        tab.add("Move by Speed", new InstantCommand(() -> Trigger.getInstance().setWantedState(Trigger.WantedState.MOVE_BY_SPEED , trigger.getTargetVelocity())));
 
         tab.addBoolean("Trigger on Target", () -> Trigger.getInstance().isOnTarget());
 
         tab.addBoolean("Sensor Value", () -> Trigger.getInstance().getSensorValue());
-
-        tab.add("Toggle Sensor", new InstantCommand((() -> Trigger.getInstance().))
     }
 }
