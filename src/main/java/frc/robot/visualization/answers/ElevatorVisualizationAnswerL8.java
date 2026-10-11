@@ -2,24 +2,23 @@ package frc.robot.visualization.answers;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
-import frc.robot.subsystems.answers.L4.Elevator.ElevatorIOSimulation;
+import frc.robot.subsystems.answers.L8.Elevator;
 import frc.robot.visualization.VisualizedSubsystem;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
-import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.ELEVATOR_SUBSYSTEM_NAME;
+import static frc.robot.subsystems.answers.L8.ElevatorConstants.ELEVATOR_SUBSYSTEM_NAME;
 
-public class ElevatorVisualizationAnswer extends VisualizedSubsystem {
-    private final ElevatorIOSimulation elevatorIOSimulation;
+public class ElevatorVisualizationAnswerL8 extends VisualizedSubsystem {
+    private Elevator elevator;
 
-    public ElevatorVisualization(ElevatorIOSimulation elevatorIOSimulation) {
-        this.elevatorIOSimulation = elevatorIOSimulation;
+    public ElevatorVisualizationAnswerL8() {
+        this.elevator = Elevator.getInstance();
     }
 
     @Override
     protected void updateVisualization() {
-        System.out.println(elevatorIOSimulation.getMotorInputs().getMotorValue().getAsDouble());
-        ElevatorVisualizationMechanism.ELEVATOR.setLength(0.3 + elevatorIOSimulation.getMotorInputs().getMotorValue().getAsDouble());
+        ElevatorVisualizationMechanism.ELEVATOR.setLength(0.3 + elevator.getElevatorPosition());
     }
 
     public class ElevatorVisualizationMechanism {
