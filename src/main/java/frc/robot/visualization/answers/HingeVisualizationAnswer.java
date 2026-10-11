@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
 import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.HINGE_SUBSYSTEM_NAME;
 
-public class HingeVisualization extends VisualizedSubsystem {
+public class HingeVisualizationAnswer extends VisualizedSubsystem {
     HingeIOSimulation hingeIOSimulation;
     public HingeVisualization(HingeIOSimulation hingeIOSimulation) {
         this.hingeIOSimulation = hingeIOSimulation;

@@ -7,11 +7,10 @@ import frc.robot.visualization.VisualizedSubsystem;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
-import static frc.robot.lib.VisualizationLib.*;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.CONVEYANCE_SUBSYSTEM_NAME;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.CONVEYANCE_VISUALIZATION_MULTIPLIER;
 
-public class ConveyanceVisualization extends VisualizedSubsystem {
+public class ConveyanceVisualizationAnswer extends VisualizedSubsystem {
     ConveyanceIOSimulation conveyanceIOSimulation;
     public ConveyanceVisualization(ConveyanceIOSimulation conveyanceIOSimulation) {
         this.conveyanceIOSimulation = conveyanceIOSimulation;

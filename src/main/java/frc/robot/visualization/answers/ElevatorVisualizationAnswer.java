@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
 import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.ELEVATOR_SUBSYSTEM_NAME;
 
-public class ElevatorVisualization extends VisualizedSubsystem {
+public class ElevatorVisualizationAnswer extends VisualizedSubsystem {
     private final ElevatorIOSimulation elevatorIOSimulation;
 
     public ElevatorVisualization(ElevatorIOSimulation elevatorIOSimulation) {

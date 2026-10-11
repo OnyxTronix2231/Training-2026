@@ -12,7 +12,7 @@ import static frc.robot.lib.VisualizationLib.updateVisualizedWheel;
 import static frc.robot.subsystems.answers.L5.TriggerConstants.TRIGGER_SUBSYSTEM_NAME;
 import static frc.robot.subsystems.answers.L5.TriggerConstants.TriggerSimulationConstants.TRIGGER_VISUALIZATION_MULTIPLIER;
 
-public class TriggerVisualization extends VisualizedSubsystem {
+public class TriggerVisualizationAnswer extends VisualizedSubsystem {
     private Trigger trigger;
     
     public TriggerVisualization() {
