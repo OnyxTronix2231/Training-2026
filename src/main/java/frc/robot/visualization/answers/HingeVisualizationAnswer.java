@@ -11,7 +11,8 @@ import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.HINGE_SUBSYST
 
 public class HingeVisualizationAnswer extends VisualizedSubsystem {
     HingeIOSimulation hingeIOSimulation;
-    public HingeVisualization(HingeIOSimulation hingeIOSimulation) {
+
+    public HingeVisualizationAnswer(HingeIOSimulation hingeIOSimulation) {
         this.hingeIOSimulation = hingeIOSimulation;
     }
 
