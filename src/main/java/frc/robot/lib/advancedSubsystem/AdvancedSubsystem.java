@@ -2,8 +2,7 @@ package frc.robot.lib.advancedSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.lib.OnyxMotorInputs;
-
+import frc.robot.lib.OnyxMotorOutputs;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -280,7 +279,7 @@ public abstract class AdvancedSubsystem extends SubsystemBase {
 
     protected abstract void moveToPosition();
 
-    protected abstract List<OnyxMotorInputs> getMotorInputs();
+    protected abstract List<OnyxMotorOutputs> getMotorInputs();
 
     protected abstract double getTotalCurrent();
 
