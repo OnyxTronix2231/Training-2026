@@ -1,6 +1,6 @@
 package frc.robot.subsystems.answers.L6;
 
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.advancedSubsystem.VelocityBasedSubsystem;
 import org.littletonrobotics.junction.Logger;
 
@@ -135,7 +135,7 @@ public class Trigger extends VelocityBasedSubsystem {
     }
 
     @Override
-    protected List<OnyxMotorInputs> getMotorInputs() {
+    protected List<OnyxMotorOutputs> getMotorInputs() {
         return List.of(triggerInputs.triggerMotorInputs);
     }
 

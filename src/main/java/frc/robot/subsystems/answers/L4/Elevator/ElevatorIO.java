@@ -1,13 +1,13 @@
 package frc.robot.subsystems.answers.L4.Elevator;
 
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 public interface ElevatorIO {
     void updateInputs(ElevatorInputs inputs);
 
     class ElevatorInputs {
-        public OnyxMotorInputs elevatorMasterMotorInputs;
-        public OnyxMotorInputs elevatorFollowerMotorInputs;
+        public OnyxMotorOutputs elevatorMasterMotorInputs;
+        public OnyxMotorOutputs elevatorFollowerMotorInputs;
     }
 
     void setDutyCycle(double dutyCycle);

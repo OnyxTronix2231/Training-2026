@@ -6,7 +6,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.subsystems.answers.L5.TriggerConstants.TRIGGER_MOTOR_NAME;
 import static frc.robot.subsystems.answers.L5.TriggerConstants.TRIGGER_SUBSYSTEM_NAME;
@@ -17,7 +17,7 @@ import static frc.robot.subsystems.answers.L6.TriggerConstants.TriggerRobotConst
 public class TriggerIORobot implements TriggerIO {
     private final TalonFX motor;
 
-    private final OnyxMotorInputs triggerMotorInputs;
+    private final OnyxMotorOutputs triggerMotorInputs;
 
     private final DigitalInput sensor;
 
@@ -26,7 +26,7 @@ public class TriggerIORobot implements TriggerIO {
     public TriggerIORobot() {
         motor = new TalonFX(ROBOT_TRIGGER_MOTOR_ID);
 
-        triggerMotorInputs = new OnyxMotorInputs(motor, TRIGGER_SUBSYSTEM_NAME, TRIGGER_MOTOR_NAME);
+        triggerMotorInputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME, TRIGGER_MOTOR_NAME);
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 

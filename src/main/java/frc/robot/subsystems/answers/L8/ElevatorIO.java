@@ -1,14 +1,14 @@
 package frc.robot.subsystems.answers.L8;
 
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.PID.PIDValues;
 
 public interface ElevatorIO {
     void updateInputs(ElevatorInputs inputs);
 
     class ElevatorInputs {
-        public OnyxMotorInputs elevatorMasterMotorInputs;
-        public OnyxMotorInputs elevatorFollowerMotorInputs;
+        public OnyxMotorOutputs elevatorMasterMotorInputs;
+        public OnyxMotorOutputs elevatorFollowerMotorInputs;
 
         public boolean isSwitchPressed;
 

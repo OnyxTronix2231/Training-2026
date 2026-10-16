@@ -8,7 +8,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.*;
@@ -18,8 +18,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
     private final TalonFX motor;
     private final DCMotorSim simulatedMotor;
 
-    private final OnyxMotorInputs elevatorMasterMotorInputs;
-    private final OnyxMotorInputs elevatorFollowerMotorInputs;
+    private final OnyxMotorOutputs elevatorMasterMotorInputs;
+    private final OnyxMotorOutputs elevatorFollowerMotorInputs;
 
     public ElevatorIOSimulation() {
         motor = new TalonFX(SIMULATION_ELEVATOR_MOTOR_ID);
@@ -29,8 +29,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        elevatorMasterMotorInputs = new OnyxMotorInputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
-        elevatorFollowerMotorInputs = new OnyxMotorInputs();
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
+        elevatorFollowerMotorInputs = new OnyxMotorOutputs();
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -64,7 +64,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorInputs getMotorInputs() {
+    public OnyxMotorOutputs getMotorInputs() {
         return elevatorMasterMotorInputs;
     }
 }

@@ -1,12 +1,12 @@
 package frc.robot.subsystems.answers.L4.Hinge;
 
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 public interface HingeIO {
     void updateInputs(HingeInputs inputs);
 
     class HingeInputs {
-        OnyxMotorInputs hingeMotorInputs;
+        OnyxMotorOutputs hingeMotorInputs;
     }
 
     void setDutyCycle(double dutyCycle);

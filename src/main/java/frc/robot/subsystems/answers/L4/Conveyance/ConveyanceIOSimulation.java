@@ -8,7 +8,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
@@ -19,8 +19,8 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
 
     private DCMotorSim simulatedMotor;
 
-    private OnyxMotorInputs conveyanceMasterMotorInputs;
-    private OnyxMotorInputs conveyanceFollowerMotorInputs;
+    private OnyxMotorOutputs conveyanceMasterMotorInputs;
+    private OnyxMotorOutputs conveyanceFollowerMotorInputs;
 
     public ConveyanceIOSimulation() {
         motor = new TalonFX(SIMULATION_CONVEYANCE_MASTER_MOTOR_ID);
@@ -31,8 +31,8 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        conveyanceMasterMotorInputs = new OnyxMotorInputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
-        conveyanceFollowerMotorInputs = new OnyxMotorInputs();
+        conveyanceMasterMotorInputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
+        conveyanceFollowerMotorInputs = new OnyxMotorOutputs();
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -60,7 +60,7 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorInputs getMotorInputs() {
+    public OnyxMotorOutputs getMotorInputs() {
         return conveyanceMasterMotorInputs;
     }
 }

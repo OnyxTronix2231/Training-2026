@@ -1,7 +1,7 @@
 package frc.robot.subsystems.answers.L8;
 
 import edu.wpi.first.math.filter.Debouncer;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.PID.PIDValues;
 import frc.robot.lib.advancedSubsystem.PositionBasedSubsystem;
 import org.littletonrobotics.junction.Logger;
@@ -153,7 +153,7 @@ public class Elevator extends PositionBasedSubsystem {
     }
 
     @Override
-    protected List<OnyxMotorInputs> getMotorInputs() {
+    protected List<OnyxMotorOutputs> getMotorInputs() {
         return List.of(elevatorInputs.elevatorMasterMotorInputs, elevatorInputs.elevatorFollowerMotorInputs);
     }
 

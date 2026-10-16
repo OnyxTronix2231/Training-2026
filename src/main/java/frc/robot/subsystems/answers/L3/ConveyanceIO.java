@@ -1,16 +1,14 @@
 package frc.robot.subsystems.answers.L3;
 
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import frc.robot.lib.OnyxMotorInputs;
-import frc.robot.lib.PID.PIDValues;
+import frc.robot.lib.OnyxMotorOutputs;
 
 public interface ConveyanceIO {
 
     void updateInputs(ConveyanceIO.ConveyanceInputs inputs);
 
     class ConveyanceInputs {
-        public OnyxMotorInputs conveyanceMasterMotorInputs;
-        public OnyxMotorInputs conveyanceFollowerMotorInputs;
+        public OnyxMotorOutputs conveyanceMasterMotorInputs;
+        public OnyxMotorOutputs conveyanceFollowerMotorInputs;
     }
 
     void setDutyCycle(double dutyCycle);

@@ -9,7 +9,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.*;
@@ -20,7 +20,7 @@ public class HingeIOSimulation implements HingeIO {
 
     private DCMotorSim simulatedMotor;
 
-    private OnyxMotorInputs hingeMotorInputs;
+    private OnyxMotorOutputs hingeMotorInputs;
     
     public HingeIOSimulation() {
         motor = new TalonFX(SIMULATION_HINGE_MOTOR_ID);
@@ -29,7 +29,7 @@ public class HingeIOSimulation implements HingeIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_HINGE_LENGTH_METERS, SIMULATION_HINGE_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_HINGE_NUM_OF_MOTORS));
 
-        hingeMotorInputs = new OnyxMotorInputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE);
+        hingeMotorInputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE);
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
     }
@@ -63,7 +63,7 @@ public class HingeIOSimulation implements HingeIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorInputs getMotorInputs() {
+    public OnyxMotorOutputs getMotorInputs() {
         return hingeMotorInputs;
     }
 }

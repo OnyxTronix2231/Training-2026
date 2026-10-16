@@ -9,7 +9,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L5.TriggerConstants.TRIGGER_MOTOR_NAME;
@@ -22,7 +22,7 @@ public class TriggerIOSimulation implements TriggerIO {
 
     private DCMotorSim simulatedMotor;
 
-    private OnyxMotorInputs triggerMotorInputs;
+    private OnyxMotorOutputs triggerMotorInputs;
 
     private boolean isSensorSeeing;
 
@@ -35,7 +35,7 @@ public class TriggerIOSimulation implements TriggerIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_TRIGGER_LENGTH_METERS, SIMULATION_TRIGGER_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_TRIGGER_NUM_OF_MOTORS));
 
-        triggerMotorInputs = new OnyxMotorInputs(motor, TRIGGER_SUBSYSTEM_NAME, TRIGGER_MOTOR_NAME);
+        triggerMotorInputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME, TRIGGER_MOTOR_NAME);
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 

@@ -6,8 +6,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveyanceRobotConstants.*;
@@ -16,15 +15,15 @@ public class ConveyanceIORobot implements ConveyanceIO {
     private final TalonFX masterMotor;
     private final TalonFX followerMotor;
 
-    private final OnyxMotorInputs conveyanceMasterMotorInputs;
-    private final OnyxMotorInputs conveyanceFollowerMotorInputs;
+    private final OnyxMotorOutputs conveyanceMasterMotorInputs;
+    private final OnyxMotorOutputs conveyanceFollowerMotorInputs;
 
     public ConveyanceIORobot() {
         masterMotor = new TalonFX(ROBOT_CONVEYANCE_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_CONVEYANCE_FOLLOWER_MOTOR_ID);
 
-        conveyanceMasterMotorInputs = new OnyxMotorInputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
-        conveyanceFollowerMotorInputs = new OnyxMotorInputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME);
+        conveyanceMasterMotorInputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
+        conveyanceFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME);
 
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());

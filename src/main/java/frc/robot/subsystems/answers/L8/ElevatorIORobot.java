@@ -8,7 +8,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.PID.PIDValues;
 
 import static frc.robot.subsystems.answers.L8.ElevatorConstants.*;
@@ -18,8 +18,8 @@ public class ElevatorIORobot implements ElevatorIO {
     private final TalonFX masterMotor;
     private final TalonFX followerMotor;
 
-    private final OnyxMotorInputs elevatorMasterMotorInputs;
-    private final OnyxMotorInputs elevatorFollowerMotorInputs;
+    private final OnyxMotorOutputs elevatorMasterMotorInputs;
+    private final OnyxMotorOutputs elevatorFollowerMotorInputs;
 
     private final DigitalInput limitSwitch;
     private final CANcoder encoder;
@@ -30,8 +30,8 @@ public class ElevatorIORobot implements ElevatorIO {
         masterMotor = new TalonFX(ROBOT_ELEVATOR_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_ELEVATOR_FOLLOWER_MOTOR_ID);
 
-        elevatorMasterMotorInputs = new OnyxMotorInputs(masterMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, ROTATIONS_TO_LENGTH);
-        elevatorFollowerMotorInputs = new OnyxMotorInputs(followerMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_FOLLOWER_MOTOR_NAME, ROTATIONS_TO_LENGTH);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(masterMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, ROTATIONS_TO_LENGTH);
+        elevatorFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_FOLLOWER_MOTOR_NAME, ROTATIONS_TO_LENGTH);
 
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());

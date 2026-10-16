@@ -1,12 +1,12 @@
 package frc.robot.subsystems.answers.L6;
 
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 
 public interface TriggerIO {
     void updateInputs(TriggerInputs inputs);
 
     class TriggerInputs {
-        OnyxMotorInputs triggerMotorInputs;
+        OnyxMotorOutputs triggerMotorInputs;
 
         boolean isSensorSeeing;
     }

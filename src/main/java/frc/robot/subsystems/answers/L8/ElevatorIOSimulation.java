@@ -2,7 +2,6 @@ package frc.robot.subsystems.answers.L8;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -10,7 +9,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.robot.lib.OnyxMotorInputs;
+import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.PID.PIDValues;
 
 import static frc.robot.Constants.updateMotor;
@@ -22,8 +21,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
 
     private final DCMotorSim simulatedMotor;
 
-    private final OnyxMotorInputs elevatorMasterMotorInputs;
-    private final OnyxMotorInputs elevatorFollowerMotorInputs;
+    private final OnyxMotorOutputs elevatorMasterMotorInputs;
+    private final OnyxMotorOutputs elevatorFollowerMotorInputs;
 
     private final PositionVoltage positionVoltage;
 
@@ -34,8 +33,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_ELEVATOR_LENGTH_METERS, SIMULATION_ELEVATOR_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_ELEVATOR_NUM_OF_MOTORS));
 
-        elevatorMasterMotorInputs = new OnyxMotorInputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
-        elevatorFollowerMotorInputs = new OnyxMotorInputs();
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
+        elevatorFollowerMotorInputs = new OnyxMotorOutputs();
 
         elevatorMasterMotorInputs.updateInputs();
 
