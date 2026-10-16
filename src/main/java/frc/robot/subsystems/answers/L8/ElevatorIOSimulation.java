@@ -33,7 +33,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_ELEVATOR_LENGTH_METERS, SIMULATION_ELEVATOR_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_ELEVATOR_NUM_OF_MOTORS));
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
         elevatorFollowerMotorInputs = new OnyxMotorOutputs();
 
         elevatorMasterMotorInputs.updateInputs();

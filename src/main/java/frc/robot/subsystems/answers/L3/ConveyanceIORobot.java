@@ -22,8 +22,8 @@ public class ConveyanceIORobot implements ConveyanceIO {
         masterMotor = new TalonFX(ROBOT_CONVEYANCE_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_CONVEYANCE_FOLLOWER_MOTOR_ID);
 
-        conveyanceMasterMotorInputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
-        conveyanceFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME);
+        conveyanceMasterMotorInputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CONVEYANCE_CAN_BUS);
+        conveyanceFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME, CONVEYANCE_CAN_BUS);
 
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());

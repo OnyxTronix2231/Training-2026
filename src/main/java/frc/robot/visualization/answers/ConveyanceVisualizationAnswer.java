@@ -24,7 +24,7 @@ public class ConveyanceVisualizationAnswer extends VisualizedSubsystem {
 
     @Override
     protected void updateVisualization() {
-        wheel.spin(conveyanceIOSimulation.getMotorInputs().getMotorAngularVelocityRotPerSec() * CONVEYANCE_VISUALIZATION_MULTIPLIER);
+        wheel.spin(conveyanceIOSimulation.getMotorOutputs().getMotorAngularVelocityRotPerSec() * CONVEYANCE_VISUALIZATION_MULTIPLIER);
     }
 
     public class ConveyanceVisualizationMechanism {

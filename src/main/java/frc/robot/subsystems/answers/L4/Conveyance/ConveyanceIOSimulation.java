@@ -31,7 +31,7 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        conveyanceMasterMotorInputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME);
+        conveyanceMasterMotorInputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CONVEYANCE_CAN_BUS);
         conveyanceFollowerMotorInputs = new OnyxMotorOutputs();
     }
 
@@ -60,7 +60,7 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorOutputs getMotorInputs() {
+    public OnyxMotorOutputs getMotorOutputs() {
         return conveyanceMasterMotorInputs;
     }
 }

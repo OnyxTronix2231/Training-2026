@@ -29,7 +29,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
         elevatorFollowerMotorInputs = new OnyxMotorOutputs();
     }
 
@@ -64,7 +64,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorOutputs getMotorInputs() {
+    public OnyxMotorOutputs getMotorOutputs() {
         return elevatorMasterMotorInputs;
     }
 }

@@ -18,8 +18,8 @@ public class HingeVisualizationAnswer extends VisualizedSubsystem {
 
     @Override
     protected void updateVisualization() {
-        System.out.println(hingeIOSimulation.getMotorInputs().getMotorValue().getAsDouble());
-        HingeVisualizationMechanism.HINGE.setAngle(hingeIOSimulation.getMotorInputs().getMotorValue().getAsDouble());
+        System.out.println(hingeIOSimulation.getMotorOutputs().getMotorValue().getAsDouble());
+        HingeVisualizationMechanism.HINGE.setAngle(hingeIOSimulation.getMotorOutputs().getMotorValue().getAsDouble());
     }
 
     public class HingeVisualizationMechanism {

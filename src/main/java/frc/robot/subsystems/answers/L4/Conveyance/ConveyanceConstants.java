@@ -1,9 +1,12 @@
 package frc.robot.subsystems.answers.L4.Conveyance;
 
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
+
 public class ConveyanceConstants {
 
 
     public static final String CONVEYANCE_SUBSYSTEM_NAME = "Conveyance";
+    public static final CanBus CONVEYANCE_CAN_BUS = CanBus.RIO;
     public static final String CONVEYANCE_MASTER_MOTOR_NAME = "ConveyanceMasterMotor";
     public static final String CONVEYANCE_FOLLOWER_MOTOR_NAME = "ConveyanceFollowerMotor";
 

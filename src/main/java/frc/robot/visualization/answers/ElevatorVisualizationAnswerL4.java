@@ -18,7 +18,7 @@ public class ElevatorVisualizationAnswerL4 extends VisualizedSubsystem {
 
     @Override
     protected void updateVisualization() {
-        ElevatorVisualizationMechanism.ELEVATOR.setLength(0.3 + elevatorIOSimulation.getMotorInputs().getMotorValue().getAsDouble());
+        ElevatorVisualizationMechanism.ELEVATOR.setLength(0.3 + elevatorIOSimulation.getMotorOutputs().getMotorValue().getAsDouble());
     }
 
     public class ElevatorVisualizationMechanism {

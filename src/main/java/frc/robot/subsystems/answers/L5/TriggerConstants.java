@@ -1,7 +1,10 @@
 package frc.robot.subsystems.answers.L5;
 
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
+
 public class TriggerConstants {
     public static final String TRIGGER_SUBSYSTEM_NAME = "Trigger";
+    public static final CanBus TRIGGER_CAN_BUS = CanBus.CANIVORE;
 
     public static final String TRIGGER_MOTOR_NAME = "TriggerMotor";
 

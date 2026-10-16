@@ -1,9 +1,11 @@
 package frc.robot.subsystems.answers.L4.Elevator;
 
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 import java.util.function.DoubleUnaryOperator;
 
 public class ElevatorConstants {
     public static final String ELEVATOR_SUBSYSTEM_NAME = "Elevator";
+    public static final CanBus ELEVATOR_CAN_BUS = CanBus.RIO;
 
     public static final String ELEVATOR_MASTER_MOTOR_NAME = "ElevatorMasterMotor";
     public static final String ELEVATOR_FOLLOWER_MOTOR_NAME = "ElevatorFollowerMotor";

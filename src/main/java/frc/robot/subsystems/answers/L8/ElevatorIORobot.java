@@ -30,8 +30,8 @@ public class ElevatorIORobot implements ElevatorIO {
         masterMotor = new TalonFX(ROBOT_ELEVATOR_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_ELEVATOR_FOLLOWER_MOTOR_ID);
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(masterMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, ROTATIONS_TO_LENGTH);
-        elevatorFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_FOLLOWER_MOTOR_NAME, ROTATIONS_TO_LENGTH);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(masterMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
+        elevatorFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_FOLLOWER_MOTOR_NAME, ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
 
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());
