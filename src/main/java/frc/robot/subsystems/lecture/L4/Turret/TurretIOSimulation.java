@@ -6,6 +6,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.lecture.L4.Turret.TurretConstants.*;
@@ -23,7 +24,7 @@ public class TurretIOSimulation implements TurretIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_TURRET_LENGTH_METERS, SIMULATION_TURRET_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_TURRET_NUM_OF_MOTORS));
 
-        turretMotorInputs = new OnyxMotorOutputs(motor, TURRET_SUBSYSTEM_NAME, TURRET_MOTOR_NAME, ROTATIONS_TO_DEGREES, OnyxMotorOutputs.CanBus.RIO);
+        turretMotorInputs = new OnyxMotorOutputs(motor, TURRET_SUBSYSTEM_NAME, TURRET_MOTOR_NAME, ROTATIONS_TO_DEGREES, CanBus.RIO);
     }
 
     @Override

@@ -6,6 +6,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.lecture.L4.LinearIntake.LinearIntakeConstants.*;
@@ -23,7 +24,7 @@ public class LinearIntakeIOSimulation implements LinearIntakeIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_LINEAR_INTAKE_LENGTH_METERS, SIMULATION_LINEAR_INTAKE_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_LINEAR_INTAKE_NUM_OF_MOTORS));
 
-        linearIntakeMotorInputs = new OnyxMotorOutputs(motor, LINEAR_INTAKE_SUBSYSTEM_NAME, LINEAR_INTAKE_MOTOR_NAME, ROTATIONS_TO_METERS, OnyxMotorOutputs.CanBus.RIO);
+        linearIntakeMotorInputs = new OnyxMotorOutputs(motor, LINEAR_INTAKE_SUBSYSTEM_NAME, LINEAR_INTAKE_MOTOR_NAME, ROTATIONS_TO_METERS, CanBus.RIO);
     }
 
     @Override
