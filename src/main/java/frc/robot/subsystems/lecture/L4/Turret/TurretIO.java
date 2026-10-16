@@ -1,0 +1,15 @@
+package frc.robot.subsystems.lecture.L4.Turret;
+
+import frc.robot.lib.OnyxMotorOutputs;
+
+public interface TurretIO {
+    void updateInputs(TurretInputs inputs);
+
+    class TurretInputs {
+        public OnyxMotorOutputs turretMotorInputs;
+    }
+
+    void setDutyCycle(double dutyCycle);
+
+    double getTurretAngle();
+}
