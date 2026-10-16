@@ -9,6 +9,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
@@ -31,7 +32,7 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        conveyanceMasterMotorInputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CONVEYANCE_CAN_BUS);
+        conveyanceMasterMotorInputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CanBus.RIO);
         conveyanceFollowerMotorInputs = new OnyxMotorOutputs();
     }
 

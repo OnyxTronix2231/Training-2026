@@ -1,6 +1,5 @@
 package frc.robot.subsystems.answers.L8;
 
-import frc.robot.lib.OnyxMotorOutputs.CanBus;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
 import frc.robot.lib.PID.PIDValues;
@@ -9,7 +8,6 @@ import java.util.function.DoubleUnaryOperator;
 
 public class ElevatorConstants {
     public static final String ELEVATOR_SUBSYSTEM_NAME = "Elevator";
-    public static final CanBus ELEVATOR_CAN_BUS = CanBus.CANIVORE;
 
     public static final String ELEVATOR_MASTER_MOTOR_NAME = "ElevatorMasterMotor";
     public static final String ELEVATOR_FOLLOWER_MOTOR_NAME = "ElevatorFollowerMotor";

@@ -10,6 +10,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.*;
@@ -29,7 +30,7 @@ public class HingeIOSimulation implements HingeIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_HINGE_LENGTH_METERS, SIMULATION_HINGE_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_HINGE_NUM_OF_MOTORS));
 
-        hingeMotorInputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE, HINGE_CAN_BUS);
+        hingeMotorInputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE, CanBus.CANIVORE);
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
     }

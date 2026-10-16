@@ -1,6 +1,5 @@
 package frc.robot.subsystems.answers.L4.Hinge;
 
-import frc.robot.lib.OnyxMotorOutputs.CanBus;
 import edu.wpi.first.math.util.Units;
 
 import java.util.function.DoubleUnaryOperator;
@@ -8,7 +7,6 @@ import java.util.function.DoubleUnaryOperator;
 public class HingeConstants {
 
     public static final String HINGE_SUBSYSTEM_NAME = "Hinge";
-    public static final CanBus HINGE_CAN_BUS = CanBus.CANIVORE;
     public static final String HINGE_MOTOR_NAME = "HingeMotor";
     public static class HingeSimulationConstants {
         public static final int SIMULATION_HINGE_MOTOR_ID = 10;

@@ -9,6 +9,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.answers.L4.Elevator.ElevatorConstants.*;
@@ -29,7 +30,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, CanBus.RIO);
         elevatorFollowerMotorInputs = new OnyxMotorOutputs();
     }
 

@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 import frc.robot.lib.PID.PIDValues;
 
 import static frc.robot.subsystems.answers.L8.ElevatorConstants.*;
@@ -30,8 +31,8 @@ public class ElevatorIORobot implements ElevatorIO {
         masterMotor = new TalonFX(ROBOT_ELEVATOR_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_ELEVATOR_FOLLOWER_MOTOR_ID);
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(masterMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
-        elevatorFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_FOLLOWER_MOTOR_NAME, ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(masterMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, ROTATIONS_TO_LENGTH, CanBus.CANIVORE);
+        elevatorFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_FOLLOWER_MOTOR_NAME, ROTATIONS_TO_LENGTH, CanBus.CANIVORE);
 
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());

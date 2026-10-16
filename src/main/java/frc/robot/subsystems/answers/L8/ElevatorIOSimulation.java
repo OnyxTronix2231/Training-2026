@@ -10,6 +10,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.OnyxMotorOutputs.CanBus;
 import frc.robot.lib.PID.PIDValues;
 
 import static frc.robot.Constants.updateMotor;
@@ -33,7 +34,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_ELEVATOR_LENGTH_METERS, SIMULATION_ELEVATOR_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_ELEVATOR_NUM_OF_MOTORS));
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, ELEVATOR_CAN_BUS);
+        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, CanBus.CANIVORE);
         elevatorFollowerMotorInputs = new OnyxMotorOutputs();
 
         elevatorMasterMotorInputs.updateInputs();
