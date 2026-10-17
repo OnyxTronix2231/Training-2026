@@ -16,7 +16,7 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import static frc.robot.subsystems.BallIntake.BallIntakeConstants.BALL_INTAKE_MOTOR_DUTY_CYCLE;
+import static frc.robot.subsystems.BallIntake.BallIntakeConstants.BallIntakeRobotConstants.BALL_INTAKE_MOTOR_DUTY_CYCLE;
 import static frc.robot.subsystems.lecture.ShooterConstants.ShooterRobotConstants.SHOOTER_DUTY_CYCLE;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 

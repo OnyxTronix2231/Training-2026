@@ -2,7 +2,7 @@ package frc.robot.subsystems.BallIntake;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import static frc.robot.subsystems.BallIntake.BallIntakeConstants.*;
+import static frc.robot.subsystems.BallIntake.BallIntakeConstants.BallIntakeRobotConstants.BALL_INTAKE_MOTOR_ID;
 
 public class BallIntakeIORobot {
 
