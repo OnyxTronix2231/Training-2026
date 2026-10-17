@@ -1,4 +1,4 @@
-package frc.robot.subsystems.lecture;
+package frc.robot.subsystems.lecture.shooter;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -7,8 +7,10 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
-import static frc.robot.subsystems.lecture.ShooterConstants.*;
-import static frc.robot.subsystems.lecture.ShooterConstants.ShooterRobotBConstants.*;
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_MASTER_MOTOR_NAME;
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_SUBSYSTEM_NAME;
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotBConstants.SHOOTER_MASTER_MOTOR_ID;
+
 
 public class ShooterIORobotB implements ShooterIO {
 

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.lecture;
+package frc.robot.subsystems.lecture.shooter;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
