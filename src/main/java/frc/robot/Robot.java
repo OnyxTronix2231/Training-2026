@@ -7,14 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ballIntake.BallIntakeIORobot;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.lecture.ShooterIORobot;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import static frc.robot.subsystems.lecture.ShooterConstants.ShooterRobotConstants.SHOOTER_DUTY_CYCLE;
+import static frc.robot.subsystems.ballIntake.BallIntakeConstants.BallIntakeRobotConstants.BALL_INTAKE_MOTOR_POWER;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
@@ -24,13 +24,14 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    ShooterIORobot shooterIORobot;
+
+    BallIntakeIORobot ballIntakeIORobot;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-        shooterIORobot = new ShooterIORobot();
+        ballIntakeIORobot = new BallIntakeIORobot();
     }
 
     /**
@@ -70,13 +71,14 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotPeriodic() {
-        shooterIORobot.setDutyCycle(SHOOTER_DUTY_CYCLE);
 
         CommandScheduler.getInstance().run();
 
         if (isSimulation()) {
             updateVisualizations();
         }
+
+        ballIntakeIORobot.setDutyCycle(BALL_INTAKE_MOTOR_POWER);
     }
 
     /**
