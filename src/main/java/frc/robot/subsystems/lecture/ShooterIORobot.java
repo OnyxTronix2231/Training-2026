@@ -1,9 +1,9 @@
-package frc.robot.subsystems.lecture.L2;
+package frc.robot.subsystems.lecture;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import static frc.robot.subsystems.lecture.L2.ShooterConstants.ShooterRobotConstants.ROBOT_SHOOTER_MOTOR_ID;
+import static frc.robot.subsystems.lecture.ShooterConstants.ShooterRobotConstants.ROBOT_SHOOTER_MOTOR_ID;
 
 public class ShooterIORobot {
 

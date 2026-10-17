@@ -1,4 +1,4 @@
-package frc.robot.subsystems.lecture.L2;
+package frc.robot.subsystems.lecture;
 
 public class ShooterConstants {
     public static class ShooterRobotConstants{
