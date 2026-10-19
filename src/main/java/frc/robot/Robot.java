@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
@@ -16,6 +17,7 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
@@ -26,6 +28,7 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 public class Robot extends LoggedRobot {
 
     private ShooterIO shooterIO;
+    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
     @Override
     public void robotInit() {
         initializeLogger();
@@ -71,14 +74,15 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotPeriodic() {
+        SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
+
+        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
+        shooterIO.updateOutputs(shooterOutputs);
 
         if (isSimulation()) {
             updateVisualizations();
         }
-
-        shooterIO.setDutyCycle(0.5);
-        Logger.recordOutput("t/rps", shooterIO.getRPS());
     }
 
     /**
