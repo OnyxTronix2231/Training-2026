@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.BallIntake.BallIntakeIORobot;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.lecture.ShooterIORobot;
+//import frc.robot.subsystems.lecture.ShooterIORobot;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
