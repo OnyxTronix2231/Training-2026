@@ -10,11 +10,10 @@ import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.*;
-import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotAConstants.SHOOTER_FOLLOWER_MOTOR_ID;
-import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotAConstants.SHOOTER_MASTER_MOTOR_ID;
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotAConstants.*;
 
 
-public class ShooterIORobotA implements ShooterIO {
+public class ShooterIORobot implements ShooterIO {
 
     private final TalonFX masterMotor;
     private final TalonFX followerMotor;
@@ -22,7 +21,7 @@ public class ShooterIORobotA implements ShooterIO {
     private final OnyxMotorOutputs masterMotorOutputs;
     private final OnyxMotorOutputs followerMotorOutputs;
 
-    public ShooterIORobotA() {
+    public ShooterIORobot() {
         masterMotor = new TalonFX(SHOOTER_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(SHOOTER_FOLLOWER_MOTOR_ID);
 
@@ -32,7 +31,7 @@ public class ShooterIORobotA implements ShooterIO {
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());
 
-        followerMotor.setControl(new Follower(SHOOTER_MASTER_MOTOR_ID, MotorAlignmentValue.Opposed));
+        followerMotor.setControl(new Follower(SHOOTER_MASTER_MOTOR_ID, MotorAlignmentValue.Aligned));
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -72,3 +71,4 @@ public class ShooterIORobotA implements ShooterIO {
     }
 
 }
+
