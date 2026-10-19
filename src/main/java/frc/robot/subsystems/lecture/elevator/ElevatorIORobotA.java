@@ -44,7 +44,7 @@ public class ElevatorIORobotA implements ElevatorIO {
     }
 
     @Override
-    public void updateInputs(ElevatorInputs inputs) {
+    public void updateInputs(ElevatorOutputs inputs) {
         elevatorMasterMotorOutputs.updateOutputs();
         inputs.elevatorMasterMotorOutputs = elevatorMasterMotorOutputs;
 

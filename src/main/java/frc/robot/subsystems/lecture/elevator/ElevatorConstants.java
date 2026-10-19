@@ -10,7 +10,7 @@ public class ElevatorConstants {
         public static final int ROBOT_B_ELEVATOR_MOTOR_ID = 1;
 
         public static final double ROBOT_B_ELEVATOR_METERS_PER_ROTATION = 0.05;
-        
+
         public static  double ROBOT_B_ELEVATOR_ROTATIONS_TO_METERS(double rotations) {
             return rotations * ROBOT_B_ELEVATOR_METERS_PER_ROTATION;
         }

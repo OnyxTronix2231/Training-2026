@@ -3,9 +3,9 @@ package frc.robot.subsystems.lecture.elevator;
 import frc.robot.lib.OnyxMotorOutputs;
 
 public interface ElevatorIO {
-    void updateInputs(ElevatorInputs inputs);
+    void updateInputs(ElevatorOutputs inputs);
 
-    public class ElevatorInputs {
+    class ElevatorOutputs {
         public OnyxMotorOutputs elevatorMasterMotorOutputs;
         public OnyxMotorOutputs elevatorFollowerMotorOutputs;
     }
