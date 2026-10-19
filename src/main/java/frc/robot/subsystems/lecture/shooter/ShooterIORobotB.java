@@ -40,7 +40,7 @@ public class ShooterIORobotB implements ShooterIO {
 
     @Override
     public void updateOutputs(ShooterOutputs shooterOutputs) {
-        motorOutputs.updateInputs();
+        motorOutputs.updateOutputs();
         shooterOutputs.masterMotorOutputs = motorOutputs;
         shooterOutputs.followerMotorOutputs = motorOutputs;
     }

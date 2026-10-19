@@ -48,10 +48,10 @@ public class ShooterIORobotA implements ShooterIO {
 
     @Override
     public void updateOutputs(ShooterOutputs shooterOutputs) {
-        masterMotorOutputs.updateInputs();
+        masterMotorOutputs.updateOutputs();
         shooterOutputs.masterMotorOutputs = masterMotorOutputs;
 
-        followerMotorOutputs.updateInputs();
+        followerMotorOutputs.updateOutputs();
         shooterOutputs.followerMotorOutputs = followerMotorOutputs;
     }
 
