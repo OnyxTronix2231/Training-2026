@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.lecture.shooter.ShooterIO;
+import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
+import frc.robot.visualization.ShooterVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -21,10 +24,14 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends LoggedRobot {
+
+    private ShooterIO shooterIO;
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
+        shooterIO = new ShooterIOSimulation();
+        new ShooterVisualization(shooterIO);
     }
 
     /**
@@ -69,6 +76,9 @@ public class Robot extends LoggedRobot {
         if (isSimulation()) {
             updateVisualizations();
         }
+
+        shooterIO.setDutyCycle(0.5);
+        Logger.recordOutput("t/rps", shooterIO.getRPS());
     }
 
     /**
