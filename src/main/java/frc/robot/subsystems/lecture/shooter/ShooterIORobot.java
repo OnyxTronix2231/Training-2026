@@ -42,6 +42,7 @@ public class ShooterIORobot implements ShooterIO {
 
         configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
+
         return configuration;
     }
 
