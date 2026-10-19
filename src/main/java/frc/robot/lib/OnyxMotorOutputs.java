@@ -11,6 +11,9 @@ import java.util.function.DoubleUnaryOperator;
 
 public class OnyxMotorOutputs {
 
+    public OnyxMotorOutputs(double r0B0TConveyanceDutyCycle) {
+    }
+
     public enum CanBus {
         RIO,
         CANIVORE
