@@ -79,7 +79,7 @@ public class OnyxMotorOutputs {
         keyAngularAcceleration = keyBase + "AngularAccelerationRotPerSecSquared";
 
         SignalManager.register(canBus, temperatureSignal, angularVelocityRotPerSecSignal, angularAccelerationRotPerSecSquaredSignal,
-                statorCurrentAmpsSignal, appliedVoltsSignal, supplyCurrentAmpsSignal, rawValueSignal);
+            statorCurrentAmpsSignal, appliedVoltsSignal, supplyCurrentAmpsSignal, rawValueSignal);
 
         tuneBusUtilization();
     }
@@ -88,7 +88,7 @@ public class OnyxMotorOutputs {
         this(motor, subsystemName, motorName, angle -> angle, canBus);
     }
 
-    /** Inactive inputs for simulated or absent motors. All values read as 0. */
+    /** Inactive outputs for simulated or absent motors. All values read as 0. */
     public OnyxMotorOutputs() {
         isActive = false;
         motorID = 0;
@@ -105,20 +105,20 @@ public class OnyxMotorOutputs {
         rawValueSignal = null;
 
         keyRawValue = keyConvertedValue = keyAppliedVolts = keySupplyCurrentAmps =
-                keyStatorCurrentAmps = keyAngularVelocity = keyAngularAcceleration = "";
+            keyStatorCurrentAmps = keyAngularVelocity = keyAngularAcceleration = "";
     }
 
     /** Sets the update rates of the signals above. All other signals keep their default rates. */
     private void tuneBusUtilization() {
         // Applied voltage is also what follower motors copy, so it must update every loop
         BaseStatusSignal.setUpdateFrequencyForAll(POSITION_VELOCITY_SIGNAL_HZ,
-                rawValueSignal, angularVelocityRotPerSecSignal, appliedVoltsSignal);
+            rawValueSignal, angularVelocityRotPerSecSignal, appliedVoltsSignal);
         BaseStatusSignal.setUpdateFrequencyForAll(OTHER_SIGNAL_HZ,
-                statorCurrentAmpsSignal, angularAccelerationRotPerSecSquaredSignal,
-                supplyCurrentAmpsSignal, temperatureSignal);
+            statorCurrentAmpsSignal, angularAccelerationRotPerSecSquaredSignal,
+            supplyCurrentAmpsSignal, temperatureSignal);
     }
 
-    public void updateInputs() {
+    public void updateOutputs() {
         if (!isActive) return;
 
         temperature = temperatureSignal.getValueAsDouble();
