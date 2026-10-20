@@ -7,6 +7,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.OnyxMotorOutputs.CanBus;
 
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_MASTER_MOTOR_NAME;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_SUBSYSTEM_NAME;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotBConstants.*;
 
@@ -20,7 +21,7 @@ public class ShooterIORobotB implements ShooterIO {
     public ShooterIORobotB() {
         motor = new TalonFX(SHOOTER_MOTOR_ID);
 
-        motorOutputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MOTOR_NAME, CanBus.RIO);
+        motorOutputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, CanBus.RIO);
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 

@@ -29,10 +29,12 @@ public class Robot extends LoggedRobot {
 
     private ShooterIO shooterIO;
     private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
+
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
+
         shooterIO = new ShooterIOSimulation();
         new ShooterVisualization(shooterIO);
     }
