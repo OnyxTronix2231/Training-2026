@@ -1,5 +1,11 @@
 package frc.robot.subsystems.answers.L4.Conveyance;
 
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
+
+import static frc.robot.visualization.VisualizedSubsystem.ROBOT_MECHANISM;
+
 public class ConveyanceConstants {
 
 
@@ -23,5 +29,11 @@ public class ConveyanceConstants {
         public static final double SIMULATION_CONVEYANCE_MASS_KG = 0.001;
 
         public static final double CONVEYANCE_VISUALIZATION_MULTIPLIER = 0.5;
+
+        public static final double CONVEYANCE_X_POSITION = 3.17;
+        public static final double CONVEYANCE_Y_POSITION = 0.68;
+        public static final LoggedMechanismRoot2d CONVEYANCE_ROOT = ROBOT_MECHANISM.getRoot(CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_X_POSITION, CONVEYANCE_Y_POSITION);
+
+        public static final Color8Bit CONVEYANCE_LIGAMENT_COLOR = new Color8Bit(Color.kYellow);
     }
 }

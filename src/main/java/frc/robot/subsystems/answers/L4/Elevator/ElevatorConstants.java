@@ -1,6 +1,13 @@
 package frc.robot.subsystems.answers.L4.Elevator;
 
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
+
 import java.util.function.DoubleUnaryOperator;
+
+import static frc.robot.visualization.VisualizedSubsystem.ROBOT_MECHANISM;
 
 public class ElevatorConstants {
     public static final String ELEVATOR_SUBSYSTEM_NAME = "Elevator";
@@ -32,5 +39,21 @@ public class ElevatorConstants {
         public static final int SIMULATION_ELEVATOR_NUM_OF_MOTORS = 2;
 
         public static final DoubleUnaryOperator SIMULATION_ROTATIONS_TO_LENGTH = rotations -> SIMULATION_ROTATIONS_TO_LENGTH(rotations);
+
+        public static final double ELEVATOR_X_POSITION = 1;
+        public static final double ELEVATOR_Y_POSITION = 1;
+        public static final LoggedMechanismRoot2d ELEVATOR_ROOT = ROBOT_MECHANISM.getRoot(ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_X_POSITION, ELEVATOR_Y_POSITION);
+
+        public static final double ELEVATOR_LIGAMENT_LENGTH = 0.3;
+        public static final double ELEVATOR_LIGAMENT_ANGLE = 0;
+        public static final double ELEVATOR_LIGAMENT_LINE_WIDTH = 5;
+        public static final Color8Bit ELEVATOR_LIGAMENT_COLOR = new Color8Bit(Color.kRed);
+        public static final LoggedMechanismLigament2d ELEVATOR = ELEVATOR_ROOT.append(
+                new LoggedMechanismLigament2d(
+                        "ELEVATOR",
+                        ELEVATOR_LIGAMENT_LENGTH, ELEVATOR_LIGAMENT_ANGLE,
+                        ELEVATOR_LIGAMENT_LINE_WIDTH, ELEVATOR_LIGAMENT_COLOR
+                )
+        );
     }
 }
