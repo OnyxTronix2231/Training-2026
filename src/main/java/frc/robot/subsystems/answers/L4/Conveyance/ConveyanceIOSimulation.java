@@ -16,12 +16,12 @@ import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.*;
 import static frc.robot.subsystems.answers.L4.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.*;
 
 public class ConveyanceIOSimulation implements ConveyanceIO {
-    private TalonFX motor;
+    private final TalonFX motor;
 
-    private DCMotorSim simulatedMotor;
+    private final DCMotorSim simulatedMotor;
 
-    private OnyxMotorOutputs conveyanceMasterMotorInputs;
-    private OnyxMotorOutputs conveyanceFollowerMotorInputs;
+    private final OnyxMotorOutputs conveyanceMasterMotorOutputs;
+    private final OnyxMotorOutputs conveyanceFollowerMotorOutputs;
 
     public ConveyanceIOSimulation() {
         motor = new TalonFX(SIMULATION_CONVEYANCE_MASTER_MOTOR_ID);
@@ -32,8 +32,8 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        conveyanceMasterMotorInputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CanBus.RIO);
-        conveyanceFollowerMotorInputs = new OnyxMotorOutputs();
+        conveyanceMasterMotorOutputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CanBus.RIO);
+        conveyanceFollowerMotorOutputs = new OnyxMotorOutputs();
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -47,13 +47,13 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
     }
 
     @Override
-    public void updateInputs(ConveynaceInputs inputs) {
+    public void updateOutputs(ConveynaceOutputs outputs) {
         updateMotor(motor, simulatedMotor);
 
-        conveyanceMasterMotorInputs.updateInputs();
-        inputs.conveyanceMasterMotorInputs = conveyanceMasterMotorInputs;
+        conveyanceMasterMotorOutputs.updateOutputs();
+        outputs.conveyanceMasterMotorOutputs = conveyanceMasterMotorOutputs;
 
-        inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
+        outputs.conveyanceFollowerMotorOutputs = conveyanceFollowerMotorOutputs;
     }
 
     @Override
@@ -62,6 +62,6 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
     }
 
     public OnyxMotorOutputs getMotorOutputs() {
-        return conveyanceMasterMotorInputs;
+        return conveyanceMasterMotorOutputs;
     }
 }

@@ -31,7 +31,7 @@ public class LinearIntakeIOSimulation implements LinearIntakeIO {
     public void updateInputs(LinearIntakeInputs inputs) {
         updateMotor(motor, simulatedMotor);
 
-        linearIntakeMotorInputs.updateInputs();
+        linearIntakeMotorInputs.updateOutputs();
         inputs.linearIntakeMotorInputs = linearIntakeMotorInputs;
     }
 

@@ -19,8 +19,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
     private final TalonFX motor;
     private final DCMotorSim simulatedMotor;
 
-    private final OnyxMotorOutputs elevatorMasterMotorInputs;
-    private final OnyxMotorOutputs elevatorFollowerMotorInputs;
+    private final OnyxMotorOutputs elevatorMasterMotorOutputs;
+    private final OnyxMotorOutputs elevatorFollowerMotorOutputs;
 
     public ElevatorIOSimulation() {
         motor = new TalonFX(SIMULATION_ELEVATOR_MOTOR_ID);
@@ -30,8 +30,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
-        elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, CanBus.RIO);
-        elevatorFollowerMotorInputs = new OnyxMotorOutputs();
+        elevatorMasterMotorOutputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, CanBus.RIO);
+        elevatorFollowerMotorOutputs = new OnyxMotorOutputs();
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -51,13 +51,13 @@ public class ElevatorIOSimulation implements ElevatorIO {
     }
 
     @Override
-    public void updateInputs(ElevatorInputs inputs) {
+    public void updateOutputs(ElevatorOutputs outputs) {
         updateMotor(motor, simulatedMotor);
 
-        elevatorMasterMotorInputs.updateInputs();
-        inputs.elevatorMasterMotorInputs = elevatorMasterMotorInputs;
+        elevatorMasterMotorOutputs.updateOutputs();
+        outputs.elevatorMasterMotorOutputs = elevatorMasterMotorOutputs;
 
-        inputs.elevatorFollowerMotorInputs = elevatorFollowerMotorInputs;
+        outputs.elevatorFollowerMotorOutputs = elevatorFollowerMotorOutputs;
     }
 
     @Override
@@ -66,6 +66,6 @@ public class ElevatorIOSimulation implements ElevatorIO {
     }
 
     public OnyxMotorOutputs getMotorOutputs() {
-        return elevatorMasterMotorInputs;
+        return elevatorMasterMotorOutputs;
     }
 }

@@ -47,10 +47,10 @@ public class ConveyanceIORobot implements ConveyanceIO {
 
     @Override
     public void updateInputs(ConveyanceInputs inputs) {
-        conveyanceMasterMotorInputs.updateInputs();
+        conveyanceMasterMotorInputs.updateOutputs();
         inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
 
-        conveyanceFollowerMotorInputs.updateInputs();
+        conveyanceFollowerMotorInputs.updateOutputs();
         inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
     }
 

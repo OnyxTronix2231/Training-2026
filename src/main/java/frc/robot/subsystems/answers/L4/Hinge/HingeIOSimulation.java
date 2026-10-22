@@ -17,11 +17,11 @@ import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.*;
 import static frc.robot.subsystems.answers.L4.Hinge.HingeConstants.HingeSimulationConstants.*;
 
 public class HingeIOSimulation implements HingeIO {
-    private TalonFX motor;
+    private final TalonFX motor;
 
-    private DCMotorSim simulatedMotor;
+    private final DCMotorSim simulatedMotor;
 
-    private OnyxMotorOutputs hingeMotorInputs;
+    private final OnyxMotorOutputs hingeMotorOutputs;
     
     public HingeIOSimulation() {
         motor = new TalonFX(SIMULATION_HINGE_MOTOR_ID);
@@ -30,7 +30,7 @@ public class HingeIOSimulation implements HingeIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_HINGE_LENGTH_METERS, SIMULATION_HINGE_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_HINGE_NUM_OF_MOTORS));
 
-        hingeMotorInputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE, CanBus.CANIVORE);
+        hingeMotorOutputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE, CanBus.CANIVORE);
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
     }
@@ -52,11 +52,11 @@ public class HingeIOSimulation implements HingeIO {
     }
 
     @Override
-    public void updateInputs(HingeInputs inputs) {
+    public void updateOutputs(HingeOutputs outputs) {
         updateMotor(motor, simulatedMotor);
 
-        hingeMotorInputs.updateInputs();
-        inputs.hingeMotorInputs = hingeMotorInputs;
+        hingeMotorOutputs.updateOutputs();
+        outputs.hingeMotorOutputs = hingeMotorOutputs;
     }
 
     @Override
@@ -65,6 +65,6 @@ public class HingeIOSimulation implements HingeIO {
     }
 
     public OnyxMotorOutputs getMotorOutputs() {
-        return hingeMotorInputs;
+        return hingeMotorOutputs;
     }
 }

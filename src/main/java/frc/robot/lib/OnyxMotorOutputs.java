@@ -88,7 +88,7 @@ public class OnyxMotorOutputs {
         this(motor, subsystemName, motorName, angle -> angle, canBus);
     }
 
-    /** Inactive inputs for simulated or absent motors. All values read as 0. */
+    /** Inactive outputs for simulated or absent motors. All values read as 0. */
     public OnyxMotorOutputs() {
         isActive = false;
         motorID = 0;
@@ -118,7 +118,7 @@ public class OnyxMotorOutputs {
                 supplyCurrentAmpsSignal, temperatureSignal);
     }
 
-    public void updateInputs() {
+    public void updateOutputs() {
         if (!isActive) return;
 
         temperature = temperatureSignal.getValueAsDouble();

@@ -16,15 +16,15 @@ public class ConveyanceIORobot implements ConveyanceIO {
     private final TalonFX masterMotor;
     private final TalonFX followerMotor;
 
-    private final OnyxMotorOutputs conveyanceMasterMotorInputs;
-    private final OnyxMotorOutputs conveyanceFollowerMotorInputs;
+    private final OnyxMotorOutputs conveyanceMasterMotorOutputs;
+    private final OnyxMotorOutputs conveyanceFollowerMotorOutputs;
 
     public ConveyanceIORobot() {
         masterMotor = new TalonFX(ROBOT_CONVEYANCE_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_CONVEYANCE_FOLLOWER_MOTOR_ID);
 
-        conveyanceMasterMotorInputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CanBus.RIO);
-        conveyanceFollowerMotorInputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME, CanBus.RIO);
+        conveyanceMasterMotorOutputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, CanBus.RIO);
+        conveyanceFollowerMotorOutputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME, CanBus.RIO);
 
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());
@@ -46,12 +46,12 @@ public class ConveyanceIORobot implements ConveyanceIO {
     }
 
     @Override
-    public void updateInputs(ConveynaceInputs inputs) {
-        conveyanceMasterMotorInputs.updateInputs();
-        inputs.conveyanceMasterMotorInputs = conveyanceMasterMotorInputs;
+    public void updateOutputs(ConveynaceOutputs outputs) {
+        conveyanceMasterMotorOutputs.updateOutputs();
+        outputs.conveyanceMasterMotorOutputs = conveyanceMasterMotorOutputs;
 
-        conveyanceFollowerMotorInputs.updateInputs();
-        inputs.conveyanceFollowerMotorInputs = conveyanceFollowerMotorInputs;
+        conveyanceFollowerMotorOutputs.updateOutputs();
+        outputs.conveyanceFollowerMotorOutputs = conveyanceFollowerMotorOutputs;
     }
 
     @Override

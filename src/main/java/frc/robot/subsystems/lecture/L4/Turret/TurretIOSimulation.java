@@ -31,7 +31,7 @@ public class TurretIOSimulation implements TurretIO {
     public void updateInputs(TurretInputs inputs) {
         updateMotor(motor, simulatedMotor);
 
-        turretMotorInputs.updateInputs();
+        turretMotorInputs.updateOutputs();
         inputs.turretMotorInputs = turretMotorInputs;
     }
 

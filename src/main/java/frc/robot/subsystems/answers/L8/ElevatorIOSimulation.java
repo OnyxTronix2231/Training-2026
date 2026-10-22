@@ -37,7 +37,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
         elevatorMasterMotorInputs = new OnyxMotorOutputs(motor, ELEVATOR_SUBSYSTEM_NAME, ELEVATOR_MASTER_MOTOR_NAME, SIMULATION_ROTATIONS_TO_LENGTH, CanBus.CANIVORE);
         elevatorFollowerMotorInputs = new OnyxMotorOutputs();
 
-        elevatorMasterMotorInputs.updateInputs();
+        elevatorMasterMotorInputs.updateOutputs();
 
         motor.getConfigurator().apply(getTalonFXConfiguration());
 
@@ -66,7 +66,7 @@ public class ElevatorIOSimulation implements ElevatorIO {
     public void updateInputs(ElevatorInputs inputs) {
         updateMotor(motor, simulatedMotor);
 
-        elevatorMasterMotorInputs.updateInputs();
+        elevatorMasterMotorInputs.updateOutputs();
 
         inputs.elevatorMasterMotorInputs = elevatorMasterMotorInputs;
         inputs.elevatorFollowerMotorInputs = elevatorFollowerMotorInputs;

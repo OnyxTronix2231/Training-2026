@@ -80,8 +80,8 @@ public class ElevatorIORobot implements ElevatorIO {
 
     @Override
     public void updateInputs(ElevatorInputs inputs) {
-        elevatorMasterMotorInputs.updateInputs();
-        elevatorFollowerMotorInputs.updateInputs();
+        elevatorMasterMotorInputs.updateOutputs();
+        elevatorFollowerMotorInputs.updateOutputs();
 
         inputs.elevatorMasterMotorInputs = elevatorMasterMotorInputs;
         inputs.elevatorFollowerMotorInputs = elevatorFollowerMotorInputs;

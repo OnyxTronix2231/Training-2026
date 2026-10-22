@@ -42,7 +42,7 @@ public class TriggerIORobot implements TriggerIO {
 
     @Override
     public void updateInputs(TriggerInputs inputs) {
-        triggerMotorInputs.updateInputs();
+        triggerMotorInputs.updateOutputs();
         inputs.triggerMotorInputs = triggerMotorInputs;
 
         inputs.isSensorSeeing = sensor.get();

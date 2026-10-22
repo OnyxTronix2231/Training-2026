@@ -3,11 +3,11 @@ package frc.robot.subsystems.answers.L4.Conveyance;
 import frc.robot.lib.OnyxMotorOutputs;
 
 public interface ConveyanceIO {
-    void updateInputs(ConveynaceInputs inputs);
+    void updateOutputs(ConveynaceOutputs outputs);
 
-    class ConveynaceInputs {
-        OnyxMotorOutputs conveyanceMasterMotorInputs;
-        OnyxMotorOutputs conveyanceFollowerMotorInputs;
+    class ConveynaceOutputs {
+        OnyxMotorOutputs conveyanceMasterMotorOutputs;
+        OnyxMotorOutputs conveyanceFollowerMotorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);

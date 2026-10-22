@@ -3,11 +3,11 @@ package frc.robot.subsystems.answers.L4.Elevator;
 import frc.robot.lib.OnyxMotorOutputs;
 
 public interface ElevatorIO {
-    void updateInputs(ElevatorInputs inputs);
+    void updateOutputs(ElevatorOutputs outputs);
 
-    class ElevatorInputs {
-        public OnyxMotorOutputs elevatorMasterMotorInputs;
-        public OnyxMotorOutputs elevatorFollowerMotorInputs;
+    class ElevatorOutputs {
+        public OnyxMotorOutputs elevatorMasterMotorOutputs;
+        public OnyxMotorOutputs elevatorFollowerMotorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);

@@ -31,7 +31,7 @@ public class ShooterIOSimulation implements ShooterIO {
     public void updateInputs(ShooterInputs shooterInputs) {
         updateMotor(motor, simulatedMotor);
 
-        shooterMotorInputs.updateInputs();
+        shooterMotorInputs.updateOutputs();
         shooterInputs.shooterMasterMotorInputs = shooterMotorInputs;
     }
 

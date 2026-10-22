@@ -62,7 +62,7 @@ public class TriggerIOSimulation implements TriggerIO {
     public void updateInputs(TriggerInputs inputs) {
         updateMotor(motor, simulatedMotor);
 
-        triggerMotorInputs.updateInputs();
+        triggerMotorInputs.updateOutputs();
         inputs.triggerMotorInputs = triggerMotorInputs;
 
         simulatedSensor = simulatedSensorEntry.getBoolean(false);
