@@ -58,4 +58,9 @@ public class ConveyanceIORobot implements ConveyanceIO {
     public void setDutyCycle(double dutyCycle) {
         masterMotor.set(dutyCycle);
     }
+
+    @Override
+    public double getRPS() {
+        return conveyanceMasterMotorOutputs.getMotorAngularVelocityRotPerSec();
+    }
 }

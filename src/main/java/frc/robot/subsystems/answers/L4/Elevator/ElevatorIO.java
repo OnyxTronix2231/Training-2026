@@ -11,4 +11,6 @@ public interface ElevatorIO {
     }
 
     void setDutyCycle(double dutyCycle);
+
+    double getLength();
 }

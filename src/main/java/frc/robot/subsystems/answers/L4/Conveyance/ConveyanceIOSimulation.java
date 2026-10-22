@@ -61,7 +61,8 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorOutputs getMotorOutputs() {
-        return conveyanceMasterMotorOutputs;
+    @Override
+    public double getRPS() {
+        return conveyanceMasterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 }

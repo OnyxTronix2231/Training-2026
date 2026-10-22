@@ -65,7 +65,8 @@ public class ElevatorIOSimulation implements ElevatorIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorOutputs getMotorOutputs() {
-        return elevatorMasterMotorOutputs;
+    @Override
+    public double getLength() {
+        return elevatorMasterMotorOutputs.getMotorValue().getAsDouble();
     }
 }

@@ -19,6 +19,6 @@ public class ConveyanceVisualizationAnswer extends VisualizedSubsystem {
 
     @Override
     protected void updateVisualization() {
-        wheel.spin(conveyanceIOSimulation.getMotorOutputs().getMotorAngularVelocityRotPerSec() * CONVEYANCE_VISUALIZATION_MULTIPLIER);
+        wheel.spin(conveyanceIOSimulation.getRPS() * CONVEYANCE_VISUALIZATION_MULTIPLIER);
     }
 }

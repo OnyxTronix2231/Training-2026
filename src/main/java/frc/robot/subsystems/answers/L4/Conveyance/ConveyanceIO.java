@@ -11,4 +11,6 @@ public interface ConveyanceIO {
     }
 
     void setDutyCycle(double dutyCycle);
+
+    double getRPS();
 }

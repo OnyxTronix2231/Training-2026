@@ -64,7 +64,8 @@ public class HingeIOSimulation implements HingeIO {
         motor.set(dutyCycle);
     }
 
-    public OnyxMotorOutputs getMotorOutputs() {
-        return hingeMotorOutputs;
+    @Override
+    public double getAngle() {
+        return hingeMotorOutputs.getMotorValue().getAsDouble();
     }
 }
