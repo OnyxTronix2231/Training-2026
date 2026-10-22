@@ -3,10 +3,10 @@ package frc.robot.subsystems.lecture.L4.LinearIntake;
 import frc.robot.lib.OnyxMotorOutputs;
 
 public interface LinearIntakeIO {
-    void updateInputs(LinearIntakeInputs inputs);
+    void updateOutputs(LinearIntakeOutputs outputs);
 
-    class LinearIntakeInputs {
-        public OnyxMotorOutputs linearIntakeMotorInputs;
+    class LinearIntakeOutputs {
+        public OnyxMotorOutputs linearIntakeMotorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);

@@ -3,10 +3,10 @@ package frc.robot.subsystems.lecture.L4.Shooter;
 import frc.robot.lib.OnyxMotorOutputs;
 
 public interface ShooterIO {
-    void updateInputs(ShooterInputs inputs);
+    void updateOutputs(ShooterOutputs outputs);
 
-    class ShooterInputs {
-        public OnyxMotorOutputs shooterMasterMotorInputs;
+    class ShooterOutputs {
+        public OnyxMotorOutputs shooterMasterMotorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);

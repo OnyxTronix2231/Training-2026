@@ -10,18 +10,18 @@ import static frc.robot.subsystems.lecture.L4.Shooter.ShooterConstants.ShooterRo
 public class ShooterIORobot implements ShooterIO {
     private final TalonFX motor;
 
-    private final OnyxMotorOutputs shooterMasterMotorInputs;
+    private final OnyxMotorOutputs shooterMasterMotorOutputs;
 
     public ShooterIORobot() {
         motor = new TalonFX(ROBOT_SHOOTER_MOTOR_ID, new CANBus("DriveTrain"));
 
-        shooterMasterMotorInputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
+        shooterMasterMotorOutputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
     }
 
     @Override
-    public void updateInputs(ShooterInputs shooterInputs) {
-        shooterMasterMotorInputs.updateOutputs();
-        shooterInputs.shooterMasterMotorInputs = shooterMasterMotorInputs;
+    public void updateOutputs(ShooterOutputs outputs) {
+        shooterMasterMotorOutputs.updateOutputs();
+        outputs.shooterMasterMotorOutputs = shooterMasterMotorOutputs;
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ShooterIORobot implements ShooterIO {
 
     @Override
     public double getRPS() {
-        return shooterMasterMotorInputs.getMotorAngularVelocityRotPerSec();
+        return shooterMasterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 }

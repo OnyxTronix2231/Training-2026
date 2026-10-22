@@ -16,7 +16,7 @@ public class ShooterIOSimulation implements ShooterIO {
     private final TalonFX motor;
     private final DCMotorSim simulatedMotor;
 
-    private final OnyxMotorOutputs shooterMotorInputs;
+    private final OnyxMotorOutputs shooterMotorOutputs;
 
     public ShooterIOSimulation() {
         motor = new TalonFX(SIMULATION_SHOOTER_MASTER_MOTOR_ID);
@@ -24,15 +24,15 @@ public class ShooterIOSimulation implements ShooterIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_SHOOTER_LENGTH_METERS, SIMULATION_SHOOTER_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_SHOOTER_NUM_OF_MOTORS));
 
-        shooterMotorInputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, CanBus.RIO);
+        shooterMotorOutputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, CanBus.RIO);
     }
 
     @Override
-    public void updateInputs(ShooterInputs shooterInputs) {
+    public void updateOutputs(ShooterOutputs outputs) {
         updateMotor(motor, simulatedMotor);
 
-        shooterMotorInputs.updateOutputs();
-        shooterInputs.shooterMasterMotorInputs = shooterMotorInputs;
+        shooterMotorOutputs.updateOutputs();
+        outputs.shooterMasterMotorOutputs = shooterMotorOutputs;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class ShooterIOSimulation implements ShooterIO {
 
     @Override
     public double getRPS() {
-        return shooterMotorInputs.getMotorAngularVelocityRotPerSec();
+        return shooterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 }

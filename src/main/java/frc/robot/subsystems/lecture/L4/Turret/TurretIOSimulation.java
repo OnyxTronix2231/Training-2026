@@ -16,7 +16,7 @@ public class TurretIOSimulation implements TurretIO {
     private final TalonFX motor;
     private final DCMotorSim simulatedMotor;
 
-    private final OnyxMotorOutputs turretMotorInputs;
+    private final OnyxMotorOutputs turretMotorOutputs;
 
     public TurretIOSimulation() {
         motor = new TalonFX(SIMULATION_TURRET_MOTOR_ID);
@@ -24,15 +24,15 @@ public class TurretIOSimulation implements TurretIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_TURRET_LENGTH_METERS, SIMULATION_TURRET_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_TURRET_NUM_OF_MOTORS));
 
-        turretMotorInputs = new OnyxMotorOutputs(motor, TURRET_SUBSYSTEM_NAME, TURRET_MOTOR_NAME, ROTATIONS_TO_DEGREES, CanBus.RIO);
+        turretMotorOutputs = new OnyxMotorOutputs(motor, TURRET_SUBSYSTEM_NAME, TURRET_MOTOR_NAME, ROTATIONS_TO_DEGREES, CanBus.RIO);
     }
 
     @Override
-    public void updateInputs(TurretInputs inputs) {
+    public void updateOutputs(TurretOutputs outputs) {
         updateMotor(motor, simulatedMotor);
 
-        turretMotorInputs.updateOutputs();
-        inputs.turretMotorInputs = turretMotorInputs;
+        turretMotorOutputs.updateOutputs();
+        outputs.turretMotorOutputs = turretMotorOutputs;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TurretIOSimulation implements TurretIO {
     }
 
     @Override
-    public double getTurretAngle() {
-        return turretMotorInputs.getValue();
+    public double getAngle() {
+        return turretMotorOutputs.getValue();
     }
 }

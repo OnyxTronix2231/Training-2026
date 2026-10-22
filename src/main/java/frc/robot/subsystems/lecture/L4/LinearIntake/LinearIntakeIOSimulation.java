@@ -16,7 +16,7 @@ public class LinearIntakeIOSimulation implements LinearIntakeIO {
     private final TalonFX motor;
     private final DCMotorSim simulatedMotor;
 
-    private final OnyxMotorOutputs linearIntakeMotorInputs;
+    private final OnyxMotorOutputs linearIntakeMotorOutputs;
 
     public LinearIntakeIOSimulation() {
         motor = new TalonFX(SIMULATION_LINEAR_INTAKE_MOTOR_ID);
@@ -24,15 +24,15 @@ public class LinearIntakeIOSimulation implements LinearIntakeIO {
             SingleJointedArmSim.estimateMOI(SIMULATION_LINEAR_INTAKE_LENGTH_METERS, SIMULATION_LINEAR_INTAKE_MASS_KG), 1),
             DCMotor.getKrakenX60(SIMULATION_LINEAR_INTAKE_NUM_OF_MOTORS));
 
-        linearIntakeMotorInputs = new OnyxMotorOutputs(motor, LINEAR_INTAKE_SUBSYSTEM_NAME, LINEAR_INTAKE_MOTOR_NAME, ROTATIONS_TO_METERS, CanBus.RIO);
+        linearIntakeMotorOutputs = new OnyxMotorOutputs(motor, LINEAR_INTAKE_SUBSYSTEM_NAME, LINEAR_INTAKE_MOTOR_NAME, ROTATIONS_TO_METERS, CanBus.RIO);
     }
 
     @Override
-    public void updateInputs(LinearIntakeInputs inputs) {
+    public void updateOutputs(LinearIntakeOutputs outputs) {
         updateMotor(motor, simulatedMotor);
 
-        linearIntakeMotorInputs.updateOutputs();
-        inputs.linearIntakeMotorInputs = linearIntakeMotorInputs;
+        linearIntakeMotorOutputs.updateOutputs();
+        outputs.linearIntakeMotorOutputs = linearIntakeMotorOutputs;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class LinearIntakeIOSimulation implements LinearIntakeIO {
 
     @Override
     public double getPosition() {
-        return linearIntakeMotorInputs.getValue();
+        return linearIntakeMotorOutputs.getValue();
     }
 }
