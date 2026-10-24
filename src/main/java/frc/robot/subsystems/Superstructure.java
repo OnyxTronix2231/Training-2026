@@ -34,7 +34,7 @@ public class Superstructure extends SubsystemBase {
 
         applyStates();
     }
-
+motor.Outputs.getMotorRawValue
     private CurrentSuperState handleStateTransition() {
         switch (wantedSuperState) {
             case DEFAULT_STATE:
