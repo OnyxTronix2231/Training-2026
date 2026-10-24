@@ -60,4 +60,9 @@ public class ConveyanceIORobot implements ConveyanceIO {
     public void setNeutralMode(NeutralModeValue neutralMode) {
         masterMotor.setNeutralMode(neutralMode);
     }
+
+    @Override
+    public double getRPS(){
+        return masterMotorOutputs.getMotorAngularVelocityRotPerSec();
+    }
 }
