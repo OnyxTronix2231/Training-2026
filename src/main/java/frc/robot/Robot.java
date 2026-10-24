@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
+import frc.robot.subsystems.Conveyance.ConveyanceIO;
+import frc.robot.subsystems.Conveyance.ConveyanceIOSimulation;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
-import frc.robot.visualization.ShooterVisualization;
+import frc.robot.visualization.ConveyanceVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -27,14 +29,15 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ShooterIO shooterIO;
-    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
+    private ConveyanceIOSimulation conveyanceIOSimulation;
+    private ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-        shooterIO = new ShooterIOSimulation();
-        new ShooterVisualization(shooterIO);
+        conveyanceIOSimulation = new ConveyanceIOSimulation();
+        conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
+        new ConveyanceVisualization(conveyanceIOSimulation);
     }
 
     /**
@@ -77,8 +80,8 @@ public class Robot extends LoggedRobot {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
 
-        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
-        shooterIO.updateOutputs(shooterOutputs);
+        conveyanceIOSimulation.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
+        conveyanceIOSimulation.updateOutputs(conveyanceOutputs);
 
         if (isSimulation()) {
             updateVisualizations();

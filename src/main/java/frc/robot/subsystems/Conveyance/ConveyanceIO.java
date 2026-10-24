@@ -1,14 +1,16 @@
 package frc.robot.subsystems.Conveyance;
 
 import frc.robot.lib.OnyxMotorOutputs;
-import frc.robot.subsystems.lecture.elevator.ElevatorIO;
 
 public interface ConveyanceIO {
-    void updateInputs(ConveyanceIOOutput inputs);
 
-    public class ConveyanceIOOutput {
+    void updateOutputs(ConveyanceOutputs outputs);
+
+    class ConveyanceOutputs {
         public OnyxMotorOutputs conveyanceMotorOutputs;
+        public OnyxMotorOutputs conveyanceFollowerMotorOutputs;
     }
+     double getRPS();
 
-    void setDutyCycle(Double dutyCycle);
+    void setDutyCycle(double dutyCycle);
 }
