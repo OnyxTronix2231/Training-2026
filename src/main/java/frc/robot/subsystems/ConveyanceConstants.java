@@ -15,7 +15,7 @@ public class ConveyanceConstants {
 
     public class ConveyanceRobotBConstants {
 
-        public final static int ROBOT_B_CONVEYANCE_MOTOR_ID = 5;
+        public final static int ROBOT_B_Conveyance_MOTOR_ID = 5;
         public final static String MOTOR_NAME = "motor";
         public final static int CONVEYANCE_SUPPLY_LIMIT = 40;
     }

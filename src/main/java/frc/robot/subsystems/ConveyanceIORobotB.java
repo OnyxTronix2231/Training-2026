@@ -6,6 +6,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
 
+import static frc.robot.subsystems.ConveyanceConstants.ConveyanceRobotAConstants.SUBSYSTEM_NAME;
 import static frc.robot.subsystems.ConveyanceConstants.ConveyanceRobotBConstants.*;
 
 public class ConveyanceIORobotB implements ConveyanceIO {
