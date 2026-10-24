@@ -54,8 +54,8 @@ public class ShooterIORobotB implements ShooterIO {
         motor.setNeutralMode(neutralMode);
     }
 
-    public void sayTemperature() {
-        System.out.println("Motor Temperature: " + motorOutputs.getMotorTemperature());
+    @Override
+    public double getRPS() {
+        return motorOutputs.getMotorAngularVelocityRotPerSec();
     }
-
 }
