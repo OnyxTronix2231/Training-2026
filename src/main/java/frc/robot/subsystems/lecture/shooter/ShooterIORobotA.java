@@ -13,7 +13,7 @@ import static frc.robot.subsystems.lecture.shooter.ShooterConstants.*;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotAConstants.*;
 
 
-public class ShooterIORobot implements ShooterIO {
+public class ShooterIORobotA implements ShooterIO {
 
     private final TalonFX masterMotor;
     private final TalonFX followerMotor;
@@ -21,7 +21,7 @@ public class ShooterIORobot implements ShooterIO {
     private final OnyxMotorOutputs masterMotorOutputs;
     private final OnyxMotorOutputs followerMotorOutputs;
 
-    public ShooterIORobot() {
+    public ShooterIORobotA() {
         masterMotor = new TalonFX(SHOOTER_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(SHOOTER_FOLLOWER_MOTOR_ID);
 
@@ -66,9 +66,9 @@ public class ShooterIORobot implements ShooterIO {
         followerMotor.setNeutralMode(neutralMode);
     }
 
-    public void sayTemperature() {
-        System.out.println("masterMotor Temperature: " + masterMotorOutputs.getMotorTemperature());
-        System.out.println("followerMotor Temperature: " + followerMotorOutputs.getMotorTemperature());
+    @Override
+    public double getRPS() {
+        return masterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 
 }
