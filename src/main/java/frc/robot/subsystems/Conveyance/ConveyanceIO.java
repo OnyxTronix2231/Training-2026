@@ -14,5 +14,8 @@ public interface ConveyanceIO {
 
     void setDutyCycle(double dutyCycle);
 
+    double getRPS();
+
     void setNeutralMode(NeutralModeValue neutralMode);
+
 }

@@ -22,7 +22,7 @@ public class ConveyanceIORobotA implements ConveyanceIO {
         masterMotor = new TalonFX(CONVEYANCE_MASTER_MOTOR_ID);
         followerMotor = new TalonFX(CONVEYANCE_FOLLOWER_MOTOR_ID);
         conveyanceMasterMotorOutputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_NAME, CONVEYANCE_MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
-        conveyanceFollowerMotorOutputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
+            conveyanceFollowerMotorOutputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
         masterMotor.getConfigurator().apply(getMotorConfiguration());
         followerMotor.getConfigurator().apply(getMotorConfiguration());
         followerMotor.setControl(new Follower(CONVEYANCE_MASTER_MOTOR_ID, MotorAlignmentValue.Opposed));
@@ -43,7 +43,7 @@ public class ConveyanceIORobotA implements ConveyanceIO {
         conveyanceMasterMotorOutputs.updateOutputs();
         conveyanceFollowerMotorOutputs.updateOutputs();
         conveyanceOutputs.masterMotorOutputs = conveyanceMasterMotorOutputs;
-        conveyanceOutputs.followerMotorOutputs = conveyanceFollowerMotorOutputs;
+            conveyanceOutputs.followerMotorOutputs = conveyanceFollowerMotorOutputs;
     }
 
     @Override
@@ -54,5 +54,10 @@ public class ConveyanceIORobotA implements ConveyanceIO {
     @Override
     public void setNeutralMode(NeutralModeValue neutralMode) {
         masterMotor.setNeutralMode(neutralMode);
+    }
+
+    @Override
+    public double getRPS() {
+     return   conveyanceMasterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 }
