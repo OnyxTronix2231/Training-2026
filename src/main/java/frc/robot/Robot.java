@@ -7,15 +7,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.ballIntake.BallIntakeIORobot;
-import frc.robot.subsystems.lecture.ShooterIORobot;
+import frc.robot.subsystems.lecture.shooter.ShooterIO;
+import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
+import frc.robot.visualization.ShooterVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import static frc.robot.subsystems.ballIntake.BallIntakeConstants.BallIntakeRobotConstants.BALL_INTAKE_DUTY_CYCLE;
+import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
@@ -25,13 +27,16 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    BallIntakeIORobot ballIntakeIORobot;
+    private ShooterIO shooterIO;
+    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-        ballIntakeIORobot = new BallIntakeIORobot();
+
+        shooterIO = new ShooterIOSimulation();
+        new ShooterVisualization(shooterIO);
     }
 
     /**
@@ -71,9 +76,11 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotPeriodic() {
-        ballIntakeIORobot.setDutyCycle(BALL_INTAKE_DUTY_CYCLE);
-
+        SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
+
+        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
+        shooterIO.updateOutputs(shooterOutputs);
 
         if (isSimulation()) {
             updateVisualizations();
