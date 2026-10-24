@@ -16,5 +16,7 @@ public interface ShooterIO {
 
     void setNeutralMode(NeutralModeValue neutralMode);
 
+    double getRPS();
+
 }
 
