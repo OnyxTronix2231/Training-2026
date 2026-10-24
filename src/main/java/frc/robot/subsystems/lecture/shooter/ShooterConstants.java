@@ -19,8 +19,8 @@ public class ShooterConstants {
     }
 
     public static class ShooterRobotBConstants {
-        public static final int SHOOTER_MASTER_MOTOR_ID = 17;
-        public static final int SHOOTER_FOLLOWER_MOTOR_ID = 18;
+        public static final int SHOOTER_MOTOR_ID = 17;
+        public static final String SHOOTER_MOTOR_NAME = "motor";
     }
 
     public static class ShooterSimulationConstants {
