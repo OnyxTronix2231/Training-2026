@@ -46,10 +46,10 @@ public class ShooterIORobotA implements ShooterIO {
 
     @Override
     public void updateOutputs(ShooterOutputs shooterOutputs) {
-        masterMotorOutputs.updateInputs();
+        masterMotorOutputs.updateOutputs();
         shooterOutputs.masterMotorOutputs = masterMotorOutputs;
 
-        followerMotorOutputs.updateInputs();
+        followerMotorOutputs.updateOutputs();
         shooterOutputs.followerMotorOutputs = followerMotorOutputs;
     }
 
@@ -64,9 +64,9 @@ public class ShooterIORobotA implements ShooterIO {
         followerMotor.setNeutralMode(neutralMode);
     }
 
-    public void sayTemperature() {
-        System.out.println("masterMotor Temperature: " + masterMotorOutputs.getMotorTemperature());
-        System.out.println("followerMotor Temperature: " + followerMotorOutputs.getMotorTemperature());
+    @Override
+    public double getRPS() {
+        return masterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 
 }
