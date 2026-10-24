@@ -25,8 +25,8 @@ public class ShooterIOSimulation implements ShooterIO {
     public ShooterIOSimulation() {
         motor = new TalonFX(SIMULATION_SHOOTER_MOTOR_ID);
         simulatedMotor = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getKrakenX60(SIMULATION_SHOOTER_NUM_OF_MOTORS),
-            SingleJointedArmSim.estimateMOI(SIMULATION_SHOOTER_LENGTH_METERS, SIMULATION_SHOOTER_MASS_KG), 1),
-            DCMotor.getKrakenX60(SIMULATION_SHOOTER_NUM_OF_MOTORS));
+                SingleJointedArmSim.estimateMOI(SIMULATION_SHOOTER_LENGTH_METERS, SIMULATION_SHOOTER_MASS_KG), 1),
+                DCMotor.getKrakenX60(SIMULATION_SHOOTER_NUM_OF_MOTORS));
 
         shooterMasterMotorOutputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
         shooterFollowerMotorOutputs = new OnyxMotorOutputs(motor, SHOOTER_SUBSYSTEM_NAME, SHOOTER_FOLLOWER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
