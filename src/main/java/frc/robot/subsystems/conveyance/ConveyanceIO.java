@@ -1,16 +1,20 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.conveyance;
 
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
-import frc.robot.subsystems.lecture.elevator.ElevatorIO;
 
 public interface ConveyanceIO {
 
-    void updateInputs(ConveyanceIO.ConveyanceInputs inputs);
+    void updateOutputs(ConveyanceOutputs inputs);
 
-    public class ConveyanceInputs {
+    class ConveyanceOutputs {
         public OnyxMotorOutputs conveyanceMasterMotorOutputs;
         public OnyxMotorOutputs conveyanceFollowerMotorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);
+
+    void setNeutralMode(NeutralModeValue neutralMode);
+
+    double getRPS();
 }

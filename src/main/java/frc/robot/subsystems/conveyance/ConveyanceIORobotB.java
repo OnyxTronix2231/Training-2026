@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.conveyance;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -6,8 +6,8 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
 
-import static frc.robot.subsystems.ConveyanceConstants.ConveyanceRobotAConstants.SUBSYSTEM_NAME;
-import static frc.robot.subsystems.ConveyanceConstants.ConveyanceRobotBConstants.*;
+import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
+import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceRobotBConstants.*;
 
 public class ConveyanceIORobotB implements ConveyanceIO {
     private final TalonFX motor;
@@ -15,7 +15,7 @@ public class ConveyanceIORobotB implements ConveyanceIO {
 
     public ConveyanceIORobotB() {
         this.motor = new TalonFX(ROBOT_B_Conveyance_MOTOR_ID);
-        conveyanceMotorOutputs = new OnyxMotorOutputs(motor, SUBSYSTEM_NAME, MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
+        conveyanceMotorOutputs = new OnyxMotorOutputs(motor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
         motor.getConfigurator().apply(getTalonFXConfiguration());
     }
 
@@ -29,7 +29,7 @@ public class ConveyanceIORobotB implements ConveyanceIO {
     }
 
     @Override
-    public void updateInputs(ConveyanceInputs inputs) {
+    public void updateOutputs(ConveyanceOutputs inputs) {
         conveyanceMotorOutputs.updateOutputs();
         inputs.conveyanceMasterMotorOutputs = conveyanceMotorOutputs;
     }
@@ -39,5 +39,13 @@ public class ConveyanceIORobotB implements ConveyanceIO {
         motor.set(dutyCycle);
     }
 
+    @Override
+    public void setNeutralMode(NeutralModeValue neutralMode) {
+        motor.setNeutralMode(neutralMode);
+    }
 
+    @Override
+    public double getRPS() {
+        return conveyanceMotorOutputs.getMotorAngularVelocityRotPerSec();
+    }
 }

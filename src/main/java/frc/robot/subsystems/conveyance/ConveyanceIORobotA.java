@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.conveyance;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
@@ -6,11 +6,10 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.wpilibj.DutyCycle;
 import frc.robot.lib.OnyxMotorOutputs;
 
-import static frc.robot.subsystems.ConveyanceConstants.ConveyanceRobotAConstants.*;
-import static frc.robot.subsystems.ConveyanceConstants.ConveyanceRobotAConstants.CONVEYANCE_SUPPLY_LIMIT;
+import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
+import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceRobotAConstants.*;
 
 public class ConveyanceIORobotA implements ConveyanceIO {
     private final TalonFX masterMotor;
@@ -21,8 +20,8 @@ public class ConveyanceIORobotA implements ConveyanceIO {
     public ConveyanceIORobotA() {
         masterMotor = new TalonFX(ROBOT_A_MASTER_CONVEYANCE_MOTOR_ID);
         followerMotor = new TalonFX(ROBOT_A_FOLLOWER_CONVEYANCE_MOTOR_ID);
-        conveyanceMasterMotorOutputs = new OnyxMotorOutputs(masterMotor, SUBSYSTEM_NAME, MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
-        conveyanceFollowerMotorOutputs = new OnyxMotorOutputs(followerMotor, SUBSYSTEM_NAME, FOLLOWER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
+        conveyanceMasterMotorOutputs = new OnyxMotorOutputs(masterMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_MASTER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
+        conveyanceFollowerMotorOutputs = new OnyxMotorOutputs(followerMotor, CONVEYANCE_SUBSYSTEM_NAME, CONVEYANCE_FOLLOWER_MOTOR_NAME, OnyxMotorOutputs.CanBus.RIO);
         masterMotor.getConfigurator().apply(getTalonFXConfiguration());
         followerMotor.getConfigurator().apply(getTalonFXConfiguration());
 
@@ -40,7 +39,7 @@ public class ConveyanceIORobotA implements ConveyanceIO {
     }
 
     @Override
-    public void updateInputs(ConveyanceInputs inputs) {
+    public void updateOutputs(ConveyanceOutputs inputs) {
         conveyanceMasterMotorOutputs.updateOutputs();
         conveyanceFollowerMotorOutputs.updateOutputs();
         inputs.conveyanceMasterMotorOutputs = conveyanceMasterMotorOutputs;
@@ -52,5 +51,14 @@ public class ConveyanceIORobotA implements ConveyanceIO {
         masterMotor.set(dutyCycle);
     }
 
+    @Override
+    public void setNeutralMode(NeutralModeValue neutralMode) {
+        masterMotor.setNeutralMode(neutralMode);
+        followerMotor.setNeutralMode(neutralMode);
+    }
 
+    @Override
+    public double getRPS() {
+        return conveyanceMasterMotorOutputs.getMotorAngularVelocityRotPerSec();
+    }
 }
