@@ -2,7 +2,6 @@ package frc.robot.visualization;
 
 import frc.robot.lib.VisualizationLib.Wheel;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
-import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
 
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_SUBSYSTEM_NAME;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterSimulationConstants.*;

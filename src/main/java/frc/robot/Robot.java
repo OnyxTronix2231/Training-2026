@@ -8,17 +8,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
+import frc.robot.subsystems.ConveyanceIO.ConveyanceIOSimulation;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.lecture.shooter.ShooterIO;
-import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
-import frc.robot.visualization.ShooterVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import frc.robot.subsystems.ConveyanceIO.ConveyanceIO;
 
-import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
+import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
+import frc.robot.visualization.ConveyanceVisualization;
+
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -27,17 +28,21 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ShooterIO shooterIO;
-    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
+    private ConveyanceIO ConveyanceIO;
+    private final ConveyanceIO.ConveyanceOutputs ConveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
-        shooterIO = new ShooterIOSimulation();
-        new ShooterVisualization(shooterIO);
+        ConveyanceIO = new ConveyanceIOSimulation();
+        new ConveyanceVisualization(ConveyanceIO);
     }
+
+
+
+
 
     /**
      * This function is run once each time the robot enters autonomous mode.
@@ -79,8 +84,11 @@ public class Robot extends LoggedRobot {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
 
-        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
-        shooterIO.updateOutputs(shooterOutputs);
+        ConveyanceIO.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
+        ConveyanceIO.updateOutputs(ConveyanceOutputs);
+
+
+
 
         if (isSimulation()) {
             updateVisualizations();
