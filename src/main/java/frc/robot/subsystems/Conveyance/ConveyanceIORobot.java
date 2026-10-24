@@ -11,10 +11,8 @@ import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.*;
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.ConveyanceRobotAConstants.*;
-import static frc.robot.subsystems.lecture.shooter.ShooterConstants.ShooterRobotAConstants.SHOOTER_MASTER_MOTOR_ID;
 
 import frc.robot.lib.OnyxMotorOutputs.CanBus;
-import frc.robot.subsystems.lecture.shooter.ShooterIO;
 
 public class ConveyanceIORobot implements ConveyanceIO {
 
@@ -25,13 +23,13 @@ public class ConveyanceIORobot implements ConveyanceIO {
     private final OnyxMotorOutputs followerMotorOutputs;
 
     public ConveyanceIORobot(OnyxMotorOutputs motorOutputs) {
-        masterMotor = new TalonFX(MASTER_MOTOR_ID);
+        masterMotor = new TalonFX(CONVEYANCE_MASTER_MOTOR_ID);
         masterMotorOutputs = new OnyxMotorOutputs(masterMotor,CONVEYANCE_SUBSYSTEM_NAME ,CONVEYANCE_MASTER_MOTOR_NAME, CanBus.RIO);
 
-        followerMotor = new TalonFX(FOLLOWER_MOTOR_ID);
+        followerMotor = new TalonFX(CONVEYANCE_FOLLOWER_MOTOR_ID);
         followerMotorOutputs = new OnyxMotorOutputs(followerMotor,CONVEYANCE_SUBSYSTEM_NAME ,CONVEYANCE_FOLLOWER_MOTOR_NAME, CanBus.RIO);
 
-        followerMotor.setControl(new Follower(MASTER_MOTOR_ID, MotorAlignmentValue.Opposed));
+        followerMotor.setControl(new Follower(CONVEYANCE_MASTER_MOTOR_ID, MotorAlignmentValue.Opposed));
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -59,5 +57,10 @@ public class ConveyanceIORobot implements ConveyanceIO {
     @Override
     public void setDutyCycle(double dutyCycle) {
         masterMotor.set(dutyCycle);
+    }
+
+    @Override
+    public double getRPS() {
+        return masterMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 }
