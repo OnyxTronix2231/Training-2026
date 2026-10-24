@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.conveyance.ConveyanceIO;
-import frc.robot.subsystems.conveyance.ConveyanceIOSImulation;
+import frc.robot.subsystems.conveyance.ConveyanceIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -27,7 +27,7 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ConveyanceIOSImulation conveyanceIOSImulation;
+    private ConveyanceIOSimulation conveyanceIOSImulation;
     private ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
 
     @Override
@@ -35,7 +35,7 @@ public class Robot extends LoggedRobot {
         initializeLogger();
         Superstructure.init();
 
-        conveyanceIOSImulation = new ConveyanceIOSImulation();
+        conveyanceIOSImulation = new ConveyanceIOSimulation();
         conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
         new ConveyanceVisualization(conveyanceIOSImulation);
     }

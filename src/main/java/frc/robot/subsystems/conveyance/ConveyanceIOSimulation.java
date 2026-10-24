@@ -1,10 +1,8 @@
 package frc.robot.subsystems.conveyance;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -14,10 +12,9 @@ import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
-import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceRobotConstants.*;
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.ShooterSimulationConstants.*;
 
-public class ConveyanceIOSImulation implements ConveyanceIO {
+public class ConveyanceIOSimulation implements ConveyanceIO {
 
     private final TalonFX motor;
     private final DCMotorSim simulatedMotor;
@@ -25,7 +22,7 @@ public class ConveyanceIOSImulation implements ConveyanceIO {
     private final OnyxMotorOutputs masterMotorOutputs;
     private final OnyxMotorOutputs followerMotorOutputs;
 
-    public ConveyanceIOSImulation() {
+    public ConveyanceIOSimulation() {
         motor = new TalonFX(SIMULATION_CONVEYANCE_MOTOR_ID);
         simulatedMotor = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getKrakenX60(SIMULATION_CONVEYANCE_NUM_OF_MOTORS),
                 SingleJointedArmSim.estimateMOI(SIMULATION_CONVEYANCE_LENGTH_METERS, SIMULATION_CONVEYANCE_MASS_KG), SIMULATION_CONVEYANCE_GEARING),

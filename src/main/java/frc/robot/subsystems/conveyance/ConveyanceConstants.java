@@ -37,6 +37,5 @@ public class ConveyanceConstants {
 
         public static final Color8Bit CONVEYANCE_LIGAMENT_COLOR = new Color8Bit(Color.kOrange);
 
-
     }
 }
