@@ -4,7 +4,7 @@ import frc.robot.lib.VisualizationLib.*;
 import frc.robot.subsystems.conveyance.ConveyanceIOSimulation;
 
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
-import static frc.robot.subsystems.conveyance.ConveyanceConstants.ShooterSimulationConstants.*;
+import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceSimulationConstants.*;
 
 public class ConveyanceVisualization extends VisualizedSubsystem {
 

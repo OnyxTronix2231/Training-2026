@@ -11,13 +11,17 @@ import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.conveyance.ConveyanceIO;
 import frc.robot.subsystems.conveyance.ConveyanceIOSimulation;
+import frc.robot.subsystems.trigger.Trigger;
+import frc.robot.subsystems.trigger.TriggerIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
+import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
+import static frc.robot.subsystems.trigger.TriggerConstants.TRIGGER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
@@ -27,17 +31,17 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ConveyanceIOSimulation conveyanceIOSImulation;
-    private ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
-        conveyanceIOSImulation = new ConveyanceIOSimulation();
-        conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
-        new ConveyanceVisualization(conveyanceIOSImulation);
+        Trigger.init(new TriggerIOSimulation());
+        new TriggerVisualization();
+
+        Trigger.getInstance().setWantedSpeed(TRIGGER_DUTY_CYCLE_SPEED);
+        Trigger.getInstance().setWantedState(Trigger.WantedState.MOVE_BY_SPEED);
     }
 
     /**
@@ -79,9 +83,6 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
-
-        conveyanceIOSImulation.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
-        conveyanceIOSImulation.updateOutputs(conveyanceOutputs);
 
         if (isSimulation()) {
             updateVisualizations();

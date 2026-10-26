@@ -10,7 +10,6 @@ public class HingeVisualization extends VisualizedSubsystem {
 
     public HingeVisualization(HingeVisualization hingeVisualization) {
         this.hingeVisualization = hingeVisualization;
-
     }
 
     @Override

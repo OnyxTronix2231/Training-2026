@@ -19,7 +19,7 @@ public class ConveyanceConstants {
         public static final int HOOD_SUPPLY_LIMIT = 40;
     }
 
-    public static class ShooterSimulationConstants {
+    public static class ConveyanceSimulationConstants {
 
         public static final int SIMULATION_CONVEYANCE_MOTOR_ID = 1;
 
