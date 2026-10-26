@@ -8,17 +8,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
-import frc.robot.subsystems.ConveyanceIO.ConveyanceIOSimulation;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Triger.Trigger;
+import frc.robot.subsystems.Triger.TriggerIOSimulation;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import frc.robot.subsystems.ConveyanceIO.ConveyanceIO;
+import frc.robot.visualization.TriggerVisualization;
 
 import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
-import frc.robot.visualization.ConveyanceVisualization;
 
 
 /**
@@ -35,9 +36,8 @@ public class Robot extends LoggedRobot {
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-
-        ConveyanceIO = new ConveyanceIOSimulation();
-        new ConveyanceVisualization(ConveyanceIO);
+        Trigger.Init(new TriggerIOSimulation());
+        new TriggerVisualization();
     }
 
 

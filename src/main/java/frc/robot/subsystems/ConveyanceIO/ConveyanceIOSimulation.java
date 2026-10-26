@@ -49,9 +49,6 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
         return configuration;
     }
 
-
-
-
     @Override
     public void updateOutputs(ConveyanceOutputs conveyanceOutputs) {
         updateMotor(motor, simulatedMotor);
