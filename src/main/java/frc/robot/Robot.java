@@ -12,10 +12,13 @@ import frc.robot.subsystems.Conveyance.ConveyanceConstants;
 import frc.robot.subsystems.Conveyance.ConveyanceIO;
 import frc.robot.subsystems.Conveyance.ConveyanceIOSimulation;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Trigger.Trigger;
+import frc.robot.subsystems.Trigger.TriggerIOSimulation;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
 import frc.robot.visualization.ShooterVisualization;
+import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -41,9 +44,8 @@ public class Robot extends LoggedRobot {
         initializeLogger();
         Superstructure.init();
 
-        conveyanceIOSimulation = new ConveyanceIOSimulation();
-        new ConveyanceVisualization(conveyanceIOSimulation);
-        conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
+        Trigger.init(new TriggerIOSimulation());
+        new TriggerVisualization();
 
     }
 
@@ -86,9 +88,6 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
-
-        conveyanceIOSimulation.setDutyCycle(CONVEYANCE_DUTY_CYCLE);
-        conveyanceIOSimulation.updateOutputs(conveyanceOutputs);
 
         if (isSimulation()) {
             updateVisualizations();

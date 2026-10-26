@@ -49,7 +49,7 @@ public class ConveyanceIOSimulation implements ConveyanceIO{
         return configuration;
     }
     @Override
-    public void updateOutputs(ConveyanceIO.ConveyanceOutputs shooterOutputs) {
+    public void updateOutputs(ConveyanceIO.ConveyanceOutputs conveyanceOutputs) {
         updateMotor(motor, simulatorMasterMotor);
         masterMotorOutputs.updateOutputs();
         ConveyanceIO.ConveyanceOutputs.masterMotorOutputs = masterMotorOutputs;
@@ -57,6 +57,11 @@ public class ConveyanceIOSimulation implements ConveyanceIO{
         updateMotor(motor, simulatorMasterMotor);
         followerMotorOutputs.updateOutputs();
         ConveyanceIO.ConveyanceOutputs.followerMotorOutputs = followerMotorOutputs;
+    }
+
+    @Override
+    public void setNeutralMode(NeutralModeValue neutralMode) {
+
     }
 
     @Override
