@@ -26,7 +26,7 @@ public class ConveyanceConstants {
 
         public static final LoggedMechanismRoot2d CONVEYANCE_ROOT = ROBOT_MECHANISM.getRoot(SUBSYSTEM, CONVEYANCE_X_POSITION, CONVEYANCE_Y_POSITION);
 
-        public static final Color8Bit CONVEYANCE_LIGAMENT_COLOR = new Color8Bit(Color.kDarkRed);
+        public static final Color8Bit CONVEYANCE_LIGAMENT_COLOR = new Color8Bit(Color.kBlue);
 
 
 

@@ -15,7 +15,7 @@ import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.ConveyanceSi
 import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.FOLLOWER_Motor_Name;
 import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.MASTER_Motor_Name;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.*;
-
+import frc.robot.subsystems.ConveyanceIO.ConveyanceIO;
 public class ConveyanceIOSimulation implements ConveyanceIO {
 
     private final TalonFX motor;
@@ -51,24 +51,16 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
 
 
 
-    public void updateOutputs(ConveyanceOutputs Mastermotoroutput, ConveyanceOutputs Followeroutput) {
-        updateMotor(motor, simulatedMotor);
-        conveyanceMasterMotorOutputs.updateOutputs();
-        Mastermotoroutput.masterMotorOutput = conveyanceMasterMotorOutputs;
-
-        conveyanceFollowerMotorOutputs.updateOutputs();
-        Followeroutput.followerOutput = conveyanceFollowerMotorOutputs;
-    }
 
     @Override
     public void updateOutputs(ConveyanceOutputs conveyanceOutputs) {
         updateMotor(motor, simulatedMotor);
 
         conveyanceMasterMotorOutputs.updateOutputs();
-        conveyanceMasterMotorOutputs. = conveyanceMasterMotorOutputs;
+        conveyanceOutputs.masterMotorOutput= conveyanceMasterMotorOutputs;
 
-        shooterFollowerMotorOutputs.updateOutputs();
-        shooterOutputs.followerMotorOutputs = shooterFollowerMotorOutputs;
+        conveyanceFollowerMotorOutputs.updateOutputs();
+        conveyanceOutputs.followerMotorOutputs = conveyanceFollowerMotorOutputs;
 
     }
 
