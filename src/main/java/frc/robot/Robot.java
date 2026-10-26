@@ -9,15 +9,17 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.conveyance.ConveyanceIO;
-import frc.robot.subsystems.conveyance.ConveyanceIOSimulation;
-import frc.robot.visualization.ConveyanceVisualization;
+import frc.robot.subsystems.trigger.Trigger;
+import frc.robot.subsystems.trigger.TriggerIO;
+import frc.robot.subsystems.trigger.TriggerIOSimulation;
+import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceSimulationConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
+import static frc.robot.subsystems.trigger.TriggerConstants.TriggerSimulationConstants.TRIGGER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 /**
@@ -27,16 +29,17 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ConveyanceIOSimulation conveyanceIOSimulation;
-    private ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
+    private TriggerIOSimulation triggerIOSimulation;
+    private TriggerIO.TriggerOutputs triggerOutputs;
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-        conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
-        conveyanceIOSimulation = new ConveyanceIOSimulation();
-        new ConveyanceVisualization(conveyanceIOSimulation);
+        Trigger.init(new TriggerIOSimulation());
+        new TriggerVisualization();
 
+        Trigger.getInstance().setWantedSpeed(TRIGGER_DUTY_CYCLE_SPEED);
+        
     }
 
     /**
@@ -78,9 +81,6 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
-
-        conveyanceIOSimulation.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
-        conveyanceIOSimulation.updateOutputs(conveyanceOutputs);
 
         if (isSimulation()) {
             updateVisualizations();

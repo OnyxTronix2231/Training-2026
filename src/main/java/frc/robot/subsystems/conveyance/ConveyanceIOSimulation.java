@@ -12,7 +12,6 @@ import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
-import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceRobotAConstants.*;
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.ConveyanceSimulationConstants.*;
 
 public class ConveyanceIOSimulation implements ConveyanceIO {
