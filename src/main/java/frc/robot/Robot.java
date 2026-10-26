@@ -28,7 +28,7 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 public class Robot extends LoggedRobot {
 
     private ShooterIO shooterIO;
-    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
+    private ShooterIO.ShooterOutputs shooterOutputs;
 
     @Override
     public void robotInit() {
@@ -36,6 +36,7 @@ public class Robot extends LoggedRobot {
         Superstructure.init();
 
         shooterIO = new ShooterIOSimulation();
+        shooterOutputs = new ShooterIO.ShooterOutputs();
         new ShooterVisualization(shooterIO);
     }
 
