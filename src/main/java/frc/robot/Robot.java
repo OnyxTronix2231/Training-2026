@@ -24,7 +24,7 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
-import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.HINGE_DUTY_CYCLE_SPEED;
+import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.*;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
@@ -104,9 +104,10 @@ public class Robot extends LoggedRobot {
 
         conveyanceIO.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
         conveyanceIO.updateOutputs(conveyanceOutputs);
-
-        hingeIO.setDutyCycle(HINGE_DUTY_CYCLE_SPEED);
+//
+        hingeIO.setDutyCycle(HINGE_DUTY_CYCLE_ANGLE);
         hingeIO.updateOutputs(hingeOutputs);
+
         if (isSimulation()) {
             updateVisualizations();
         }

@@ -5,11 +5,13 @@ import frc.robot.subsystems.Hinge.HingeIO;
 
 import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.HINGE_LIGAMENT;
 
-public class HingeVisualization extends VisualizedSubsystem{
+public class HingeVisualization extends VisualizedSubsystem {
+
     private final HingeIO hingeIO;
-public HingeVisualization(HingeIO hingeIO){
-    this.hingeIO = hingeIO;
-}
+
+    public HingeVisualization(HingeIO hingeIO) {
+        this.hingeIO = hingeIO;
+    }
 
     @Override
     protected void updateVisualization() {
