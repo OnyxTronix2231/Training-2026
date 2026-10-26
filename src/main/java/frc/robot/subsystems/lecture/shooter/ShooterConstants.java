@@ -8,7 +8,7 @@ import static frc.robot.visualization.VisualizedSubsystem.ROBOT_MECHANISM;
 
 public class ShooterConstants {
 
-    public static final String SHOOTER_SUBSYSTEM_NAME = "Shooter";
+    public static final String SHOOTER_SUBSYSTEM_NAME = "Conveyance";
     public static final String SHOOTER_MASTER_MOTOR_NAME = "ShooterMaster";
     public static final String SHOOTER_FOLLOWER_MOTOR_NAME = "ShooterFollower";
     public static final double SHOOTER_DUTY_CYCLE_SPEED = 0.5;

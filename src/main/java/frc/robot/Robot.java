@@ -11,16 +11,20 @@ import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Conveyance.ConveyanceIO;
 import frc.robot.subsystems.Conveyance.ConveyanceIOSimulation;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Trigger.TriggerIO;
+import frc.robot.subsystems.Trigger.TriggerIOSimulation;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
 import frc.robot.visualization.ShooterVisualization;
+import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_DUTY_CYCLE_SPEED;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
@@ -31,17 +35,16 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ShooterIO shooterIO;
-    private ConveyanceIO conveyanceIO;
-    private final ConveyanceIO.ConveyanceOutputs conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
+    private TriggerIO triggerIO;
+    private final TriggerIO.TriggerOutputs triggerOutputs = new TriggerIO.TriggerOutputs();
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
-        conveyanceIO = new ConveyanceIOSimulation();
-        new ConveyanceVisualization(conveyanceIO);
+        triggerIO = new TriggerIOSimulation();
+        new TriggerVisualization(triggerIO);
     }
 
     /**
@@ -84,8 +87,8 @@ public class Robot extends LoggedRobot {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
 
-        conveyanceIO.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
-        conveyanceIO.updateOutputs(conveyanceOutputs);
+        triggerIO.setDutyCycle(TRIGGER_DUTY_CYCLE_SPEED);
+        triggerIO.updateOutputs(triggerOutputs);
 
         if (isSimulation()) {
             updateVisualizations();
