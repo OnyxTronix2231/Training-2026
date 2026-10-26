@@ -12,6 +12,7 @@ import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.*;
+import static frc.robot.subsystems.Conveyance.ConveyanceConstants.ConveyanceRobotConstants.ROBOT_Conveyance_SUPPLY_LIMIT;
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.*;
 
 public class ConveyanceIOSimulation implements ConveyanceIO {
@@ -38,6 +39,11 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
         configuration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+        configuration.CurrentLimits.SupplyCurrentLimitEnable=true;
+
+        configuration.CurrentLimits.SupplyCurrentLimit = ROBOT_Conveyance_SUPPLY_LIMIT;
+
 
         return configuration;
 
