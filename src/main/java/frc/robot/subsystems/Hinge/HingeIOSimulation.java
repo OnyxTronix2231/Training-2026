@@ -13,7 +13,7 @@ import frc.robot.lib.OnyxMotorOutputs;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.Hinge.HingeConstants.*;
-import static frc.robot.subsystems.Hinge.HingeConstants.ShooterSimulationConstants.*;
+import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.*;
 
 public class HingeIOSimulation implements HingeIO{
 
@@ -28,10 +28,10 @@ public class HingeIOSimulation implements HingeIO{
                 SingleJointedArmSim.estimateMOI(SIMULATION_HINGE_LENGTH_METERS, SIMULATION_HINGE_MASS_KG), SIMULATION_HINGE_GEARING),
                 DCMotor.getKrakenX60(SIMULATION_HINGE_NUM_OF_MOTORS));
 
-        motorOutputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE, OnyxMotorOutputs.CanBus.RIO);
+        motorOutputs = new OnyxMotorOutputs(motor, HINGE_SUBSYSTEM_NAME, HINGE_MOTOR_NAME, ROTATIONS_TO_ANGLE, OnyxMotorOutputs.CanBus.CANIVORE);
 
         motorOutputs.updateOutputs();
-        
+
         motor.getConfigurator().apply(getTalonFXConfiguration());
     }
 
@@ -43,10 +43,10 @@ public class HingeIOSimulation implements HingeIO{
         configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         configuration.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-        configuration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = SIMULATION_LENGTH_TO_ROTATION(HINGE_FORWARD_SOFT_LIMIT_METERS);
+        configuration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.degreesToRotations(HINGE_FORWARD_SOFT_LIMIT_METERS);
 
         configuration.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-        configuration.SoftwareLimitSwitch.ReverseSoftLimitThreshold = SIMULATION_LENGTH_TO_ROTATION(HINGE_REVERSE_SOFT_LIMIT_METERS);
+        configuration.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.degreesToRotations(HINGE_REVERSE_SOFT_LIMIT_METERS);
 
         return configuration;
     }
@@ -72,6 +72,6 @@ public class HingeIOSimulation implements HingeIO{
 
     @Override
     public double getAngle() {
-        return motorOutputs.getMotorAngularVelocityRotPerSec();
+        return motorOutputs.getValue();
     }
 }

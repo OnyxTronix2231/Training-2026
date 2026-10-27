@@ -1,18 +1,19 @@
 package frc.robot.visualization;
 
-import frc.robot.subsystems.Hinge.HingeIOSimulation;
+import frc.robot.subsystems.Hinge.Hinge;
 
-import static frc.robot.subsystems.Hinge.HingeConstants.ShooterSimulationConstants.*;
+import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.HINGE;
 
 public class HingeVisualization extends VisualizedSubsystem {
 
-    private final HingeVisualization hingeVisualization;
+    private final Hinge hinge;
 
-    public HingeVisualization(HingeVisualization hingeVisualization) {
-        this.hingeVisualization = hingeVisualization;
+    public HingeVisualization() {
+        hinge = Hinge.getInstance();
     }
 
     @Override
     protected void updateVisualization() {
+        HINGE.setAngle(hinge.getAngle());
     }
 }

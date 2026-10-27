@@ -4,22 +4,27 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
+import frc.robot.subsystems.Hinge.Hinge;
+import frc.robot.subsystems.Hinge.HingeIOSimulation;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.conveyance.ConveyanceIO;
 import frc.robot.subsystems.conveyance.ConveyanceIOSimulation;
 import frc.robot.subsystems.trigger.Trigger;
 import frc.robot.subsystems.trigger.TriggerIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
+import frc.robot.visualization.HingeVisualization;
 import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import static frc.robot.subsystems.Hinge.HingeConstants.HINGE_DUTY_CYCLE_SPEED;
 import static frc.robot.subsystems.conveyance.ConveyanceConstants.*;
 import static frc.robot.subsystems.trigger.TriggerConstants.TRIGGER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
@@ -40,8 +45,16 @@ public class Robot extends LoggedRobot {
         Trigger.init(new TriggerIOSimulation());
         new TriggerVisualization();
 
+        Hinge.init(new HingeIOSimulation());
+        new HingeVisualization();
+
         Trigger.getInstance().setWantedSpeed(TRIGGER_DUTY_CYCLE_SPEED);
         Trigger.getInstance().setWantedState(Trigger.WantedState.MOVE_BY_SPEED);
+
+        Hinge.getInstance().setWantedSpeed(HINGE_DUTY_CYCLE_SPEED);
+        Hinge.getInstance().setWantedState(Hinge.WantedState.MOVE_BY_SPEED);
+
+
     }
 
     /**
