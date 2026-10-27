@@ -53,8 +53,10 @@ public class ConveyanceIOSimulation implements ConveyanceIO {
     public void updateOutputs(ConveyanceOutputs outputs) {
         updateMotor(motor, simulateMotor);
 
+        conveyanceFollowerMotorOutputs.updateOutputs();
         conveyanceMasterMotorOutputs.updateOutputs();
-        outputs.conveyanceFollowerMotorOutputs = conveyanceMasterMotorOutputs;
+        outputs.conveyanceMotorOutputs = conveyanceMasterMotorOutputs;
+        outputs.conveyanceFollowerMotorOutputs = conveyanceFollowerMotorOutputs;
     }
 
     @Override

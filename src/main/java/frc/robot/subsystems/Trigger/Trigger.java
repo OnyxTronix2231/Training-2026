@@ -1,30 +1,28 @@
 package frc.robot.subsystems.Trigger;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.advancedSubsystem.VelocityBasedSubsystem;
 
 import java.util.List;
 
+import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_MAX_RPS;
+
 public class Trigger extends VelocityBasedSubsystem {
 
-    private TalonFX motor;
-    private DCMotorSim simulateMotor;
-    private OnyxMotorOutputs onyxMotorOutputs;
     private final TriggerIO.TriggerOutputs triggerOutputs;
     private final TriggerIO triggerIO;
-
 
     public enum WantedState {
         IDLE,
         MOVE_BY_SPEED,
-        DISABLE
+        TEST,
+        DISABLED
     }
 
     public enum SystemState {
         IDLING,
         MOVING_BY_SPEED,
+        TESTING,
         DISABLED
     }
 
@@ -32,7 +30,7 @@ public class Trigger extends VelocityBasedSubsystem {
     private SystemState systemState;
     private SystemState previousSystemState;
 
-    public void setWantedState(Trigger.WantedState wantedState) {
+    public void setWantedState(WantedState wantedState) {
         this.wantedState = wantedState;
     }
 
@@ -45,9 +43,6 @@ public class Trigger extends VelocityBasedSubsystem {
     }
 
     public Trigger(TriggerIO triggerIO) {
-        this.motor = motor;
-        this.simulateMotor = simulateMotor;
-        this.onyxMotorOutputs = onyxMotorOutputs;
         this.triggerOutputs = new TriggerIO.TriggerOutputs();
         this.triggerIO = triggerIO;
         this.triggerIO.updateOutputs(triggerOutputs);
@@ -55,10 +50,6 @@ public class Trigger extends VelocityBasedSubsystem {
         this.wantedState = WantedState.IDLE;
         this.systemState = SystemState.IDLING;
         this.previousSystemState = SystemState.IDLING;
-    }
-
-    public double getRPS() {
-        return onyxMotorOutputs.getMotorAngularVelocityRotPerSec();
     }
 
     @Override
@@ -75,7 +66,8 @@ public class Trigger extends VelocityBasedSubsystem {
         return switch (wantedState) {
             case IDLE -> SystemState.IDLING;
             case MOVE_BY_SPEED -> SystemState.MOVING_BY_SPEED;
-            case DISABLE -> SystemState.DISABLED;
+            case TEST -> SystemState.TESTING;
+            case DISABLED -> SystemState.DISABLED;
         };
     }
 
@@ -83,6 +75,7 @@ public class Trigger extends VelocityBasedSubsystem {
         switch (systemState) {
             case IDLING -> idleState();
             case MOVING_BY_SPEED -> moveBySpeed();
+            case TESTING -> runTest();
             case DISABLED -> disabled();
         }
     }
@@ -120,9 +113,13 @@ public class Trigger extends VelocityBasedSubsystem {
     protected void setWantedRPS(double RPS) {
     }
 
+    public double getRPS() {
+        return triggerOutputs.triggerMotorOutputs.getMotorAngularVelocityRotPerSec();
+    }
+
     @Override
     protected double getMaxRPS() {
-        return onyxMotorOutputs.getMotorAngularAccelerationRotPerSecSquared();
+        return TRIGGER_MAX_RPS;
 
     }
 
@@ -133,12 +130,12 @@ public class Trigger extends VelocityBasedSubsystem {
 
     @Override
     protected List<OnyxMotorOutputs> getMotorInputs() {
-        return List.of(triggerOutputs.TriggerMotorOutputs);
+        return List.of(triggerOutputs.triggerMotorOutputs);
     }
 
     @Override
     protected double getTotalCurrent() {
-        return 0;
+        return triggerOutputs.triggerMotorOutputs.getMotorStatorCurrentAmps();
     }
 
     @Override

@@ -10,15 +10,21 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Conveyance.ConveyanceIO;
 import frc.robot.subsystems.Conveyance.ConveyanceIOSimulation;
+import frc.robot.subsystems.Hinge.Hinge;
+import frc.robot.subsystems.Hinge.HingeIOSimulation;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.lecture.shooter.ShooterIO;
-import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
+import frc.robot.subsystems.Trigger.Trigger;
+import frc.robot.subsystems.Trigger.TriggerIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
+import frc.robot.visualization.HingeVisualization;
+import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import static frc.robot.subsystems.Hinge.HingeConstants.HINGE_SPEED;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_SPEED;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
@@ -31,6 +37,8 @@ public class Robot extends LoggedRobot {
 
     private ConveyanceIOSimulation conveyanceIOSimulation;
     private ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
+    private Trigger trigger;
+
     @Override
     public void robotInit() {
         initializeLogger();
@@ -38,6 +46,18 @@ public class Robot extends LoggedRobot {
         conveyanceIOSimulation = new ConveyanceIOSimulation();
         conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
         new ConveyanceVisualization(conveyanceIOSimulation);
+
+        Trigger.init(new TriggerIOSimulation());
+        new TriggerVisualization();
+
+         Trigger.getInstance().setWantedState(Trigger.WantedState.MOVE_BY_SPEED);
+         Trigger.getInstance().setTargetSpeed(TRIGGER_SPEED);
+
+        Hinge.init(new HingeIOSimulation());
+        new HingeVisualization();
+
+        Hinge.getInstance().setWantedState(Hinge.WantedState.MOVE_BY_SPEED);
+        Hinge.getInstance().setTargetSpeed(HINGE_SPEED);
     }
 
     /**
