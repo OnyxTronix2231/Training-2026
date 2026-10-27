@@ -23,6 +23,8 @@ public class HingeIORobot implements HingeIO{
     public TalonFXConfiguration getTalonFXConfiguration() {
         TalonFXConfiguration configuration = new TalonFXConfiguration();
 
+        configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
         return configuration;
     }
 
@@ -30,8 +32,16 @@ public class HingeIORobot implements HingeIO{
     @Override
     public void updateOutputs(HingeOutputs hingeOutputs) {
         motorOutputs.updateOutputs();
-        HingeIO.HingeOutputs.motorOutputs = motorOutputs;
+        hingeOutputs.motorOutputs = motorOutputs;
     }
+
+    @Override
+    public void setDutyCycle(double dutyCycle) {
+        motor.set(dutyCycle);
+    }
+
+    @Override
+    public void setNeutralMode(NeutralModeValue neutralMode) {};
 
     @Override
     public double getAngle() {

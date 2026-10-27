@@ -8,22 +8,22 @@ import frc.robot.lib.OnyxMotorOutputs;
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_SUBSYSTEM_NAME;
 import static frc.robot.subsystems.Trigger.TriggerConstants.TriggerRobotAConstants.TRIGGER_MOTOR_ID;
-import static frc.robot.subsystems.Trigger.TriggerConstants.TriggerRobotAConstants.TRIGGER_MOTOR_NAME;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_MOTOR_NAME;
 
-public class TriggerIORobot implements TriggerIO{
+public class TriggerIORobot implements TriggerIO {
 
     private final TalonFX motor;
     private final OnyxMotorOutputs motorOutputs;
 
     public TriggerIORobot() {
         motor = new TalonFX(TRIGGER_MOTOR_ID);
-        motorOutputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME,TRIGGER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
+        motorOutputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME, TRIGGER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
         TalonFXConfiguration configuration = new TalonFXConfiguration();
 
-        configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;;
+        configuration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         return configuration;
     }
@@ -31,7 +31,8 @@ public class TriggerIORobot implements TriggerIO{
     @Override
     public void updateOutputs(TriggerIO.TriggerOutputs triggerOutputs) {
         motorOutputs.updateOutputs();
-        TriggerIO.TriggerOutputs.motorOutputs = motorOutputs;
+
+        triggerOutputs.motorOutputs = motorOutputs;
     }
 
     @Override
@@ -40,7 +41,10 @@ public class TriggerIORobot implements TriggerIO{
     }
 
     @Override
-    public void setNeutralMode(NeutralModeValue neutralMode) {};
+    public void setNeutralMode(NeutralModeValue neutralMode) {
+    }
+
+
 
     public double getRPS() {
         return motorOutputs.getMotorAngularVelocityRotPerSec();

@@ -10,12 +10,11 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
-import frc.robot.subsystems.Conveyance.ConveyanceIO;
 
 import static frc.robot.Constants.updateMotor;
-import static frc.robot.subsystems.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.SIMULATION_CONVEYANCE_SUPPLY_LIMIT;
 import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_SUBSYSTEM_NAME;
 import static frc.robot.subsystems.Trigger.TriggerConstants.TriggerSimulationConstants.*;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_MOTOR_NAME;
 
 public class TriggerIOSimulation implements TriggerIO{
 
@@ -28,7 +27,7 @@ public class TriggerIOSimulation implements TriggerIO{
         simMotor = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getKrakenX60(SIMULATION_TRIGGER_NUM_OF_MOTORS),
                 SingleJointedArmSim.estimateMOI(0.001,0.001), 1),
                 DCMotor.getKrakenX60(SIMULATION_TRIGGER_NUM_OF_MOTORS));
-        motorOutputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME,SIMULATION_TRIGGER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
+        motorOutputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME,TRIGGER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
     }
 
     public TalonFXConfiguration getTalonFXConfiguration() {
@@ -42,8 +41,9 @@ public class TriggerIOSimulation implements TriggerIO{
     @Override
     public void updateOutputs(TriggerIO.TriggerOutputs triggerOutputs) {
         updateMotor(motor, simMotor);
+
         motorOutputs.updateOutputs();
-        TriggerOutputs.motorOutputs = motorOutputs;
+        triggerOutputs.motorOutputs = motorOutputs;
     }
 
     @Override
@@ -52,7 +52,9 @@ public class TriggerIOSimulation implements TriggerIO{
     }
 
     @Override
-    public void setNeutralMode(NeutralModeValue neutralMode) {};
+    public void setNeutralMode(NeutralModeValue neutralMode) {
+
+    }
 
     public double getRPS() {
         return motorOutputs.getMotorAngularVelocityRotPerSec();

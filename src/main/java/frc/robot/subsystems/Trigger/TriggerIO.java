@@ -6,8 +6,9 @@ import frc.robot.lib.OnyxMotorOutputs;
 public interface TriggerIO {
 
     void updateOutputs(TriggerOutputs triggerOutputs);
+
     class TriggerOutputs {
-        public static OnyxMotorOutputs motorOutputs;
+        public OnyxMotorOutputs motorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);

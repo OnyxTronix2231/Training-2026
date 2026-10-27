@@ -3,14 +3,11 @@ package frc.robot.subsystems.Trigger;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.advancedSubsystem.VelocityBasedSubsystem;
-import frc.robot.subsystems.Conveyance.Conveyance;
-import frc.robot.subsystems.Conveyance.ConveyanceIO;
 
 import java.util.List;
 
-import static frc.robot.subsystems.Trigger.TriggerIO.TriggerOutputs.motorOutputs;
-
 public class Trigger extends VelocityBasedSubsystem {
+
     private final TriggerIO.TriggerOutputs triggerOutputs;
     private final TriggerIO triggerIO;
 
@@ -33,19 +30,6 @@ public class Trigger extends VelocityBasedSubsystem {
     private Trigger.SystemState previousSystemState;
 
 
-    public void setWantedState(Trigger.WantedState wantedState) {
-        this.wantedState = wantedState;
-    }
-
-    public Trigger.WantedState getWantedState() {
-        return wantedState;
-    }
-
-    public Trigger.SystemState getSystemState() {
-        return systemState;
-    }
-
-
     public Trigger(TriggerIO triggerIO) {
         this.triggerOutputs = new TriggerIO.TriggerOutputs();
         this.triggerIO = triggerIO;
@@ -60,6 +44,7 @@ public class Trigger extends VelocityBasedSubsystem {
         triggerIO.updateOutputs(triggerOutputs);
 
         systemState = handleStateTransition();
+
         applyStates();
 
         previousSystemState = systemState;
@@ -89,9 +74,6 @@ public class Trigger extends VelocityBasedSubsystem {
     }
 
     private double targetSpeed;
-    public void setTargetSpeed(double targetSpeed) {
-        this.targetSpeed = targetSpeed;
-    }
 
     @Override
     public void moveBySpeed() {
@@ -104,14 +86,17 @@ public class Trigger extends VelocityBasedSubsystem {
             triggerIO.setNeutralMode(NeutralModeValue.Coast);
         }
     }
-
-    @Override
-    protected double getTotalCurrent() {
-        return motorOutputs.getMotorStatorCurrentAmps();
+    public double getRPS() {
+        return triggerOutputs.motorOutputs.getMotorAngularVelocityRotPerSec();
     }
 
     @Override
-    protected void setWantedSpeed(double dutyCycle) {
+    protected double getTotalCurrent() {
+        return triggerOutputs.motorOutputs.getMotorStatorCurrentAmps();
+    }
+
+    @Override
+    public void setWantedSpeed(double dutyCycle) {
         this.targetSpeed = dutyCycle;
     }
 
@@ -126,7 +111,8 @@ public class Trigger extends VelocityBasedSubsystem {
     }
 
     @Override
-    protected void setWantedRPS(double RPS) {}
+    protected void setWantedRPS(double RPS) {
+    }
 
     @Override
     protected double getMaxRPS() {
@@ -134,7 +120,8 @@ public class Trigger extends VelocityBasedSubsystem {
     }
 
     @Override
-    protected void moveByRPS() {}
+    protected void moveByRPS() {
+    }
 
     @Override
     protected void setWantedState(GlobalWantedState wantedState) {
@@ -143,21 +130,32 @@ public class Trigger extends VelocityBasedSubsystem {
 
     @Override
     protected List<OnyxMotorOutputs> getMotorInputs() {
-        return List.of(motorOutputs);
+        return List.of(triggerOutputs.motorOutputs);
     }
+
+    public void setWantedState(Trigger.WantedState wantedState) {
+        this.wantedState = wantedState;
+    }
+
+    public Trigger.WantedState getWantedState() {
+        return wantedState;
+    }
+
+    public Trigger.SystemState getSystemState() {
+        return systemState;
+    }
+
 
     private static Trigger instance;
 
     public static void init(TriggerIO triggerIO) {
-        if (instance==null) {
+        if (instance == null) {
             instance = new Trigger(triggerIO);
         }
-    }
-    public static Trigger getInstance() {
-        return instance;
+
     }
 
-    public double getRPS() {
-        return motorOutputs.getMotorAngularVelocityRotPerSec();
+    public static Trigger getInstance() {
+        return instance;
     }
 }

@@ -1,20 +1,21 @@
 package frc.robot.visualization;
 
-import frc.robot.lib.VisualizationLib;
-import frc.robot.subsystems.Conveyance.ConveyanceIO;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import frc.robot.subsystems.Hinge.Hinge;
 import frc.robot.subsystems.Hinge.HingeIO;
 
+import static frc.robot.subsystems.Hinge.HingeConstants.Hinge_Simulation_Constants.*;
+import static frc.robot.subsystems.Hinge.HingeConstants.HINGE_SUBSYSTEM_NAME;
+
 public class HingeVisualization extends VisualizedSubsystem{
-    private final HingeIO hingeIO;
+    private final Hinge hinge;
 
-    public HingeVisualization(HingeIO hingeIO) {
-        this.hingeIO = hingeIO;
-
-
+    public HingeVisualization() {
+        hinge = Hinge.getInstance();
     }
 
     @Override
     protected void updateVisualization() {
-
+        HINGE.setAngle(hinge.getAngle());
     }
 }

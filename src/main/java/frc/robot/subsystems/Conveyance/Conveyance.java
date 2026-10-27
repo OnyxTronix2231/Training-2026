@@ -2,8 +2,12 @@ package frc.robot.subsystems.Conveyance;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.advancedSubsystem.VelocityBasedSubsystem;
 
-public class Conveyance extends SubsystemBase {
+import java.util.List;
+
+public class Conveyance extends VelocityBasedSubsystem {
 
     private final ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
     private final ConveyanceIO conveyanceIO;
@@ -84,6 +88,51 @@ public class Conveyance extends SubsystemBase {
 
     public void moveBySpeed() {
         conveyanceIO.setDutyCycle(targetSpeed);
+    }
+
+    @Override
+    protected void setWantedSpeed(double dutyCycle) {
+
+    }
+
+    @Override
+    public boolean isOnTarget() {
+        return false;
+    }
+
+    @Override
+    public boolean isOnTarget(double value) {
+        return false;
+    }
+
+    @Override
+    protected void setWantedRPS(double RPS) {
+
+    }
+
+    @Override
+    protected double getMaxRPS() {
+        return 0;
+    }
+
+    @Override
+    protected void moveByRPS() {
+
+    }
+
+    @Override
+    protected List<OnyxMotorOutputs> getMotorInputs() {
+        return List.of();
+    }
+
+    @Override
+    protected double getTotalCurrent() {
+        return 0;
+    }
+
+    @Override
+    protected void setWantedState(GlobalWantedState wantedState) {
+
     }
 
     private void disabled() {
