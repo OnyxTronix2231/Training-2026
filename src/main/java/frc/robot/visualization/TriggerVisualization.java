@@ -1,11 +1,10 @@
 package frc.robot.visualization;
 
 import frc.robot.lib.VisualizationLib;
-import frc.robot.subsystems.Triger.Trigger;
-import frc.robot.subsystems.Triger.TriggerIO;
+import frc.robot.subsystems.Trigger.Trigger;
 
 import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.SUBSYSTEM;
-import static frc.robot.subsystems.Triger.TriggerConstants.TriggerSimulationConstants.*;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TriggerSimulationConstants.*;
 
 public class TriggerVisualization extends VisualizedSubsystem{
     private final Trigger trigger;

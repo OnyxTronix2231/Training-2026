@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Triger;
+package frc.robot.subsystems.Trigger;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -9,12 +9,10 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
-import frc.robot.subsystems.ConveyanceIO.ConveyanceIO;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.*;
-import static frc.robot.subsystems.Triger.TriggerConstants.TriggerSimulationConstants.*;
-import frc.robot.subsystems.Triger.TriggerConstants;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TriggerSimulationConstants.*;
 
 public class TriggerIOSimulation implements TriggerIO {
     private final TalonFX motor;
@@ -29,8 +27,8 @@ public class TriggerIOSimulation implements TriggerIO {
                 SingleJointedArmSim.estimateMOI(SIMULATION_TRIGGER_LENGTH_METERS, SIMULATION_TRIGGER_MASS_KG), 1),
                 DCMotor.getKrakenX60(SIMULATION_TRIGGER_NUM_OF_MOTORS));
 
-        triggerMasterMotorOutputs = new OnyxMotorOutputs(motor,SUBSYSTEM, MASTER_Motor_Name, OnyxMotorOutputs.CanBus.RIO);
-        triggerFollowerMotorOutputs = new OnyxMotorOutputs(motor,SUBSYSTEM, FOLLOWER_Motor_Name, OnyxMotorOutputs.CanBus.RIO);
+        triggerMasterMotorOutputs = new OnyxMotorOutputs(motor, SUBSYSTEM, MASTER_Motor_Name, OnyxMotorOutputs.CanBus.RIO);
+        triggerFollowerMotorOutputs = new OnyxMotorOutputs(motor, SUBSYSTEM, FOLLOWER_Motor_Name, OnyxMotorOutputs.CanBus.RIO);
         triggerMasterMotorOutputs.updateOutputs();
         triggerFollowerMotorOutputs.updateOutputs();
 
@@ -49,18 +47,16 @@ public class TriggerIOSimulation implements TriggerIO {
     }
 
 
-    public void updateOutputs(TriggerIO.TrigerOutputs triggerOutputs) {
+    public void updateOutputs(HingeOutputs TriggerOutput) {
         updateMotor(motor, simulatedMotor);
 
         triggerMasterMotorOutputs.updateOutputs();
-        triggerOutputs.masterMotorOutput= triggerMasterMotorOutputs;
+        TriggerOutput.TriggerMotorOutput = triggerMasterMotorOutputs;
 
         triggerFollowerMotorOutputs.updateOutputs();
-        triggerOutputs.followerMotorOutputs = triggerFollowerMotorOutputs;
+        TriggerOutput.TriggerMotorOutput = triggerFollowerMotorOutputs;
 
     }
-
-
 
 
     public void setDutyCycle(double dutyCycle) {

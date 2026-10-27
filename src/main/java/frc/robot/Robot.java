@@ -8,17 +8,20 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
+import frc.robot.subsystems.HingeIO.Hinge;
+import frc.robot.subsystems.HingeIO.HingeIOSimulation;
 import frc.robot.subsystems.Superstructure;
-import frc.robot.subsystems.Triger.Trigger;
-import frc.robot.subsystems.Triger.TriggerIOSimulation;
+import frc.robot.subsystems.Trigger.Trigger;
+import frc.robot.subsystems.Trigger.TriggerIOSimulation;
+import frc.robot.visualization.HingeVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import frc.robot.subsystems.ConveyanceIO.ConveyanceIO;
 import frc.robot.visualization.TriggerVisualization;
 
-import static frc.robot.subsystems.ConveyanceIO.ConveyanceConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
+import static frc.robot.subsystems.HingeIO.HingeConstants.HINGE_DUTY_CYCLE_SPEED;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TRIGGER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
 
@@ -29,20 +32,16 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ConveyanceIO ConveyanceIO;
-    private final ConveyanceIO.ConveyanceOutputs ConveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
-        Trigger.Init(new TriggerIOSimulation());
-        new TriggerVisualization();
+        Hinge.Init(new HingeIOSimulation());
+        new HingeVisualization();
+        Hinge.getInstance().setWantedSpeed(HINGE_DUTY_CYCLE_SPEED);
+        Hinge.getInstance().setWantedState(Hinge.WantedState.MOVE_BY_SPEED);
     }
-
-
-
-
 
     /**
      * This function is run once each time the robot enters autonomous mode.
@@ -83,12 +82,6 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
-
-        ConveyanceIO.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
-        ConveyanceIO.updateOutputs(ConveyanceOutputs);
-
-
-
 
         if (isSimulation()) {
             updateVisualizations();

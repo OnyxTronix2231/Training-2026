@@ -1,16 +1,15 @@
-package frc.robot.subsystems.Triger;
+package frc.robot.subsystems.Trigger;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.lib.OnyxMotorOutputs;
 import frc.robot.lib.advancedSubsystem.VelocityBasedSubsystem;
-import frc.robot.subsystems.Triger.TriggerIOSimulation;
 
 import java.util.List;
 
 public class Trigger extends VelocityBasedSubsystem {
-    private final TriggerIO.TrigerOutputs triggerOutputs;
+
+    private final TriggerIO.HingeOutputs triggerOutputs;
     private final TriggerIO triggerIO;
-    private static Trigger instance;
 
 
     public enum WantedState {
@@ -25,30 +24,22 @@ public class Trigger extends VelocityBasedSubsystem {
         DISABLED
     }
 
-    private Trigger.WantedState wantedState;
+    private WantedState wantedState;
     private SystemState systemState;
-    private Trigger.SystemState previousSystemState;
+    private SystemState previousSystemState;
 
-    public void setWantedState(Trigger.WantedState wantedState) {
-        this.wantedState = wantedState;
-    }
+    private double targetSpeed;
 
-    public Trigger.WantedState getWantedState() {
-        return wantedState;
-    }
-
-    public Trigger.SystemState getSystemState() {
-        return systemState;
-    }
-
-    public Trigger(TriggerIO trigerIO) {
-        this.triggerOutputs = new TriggerIO.TrigerOutputs();
-        this.triggerIO = trigerIO;
+    public Trigger(TriggerIO triggerIO) {
+        this.triggerOutputs = new TriggerIO.HingeOutputs();
+        this.triggerIO = triggerIO;
         this.triggerIO.updateOutputs(triggerOutputs);
 
-        this.wantedState = Trigger.WantedState.IDLE;
-        this.systemState = Trigger.SystemState.IDLING;
-        this.previousSystemState = Trigger.SystemState.IDLING;
+        this.wantedState = WantedState.IDLE;
+        this.systemState = SystemState.IDLING;
+        this.previousSystemState = SystemState.IDLING;
+
+        targetSpeed = 0;
     }
 
     @Override
@@ -61,11 +52,11 @@ public class Trigger extends VelocityBasedSubsystem {
         previousSystemState = systemState;
     }
 
-    public Trigger.SystemState handleStateTransition() {
+    public SystemState handleStateTransition() {
         return switch (wantedState) {
-            case IDLE -> Trigger.SystemState.IDLING;
-            case MOVE_BY_SPEED -> Trigger.SystemState.MOVING_BY_SPEED;
-            case DISABLE -> Trigger.SystemState.DISABLED;
+            case IDLE -> SystemState.IDLING;
+            case MOVE_BY_SPEED -> SystemState.MOVING_BY_SPEED;
+            case DISABLE -> SystemState.DISABLED;
         };
     }
 
@@ -81,19 +72,13 @@ public class Trigger extends VelocityBasedSubsystem {
         triggerIO.setDutyCycle(0);
     }
 
-    private double targetSpeed;
-
-    public void setTargetSpeed(double targetSpeed) {
-        this.targetSpeed = targetSpeed;
-    }
-
     public void moveBySpeed() {
         triggerIO.setDutyCycle(targetSpeed);
     }
 
     @Override
-    protected void setWantedSpeed(double dutyCycle) {
-
+    public void setWantedSpeed(double dutyCycle) {
+        targetSpeed = dutyCycle;
     }
 
     @Override
@@ -123,7 +108,7 @@ public class Trigger extends VelocityBasedSubsystem {
 
     @Override
     protected List<OnyxMotorOutputs> getMotorInputs() {
-        return List.of();
+        return List.of(triggerOutputs.TriggerMotorOutput);
     }
 
     @Override
@@ -133,6 +118,7 @@ public class Trigger extends VelocityBasedSubsystem {
 
     @Override
     protected void setWantedState(GlobalWantedState wantedState) {
+        setWantedState(WantedState.valueOf(wantedState.toString()));
 
     }
 
@@ -143,6 +129,24 @@ public class Trigger extends VelocityBasedSubsystem {
         }
     }
 
+    public double getRPS() {
+        return triggerOutputs.TriggerMotorOutput.getMotorAngularVelocityRotPerSec();
+    }
+
+    public void setWantedState(WantedState wantedState) {
+        this.wantedState = wantedState;
+    }
+
+    public WantedState getWantedState() {
+        return wantedState;
+    }
+
+    public SystemState getSystemState() {
+        return systemState;
+    }
+
+    private static Trigger instance;
+
     public static void Init(TriggerIO triggerIO) {
         if (instance == null) {
             instance = new Trigger(triggerIO);
@@ -150,15 +154,6 @@ public class Trigger extends VelocityBasedSubsystem {
     }
 
     public static Trigger getInstance() {
-        return instance;    }
-    public double getRPS() {
-        return triggerOutputs.;
+        return instance;
     }
-
 }
-
-
-
-
-
-
