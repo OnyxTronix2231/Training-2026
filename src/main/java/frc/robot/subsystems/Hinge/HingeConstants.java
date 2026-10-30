@@ -40,6 +40,7 @@ public class HingeConstants {
                 new LoggedMechanismLigament2d(HINGE_NAME, HINGE_LIGAMENT_LENGTH,
                         HINGE_LIGAMENT_ANGLE, HINGE_LIGAMENT_WIDTH, HINGE_LIGAMENT_COLOR));
         public static final double HINGE_DUTY_CYCLE_ANGLE = 0.005;
+        public static final double HINGE_SUTY_CYCLE_SPEED = 0.005;
 
         public static final DoubleUnaryOperator ROTATIONS_TO_ANGLE = (rotations) -> Units.rotationsToDegrees(rotations);
 

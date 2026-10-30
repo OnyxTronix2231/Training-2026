@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hinge;
 
+import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -22,12 +23,12 @@ public class HingeIOSimulation implements HingeIO {
     private final OnyxMotorOutputs motorOutputs;
 
     public HingeIOSimulation() {
-        motor = new TalonFX(HINGE_MOTOR_ID);
+        motor = new TalonFX(HINGE_MOTOR_ID, new CANBus(HINGE_CANBUS));
         simulatedMotor = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getKrakenX60(SIMULATION_HINGE_NUM_OF_MOTORS),
                 SingleJointedArmSim.estimateMOI(SIMULATION_HINGE_LENGTH_METERS, SIMULATION_HINGE_MASS_KG), SIMULATION_HINGE_GEARING),
                 DCMotor.getKrakenX60(SIMULATION_HINGE_NUM_OF_MOTORS));
 
-        motorOutputs = new OnyxMotorOutputs(motor, HINGE_NAME, HINGE_MOTOR_NAME,ROTATIONS_TO_ANGLE, OnyxMotorOutputs.CanBus.RIO);
+        motorOutputs = new OnyxMotorOutputs(motor, HINGE_NAME, HINGE_MOTOR_NAME,ROTATIONS_TO_ANGLE, OnyxMotorOutputs.CanBus.CANIVORE);
 
         motor.getConfigurator().apply(getMotorConfiguration());
     }

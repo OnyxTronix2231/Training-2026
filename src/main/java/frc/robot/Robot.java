@@ -8,16 +8,22 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
+import frc.robot.subsystems.Conveyance.Conveyance;
 import frc.robot.subsystems.Conveyance.ConveyanceIO;
 import frc.robot.subsystems.Conveyance.ConveyanceIOSimulation;
+import frc.robot.subsystems.Hinge.Hinge;
 import frc.robot.subsystems.Hinge.HingeIO;
 import frc.robot.subsystems.Hinge.HingeIOSimulation;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Trigger.Trigger;
+import frc.robot.subsystems.Trigger.TriggerIO;
+import frc.robot.subsystems.Trigger.TriggerIOSimulation;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
 import frc.robot.visualization.ConveyanceVisualization;
 import frc.robot.visualization.HingeVisualization;
 import frc.robot.visualization.ShooterVisualization;
+import frc.robot.visualization.TriggerVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -25,6 +31,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import static frc.robot.subsystems.Conveyance.ConveyanceConstants.ConveyanceSimulationConstants.CONVEYANCE_DUTY_CYCLE_SPEED;
 import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.*;
+import static frc.robot.subsystems.Trigger.TriggerConstants.TriggerSimulationConstants.TRIGGER_DUTY_CYCLE_SPEED;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_DUTY_CYCLE_SPEED;
 import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 
@@ -35,28 +42,53 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
  */
 public class Robot extends LoggedRobot {
 
-    private ShooterIO shooterIO;
-    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
+//    private ShooterIO shooterIO;
+//    private final ShooterIO.ShooterOutputs shooterOutputs = new ShooterIO.ShooterOutputs();
 
-    private ConveyanceIO conveyanceIO;
-    private final ConveyanceIO.ConveyanceOutputs conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
+//    private ConveyanceIO conveyanceIO;
+//    private final ConveyanceIO.ConveyanceOutputs conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
+//
+//    private HingeIO hingeIO;
+//    private final HingeIO.HingeOutputs hingeOutputs = new HingeIO.HingeOutputs();
 
-    private HingeIO hingeIO;
-    private final HingeIO.HingeOutputs hingeOutputs = new HingeIO.HingeOutputs();
+    Conveyance conveyance;
+    Trigger trigger;
+    Hinge hinge;
+
 
     @Override
     public void robotInit() {
         initializeLogger();
         Superstructure.init();
 
-        shooterIO = new ShooterIOSimulation();
-        new ShooterVisualization(shooterIO);
 
-        conveyanceIO = new ConveyanceIOSimulation();
-        new ConveyanceVisualization(conveyanceIO);
+        Trigger.init(new TriggerIOSimulation());
+        new TriggerVisualization();
 
-        hingeIO = new HingeIOSimulation();
-        new HingeVisualization(hingeIO);
+        Hinge.init(new HingeIOSimulation());
+        new HingeVisualization();
+
+        Conveyance.init(new ConveyanceIOSimulation());
+        new ConveyanceVisualization();
+
+        conveyance = Conveyance.getInstance();
+        conveyance.setWantedState(Conveyance.WantedState.MOVE_BY_SPEED);
+
+
+        trigger = Trigger.getInstance();
+        trigger.setWantedState(Trigger.WantedState.MOVE_BY_SPEED);
+
+        hinge = Hinge.getInstance();
+        hinge.setWantedState(Hinge.WantedState.MOVE_BY_SPEED);
+//        shooterIO = new ShooterIOSimulation();
+//        new ShooterVisualization(shooterIO);
+//
+//        conveyanceIO = new ConveyanceIOSimulation();
+//        new ConveyanceVisualization(conveyanceIO);
+
+//        hingeIO = new HingeIOSimulation();
+//        new HingeVisualization(hingeIO);
+
     }
 
     /**
@@ -98,15 +130,18 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
+        trigger.setTargetSpeed(TRIGGER_DUTY_CYCLE_SPEED);
+        hinge.setTargetSpeed(HINGE_SUTY_CYCLE_SPEED);
+        conveyance.setTargetSpeed(CONVEYANCE_DUTY_CYCLE_SPEED);
 
-        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
-        shooterIO.updateOutputs(shooterOutputs);
 
-        conveyanceIO.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
-        conveyanceIO.updateOutputs(conveyanceOutputs);
+//        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
+//        shooterIO.updateOutputs(shooterOutputs);
 //
-        hingeIO.setDutyCycle(HINGE_DUTY_CYCLE_ANGLE);
-        hingeIO.updateOutputs(hingeOutputs);
+//        conveyanceIO.setDutyCycle(CONVEYANCE_DUTY_CYCLE_SPEED);
+//        conveyanceIO.updateOutputs(conveyanceOutputs);
+//        hingeIO.setDutyCycle(HINGE_DUTY_CYCLE_ANGLE);
+//        hingeIO.updateOutputs(hingeOutputs);
 
         if (isSimulation()) {
             updateVisualizations();
