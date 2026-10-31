@@ -2,7 +2,7 @@ package frc.robot.visualization;
 
 import frc.robot.subsystems.Hinge.Hinge;
 
-import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.HINGE;
+import static frc.robot.subsystems.Hinge.HingeConstants.HingeSimulationConstants.*;
 
 public class HingeVisualization extends VisualizedSubsystem {
 

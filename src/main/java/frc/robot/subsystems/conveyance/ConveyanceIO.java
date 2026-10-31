@@ -7,7 +7,8 @@ public interface ConveyanceIO {
     void updateOutputs(ConveyanceOutputs conveyanceOutputs);
 
     class ConveyanceOutputs {
-        public OnyxMotorOutputs motorOutputs;
+        public OnyxMotorOutputs masterMotorOutputs;
+        public OnyxMotorOutputs followerMotorOutputs;
     }
 
     void setDutyCycle(double dutyCycle);

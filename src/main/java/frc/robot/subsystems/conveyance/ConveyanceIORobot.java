@@ -45,10 +45,10 @@ public class ConveyanceIORobot implements ConveyanceIO {
     @Override
     public void updateOutputs(ConveyanceOutputs conveyanceOutputs) {
         masterMotorOutputs.updateOutputs();
-        conveyanceOutputs.motorOutputs = masterMotorOutputs;
+        conveyanceOutputs.masterMotorOutputs = masterMotorOutputs;
 
         followerMotorOutputs.updateOutputs();
-        conveyanceOutputs.motorOutputs = followerMotorOutputs;
+        conveyanceOutputs.followerMotorOutputs = followerMotorOutputs;
     }
 
     @Override

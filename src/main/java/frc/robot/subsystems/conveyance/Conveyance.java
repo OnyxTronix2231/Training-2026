@@ -2,28 +2,38 @@ package frc.robot.subsystems.conveyance;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.lib.advancedSubsystem.VelocityBasedSubsystem;
+import frc.robot.subsystems.Hinge.Hinge;
+import frc.robot.subsystems.trigger.Trigger;
+import frc.robot.subsystems.trigger.TriggerIO;
 
-public class Conveyance extends SubsystemBase {
+import java.util.List;
+
+public class Conveyance extends VelocityBasedSubsystem {
+
     private final ConveyanceIO.ConveyanceOutputs conveyanceOutputs;
     private final ConveyanceIO conveyanceIO;
-
-    private WantedState wantedState;
-    private SystemState systemState;
-    private SystemState previousSystemState;
 
     private double targetSpeed;
 
     public enum WantedState {
         IDLE,
         MOVE_BY_SPEED,
-        DISABLE
+        DISABLE,
+        TEST
     }
 
     public enum SystemState {
         IDLING,
         MOVING_BY_SPEED,
-        DISABLED
+        DISABLED,
+        TESTING
     }
+
+    private WantedState wantedState;
+    private SystemState systemState;
+    private SystemState previousSystemState;
 
     public Conveyance(ConveyanceIO conveyanceIO) {
         this.conveyanceOutputs = new ConveyanceIO.ConveyanceOutputs();
@@ -33,22 +43,6 @@ public class Conveyance extends SubsystemBase {
         this.wantedState = WantedState.IDLE;
         this.systemState = SystemState.IDLING;
         this.previousSystemState = SystemState.IDLING;
-    }
-
-    public void setWantedState(WantedState wantedState) {
-        this.wantedState = wantedState;
-    }
-
-    public WantedState getWantedState() {
-        return wantedState;
-    }
-
-    public SystemState getSystemState() {
-        return systemState;
-    }
-
-    public void setTargetSpeed(double targetSpeed) {
-        this.targetSpeed = targetSpeed;
     }
 
     @Override
@@ -66,6 +60,7 @@ public class Conveyance extends SubsystemBase {
             case IDLE -> SystemState.IDLING;
             case MOVE_BY_SPEED -> SystemState.MOVING_BY_SPEED;
             case DISABLE -> SystemState.DISABLED;
+            case TEST -> SystemState.TESTING;
         };
     }
 
@@ -74,6 +69,7 @@ public class Conveyance extends SubsystemBase {
             case IDLING -> idleState();
             case MOVING_BY_SPEED -> moveBySpeed();
             case DISABLED -> disabled();
+            case TESTING -> runTest();
         }
     }
 
@@ -85,10 +81,83 @@ public class Conveyance extends SubsystemBase {
         conveyanceIO.setDutyCycle(targetSpeed);
     }
 
+    @Override
+    public void setWantedSpeed(double dutyCycle) {
+        this.targetSpeed = dutyCycle;
+    }
+
+    @Override
+    public boolean isOnTarget() {
+        return false;
+    }
+
+    @Override
+    public boolean isOnTarget(double value) {
+        return false;
+    }
+
+    @Override
+    protected void setWantedRPS(double RPS) {
+
+    }
+
+    @Override
+    protected double getMaxRPS() {
+        return 0;
+    }
+
+    @Override
+    protected void moveByRPS() {
+
+    }
+
+    @Override
+    protected List<OnyxMotorOutputs> getMotorInputs() {
+        return List.of(conveyanceOutputs.masterMotorOutputs, conveyanceOutputs.followerMotorOutputs);
+    }
+
+    @Override
+    protected double getTotalCurrent() {
+        return conveyanceOutputs.masterMotorOutputs.getMotorSupplyCurrentAmps() + conveyanceOutputs.followerMotorOutputs.getMotorSupplyCurrentAmps();
+    }
+
+    @Override
+    protected void setWantedState(GlobalWantedState wantedState) {
+        setWantedState(Conveyance.WantedState.valueOf(wantedState.toString()));
+    }
+
+    public void setWantedState(WantedState wantedState) {
+        this.wantedState = wantedState;
+    }
+
+    public WantedState getWantedState() {
+        return wantedState;
+    }
+
+    public SystemState getSystemState() {
+        return systemState;
+    }
+
+    public double getRPS(){
+        return conveyanceOutputs.masterMotorOutputs.getMotorAngularVelocityRotPerSec();
+    }
+
     private void disabled() {
         if (previousSystemState != SystemState.DISABLED) {
             conveyanceIO.setDutyCycle(0);
             conveyanceIO.setNeutralMode(NeutralModeValue.Coast);
         }
+    }
+
+    private static Conveyance instance;
+
+    public static void init(ConveyanceIO conveyanceIO) {
+        if (instance == null) {
+            instance = new Conveyance(conveyanceIO);
+        }
+    }
+
+    public static Conveyance getInstance() {
+        return instance;
     }
 }

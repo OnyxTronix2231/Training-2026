@@ -2,7 +2,6 @@ package frc.robot.visualization;
 
 import frc.robot.lib.VisualizationLib;
 import frc.robot.subsystems.trigger.Trigger;
-import frc.robot.subsystems.trigger.TriggerIOSimulation;
 
 import static frc.robot.subsystems.trigger.TriggerConstants.*;
 import static frc.robot.subsystems.trigger.TriggerConstants.TriggerSimulationConstants.*;

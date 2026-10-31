@@ -9,13 +9,13 @@ import frc.robot.lib.OnyxMotorOutputs;
 import static frc.robot.subsystems.trigger.TriggerConstants.*;
 import static frc.robot.subsystems.trigger.TriggerConstants.TriggerRobotAConstants.*;
 
-public class TriggerIORobot implements TriggerIO{
+public class TriggerIORobotA implements TriggerIO{
 
     private final TalonFX motor;
 
     private final OnyxMotorOutputs motorOutputs;
 
-    public TriggerIORobot() {
+    public TriggerIORobotA() {
         motor = new TalonFX(ROBOT_A_TRIGGER_MOTOR_ID);
 
         motorOutputs = new OnyxMotorOutputs(motor, TRIGGER_SUBSYSTEM_NAME, TRIGGER_MOTOR_NAME, OnyxMotorOutputs.CanBus.CANIVORE);
