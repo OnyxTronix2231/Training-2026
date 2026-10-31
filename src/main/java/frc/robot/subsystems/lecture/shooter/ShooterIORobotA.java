@@ -52,6 +52,8 @@ public class ShooterIORobotA implements ShooterIO {
 
         followerMotorOutputs.updateOutputs();
         shooterOutputs.followerMotorOutputs = followerMotorOutputs;
+
+        shooterOutputs.isSensorSeeing = false;
     }
 
     @Override

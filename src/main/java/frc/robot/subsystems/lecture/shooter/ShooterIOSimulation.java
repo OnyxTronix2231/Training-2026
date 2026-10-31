@@ -9,6 +9,7 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.lib.OnyxMotorOutputs;
+import frc.robot.logging.motorSimulation.SimulatedSensors;
 
 import static frc.robot.Constants.updateMotor;
 import static frc.robot.subsystems.lecture.shooter.ShooterConstants.*;
@@ -57,6 +58,9 @@ public class ShooterIOSimulation implements ShooterIO {
 
         shooterFollowerMotorOutputs.updateOutputs();
         shooterOutputs.followerMotorOutputs = shooterFollowerMotorOutputs;
+
+        // There is no real sensor in simulation, so the value comes from SimulatedSensors
+        shooterOutputs.isSensorSeeing = SimulatedSensors.isSimulatedShooterSensorSeeing();
     }
 
     @Override

@@ -43,6 +43,8 @@ public class ShooterIORobotB implements ShooterIO {
         motorOutputs.updateOutputs();
         shooterOutputs.masterMotorOutputs = motorOutputs;
         shooterOutputs.followerMotorOutputs = motorOutputs;
+
+        shooterOutputs.isSensorSeeing = false;
     }
 
     @Override

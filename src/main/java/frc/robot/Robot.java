@@ -11,6 +11,7 @@ import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
+import frc.robot.subsystems.lecture.shooter.ShooterShuffleboard;
 import frc.robot.visualization.ShooterVisualization;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -37,7 +38,10 @@ public class Robot extends LoggedRobot {
 
         shooterIO = new ShooterIOSimulation();
         shooterOutputs = new ShooterIO.ShooterOutputs();
+        shooterIO.updateOutputs(shooterOutputs);
+
         new ShooterVisualization(shooterIO);
+        new ShooterShuffleboard(shooterOutputs);
     }
 
     /**

@@ -10,6 +10,8 @@ public interface ShooterIO {
     class ShooterOutputs {
         public OnyxMotorOutputs masterMotorOutputs;
         public OnyxMotorOutputs followerMotorOutputs;
+
+        public boolean isSensorSeeing;
     }
 
     void setDutyCycle(double dutyCycle);
