@@ -14,6 +14,9 @@ public class ShooterConstants {
     public static final double SHOOTER_DUTY_CYCLE_SPEED = 0.5;
     public static final double SHOOTER_DEFAULT_VELOCITY = 50;
 
+    // One robot cycle is 20 milliseconds, so this is three cycles of stability
+    public static final double SHOOTER_SENSOR_DEBOUNCE_TIME = 0.06;
+
     public static class ShooterRobotAConstants {
         public static final int SHOOTER_MASTER_MOTOR_ID = 13;
         public static final int SHOOTER_FOLLOWER_MOTOR_ID = 14;

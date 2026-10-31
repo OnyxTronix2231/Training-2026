@@ -11,20 +11,22 @@ import static frc.robot.subsystems.lecture.shooter.ShooterConstants.SHOOTER_SUBS
 
 public class ShooterShuffleboard {
 
-    public ShooterShuffleboard(ShooterIO.ShooterOutputs shooterOutputs) {
+    public ShooterShuffleboard() {
         ShuffleboardTab tab = Shuffleboard.getTab(SHOOTER_SUBSYSTEM_NAME);
+        Shooter shooter = Shooter.getInstance();
 
         new PhysicalTelemetryEntries(SHOOTER_SUBSYSTEM_NAME, SHOOTER_SUBSYSTEM_NAME,
-            () -> shooterOutputs.masterMotorOutputs.getMotorAngularVelocityRotPerSec(),
-            () -> shooterOutputs.masterMotorOutputs.getMotorAngularAccelerationRotPerSecSquared(),
+            () -> shooter.getRPS(),
+            () -> shooter.getAcceleration(),
             SHOOTER_DEFAULT_VELOCITY
         );
+
+        // Both values, so the debounce time can be calibrated against the log instead of guessed
+        tab.addBoolean("Sensor Raw", () -> shooter.isSensorSeeingRaw());
+        tab.addBoolean("Sensor Filtered", () -> shooter.isSensorSeeing());
 
         // Flips the simulated sensor, which is what ShooterIOSimulation reports as isSensorSeeing
         tab.add("toggle shooter sensor", new InstantCommand(() ->
             SimulatedSensors.setSimulatedShooterSensorSeeing(!SimulatedSensors.isSimulatedShooterSensorSeeing())));
-
-        tab.addBoolean("simulated sensor", SimulatedSensors::isSimulatedShooterSensorSeeing);
-        tab.addBoolean("sensor seeing", () -> shooterOutputs.isSensorSeeing);
     }
 }

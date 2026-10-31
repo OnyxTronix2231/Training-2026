@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.SignalManager;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.lecture.shooter.Shooter;
 import frc.robot.subsystems.lecture.shooter.ShooterIO;
 import frc.robot.subsystems.lecture.shooter.ShooterIOSimulation;
 import frc.robot.subsystems.lecture.shooter.ShooterShuffleboard;
@@ -29,7 +30,6 @@ import static frc.robot.visualization.VisualizedSubsystem.updateVisualizations;
 public class Robot extends LoggedRobot {
 
     private ShooterIO shooterIO;
-    private ShooterIO.ShooterOutputs shooterOutputs;
 
     @Override
     public void robotInit() {
@@ -37,11 +37,10 @@ public class Robot extends LoggedRobot {
         Superstructure.init();
 
         shooterIO = new ShooterIOSimulation();
-        shooterOutputs = new ShooterIO.ShooterOutputs();
-        shooterIO.updateOutputs(shooterOutputs);
+        Shooter.init(shooterIO);
 
         new ShooterVisualization(shooterIO);
-        new ShooterShuffleboard(shooterOutputs);
+        new ShooterShuffleboard();
     }
 
     /**
@@ -84,8 +83,7 @@ public class Robot extends LoggedRobot {
         SignalManager.refreshAll();
         CommandScheduler.getInstance().run();
 
-        shooterIO.setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
-        shooterIO.updateOutputs(shooterOutputs);
+        Shooter.getInstance().setDutyCycle(SHOOTER_DUTY_CYCLE_SPEED);
 
         if (isSimulation()) {
             updateVisualizations();
